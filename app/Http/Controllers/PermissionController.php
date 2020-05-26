@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Permission;
+use Spatie\Permission\Models\Permission;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class PermissionController extends Controller
+class PermissionController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        $permissions = Permission::all();
+            
+        return $this->sendResponse($permissions->toArray(), 'Permissions retrieved successfully.');
     }
 
     /**
@@ -35,7 +39,17 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:45|unique:permissions'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $permission = Permission::create(['name' => $request->name]);
+
+        return $this->sendResponse($permission->toArray(), 'Permission created successfully.');  
     }
 
     /**
