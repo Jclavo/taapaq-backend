@@ -101,4 +101,27 @@ class RoleController extends BaseController
     {
         //
     }
+
+    /**
+     * Assign an specified Permission to a Role
+     */
+
+    public function givePermissionTo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|exists:roles,id',
+            'permission_id' => 'required|exists:permissions,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $role = Role::findOrFail($request->role_id);
+        $role->givePermissionTo($request->permission_id);
+
+        return $this->sendResponse($role->toArray(), 'Permission given successfully.');  
+
+    }
+
 }

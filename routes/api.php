@@ -18,6 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Roles
 Route::resource('roles', 'RoleController');
+Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
+
 Route::resource('permissions', 'PermissionController');
 
