@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use App\Model\Role;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -103,7 +104,10 @@ class RoleController extends BaseController
     }
 
     /**
-     * Assign an specified Permission to a Role
+     * Give an specified Permission to a Role
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
 
     public function givePermissionTo(Request $request)
@@ -121,6 +125,38 @@ class RoleController extends BaseController
         $role->givePermissionTo($request->permission_id);
 
         return $this->sendResponse($role->toArray(), 'Permission given successfully.');  
+
+    }
+
+    /**
+     * Revoke an specified Permission to a Role
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function revokePermissionTo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|exists:roles,id',
+            'permission_id' => 'required|exists:permissions,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first()) ;
+        }
+
+        $role = Role::findOrFail($request->role_id);
+
+        //Check if role has the permission
+        if(!$role->hasPermissionTo(Permission::findOrFail($request->permission_id))){
+            return $this->sendError('Permission can not be revoked because it was not given to role.');  
+        }
+
+        //revoke permission
+        $role->revokePermissionTo($request->permission_id);
+
+        return $this->sendResponse($role->toArray(), 'Permission revoked successfully.');  
 
     }
 
