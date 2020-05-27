@@ -1,31 +1,39 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "5d2a1a20-31d0-4df9-8e5c-f2208b8e6794",
 		"name": "App-Permissions",
-		"_postman_id": "696b2031-613e-5414-84f2-8761fc057097",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Roles",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Roles",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Create Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -34,19 +42,31 @@
 								{
 									"key": "name",
 									"value": "admin1",
-									"description": "",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Give Permission To Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/givePermissionTo",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -55,25 +75,37 @@
 								{
 									"key": "role_id",
 									"value": "2",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "permission_id",
 									"value": "4",
-									"description": "",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/givePermissionTo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"givePermissionTo"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Revoke Permission To Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/revokePermissionTo",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -82,42 +114,99 @@
 								{
 									"key": "role_id",
 									"value": "1",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "permission_id",
 									"value": "1",
-									"description": "",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/revokePermissionTo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"revokePermissionTo"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Permissions",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Permissions",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/permissions",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/permissions",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"permissions"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Create Permission",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/permissions/getAllByRole",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "map/read",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/permissions",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Permissions By Role",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -125,17 +214,138 @@
 							"formdata": [
 								{
 									"key": "role_id",
-									"value": "1",
-									"description": "",
+									"value": "2",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/permissions/getAllByRole",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"permissions",
+								"getAllByRole"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "jc",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jc@test.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "jc@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jc@test.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
