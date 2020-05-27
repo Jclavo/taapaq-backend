@@ -1,0 +1,141 @@
+{
+	"variables": [],
+	"info": {
+		"name": "App-Permissions",
+		"_postman_id": "696b2031-613e-5414-84f2-8761fc057097",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Roles",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Give Permission To Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/givePermissionTo",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role_id",
+									"value": "2",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "permission_id",
+									"value": "4",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke Permission To Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/revokePermissionTo",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "permission_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permissions",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Permissions",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/permissions",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Permission",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/permissions/getAllByRole",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
