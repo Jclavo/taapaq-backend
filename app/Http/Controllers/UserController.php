@@ -123,7 +123,9 @@ class UserController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        if (!Auth::attempt($request->all())) {
+        $credentials = $request->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
             return $this->sendError('Email/Password incorrect.');  
         }
 
