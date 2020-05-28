@@ -64,10 +64,13 @@ class RoleController extends BaseController
      * @param  \App\Model\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show($id)
     {
-        //
+        $role = Role::findOrFail($id);
+                
+        return $this->sendResponse($role->toArray(), 'Role retrieved successfully.');
     }
+
 
     /**
      * Show the form for editing the specified resource.
