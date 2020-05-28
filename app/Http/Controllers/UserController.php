@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -130,6 +131,59 @@ class UserController extends BaseController
         }
 
         return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
+    }
+
+    /**
+     * Assign a role to an User
+     * 
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function assignRole(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $user = User::findOrFail($request->user_id);
+        $user->assignRole(Role::findOrFail($request->role_id));
+
+        return $this->sendResponse($user->toArray(), 'Role assigned successfully.');  
+    }
+
+    /**
+     * Remove a role to an User
+     * 
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function removeRole(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $user = User::findOrFail($request->user_id);
+        $role = Role::findOrFail($request->role_id);
+
+        //Check if role has the permission
+        if(!$user->hasRole($role)){
+            return $this->sendError('Role can not be removed because it was not given to user.');  
+        }
+
+        $user->removeRole($role);
+
+        return $this->sendResponse($user->toArray(), 'Role removed successfully.');  
     }
     
 }

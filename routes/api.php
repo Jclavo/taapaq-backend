@@ -19,8 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //Users
-Route::resource('users', 'UserController');
 Route::post('login', 'UserController@login');
+Route::resource('users', 'UserController');
+Route::post('users/assignRole', 'UserController@assignRole');
+Route::post('users/removeRole', 'UserController@removeRole');
 
 //Roles
 Route::resource('roles', 'RoleController');
