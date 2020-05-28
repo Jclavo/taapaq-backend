@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use App\Model\Role;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\BaseController;
@@ -162,5 +162,38 @@ class RoleController extends BaseController
         return $this->sendResponse($role->toArray(), 'Permission revoked successfully.');  
 
     }
+
+    /**
+     * Roles by user
+     * 
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function byUser(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $user_id = $request->user_id;
+
+        $roles = Role::select('roles.*')
+                        ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
+                        ->join('users', function ($join) use($user_id){
+                            $join->on('model_has_roles.model_id', '=', 'users.id')
+                                ->where('users.id', '=', $user_id);
+                        })
+                        ->get();
+
+        return $this->sendResponse($roles->toArray(), 'Roles from user gotten successfully.');  
+
+    }
+
+
+   
 
 }

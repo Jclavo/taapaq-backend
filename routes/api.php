@@ -28,6 +28,7 @@ Route::post('users/removeRole', 'UserController@removeRole');
 Route::resource('roles', 'RoleController');
 Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
 Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
+Route::post('roles/byUser', 'RoleController@byUser');
 
 //Permissions
 Route::resource('permissions', 'PermissionController');
