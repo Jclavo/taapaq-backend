@@ -185,5 +185,19 @@ class UserController extends BaseController
 
         return $this->sendResponse($user->toArray(), 'Role removed successfully.');  
     }
+
+    /**
+     * Display a listing of user and its roles.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function withRoles()
+    {
+        $users = User::with('roles')->get();
+            
+        return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
+    }
+
+    
     
 }
