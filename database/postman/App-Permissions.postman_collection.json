@@ -1,0 +1,328 @@
+{
+	"variables": [],
+	"info": {
+		"name": "App-Permissions",
+		"_postman_id": "b9fb7684-e214-f3ff-40a5-cb8877a5ca5c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Roles",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/1",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Give Permission To Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/givePermissionTo",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "permission_id",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke Permission To Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/revokePermissionTo",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "permission_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permissions",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Permissions",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/permissions",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Permission",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/permissions",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "map/read",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Permissions By Role",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/permissions/getAllByRole",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/users",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "jc",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "jc@test.com",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role to User",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/users/assignRole",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "role_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Role to User",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/users/removeRole",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "role_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Roles By User",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/byUser",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/login",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "jc@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jc@test.com",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/users",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users with roles",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/users/withRoles",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
