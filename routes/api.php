@@ -26,12 +26,13 @@ Route::post('users/assignRole', 'UserController@assignRole');
 Route::post('users/removeRole', 'UserController@removeRole');
 
 
-
 //Roles
 Route::resource('roles', 'RoleController');
+Route::get('roles/missingToUser/{user_id}', 'RoleController@missingToUser');
 Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
 Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
 Route::post('roles/byUser', 'RoleController@byUser');
+
 
 //Permissions
 Route::resource('permissions', 'PermissionController');

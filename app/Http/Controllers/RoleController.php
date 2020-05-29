@@ -193,7 +193,38 @@ class RoleController extends BaseController
 
     }
 
+    /**
+     * Roles that are not assigned to an user
+     * 
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function missingToUser(int $user_id){
 
-   
+        // $validator = Validator::make($request->all(), [
+        //     'user_id' => 'required|exists:users,id'
+        // ]);
+        
+        // if ($validator->fails()) {
+        //     return $this->sendError($validator->errors()->first());
+        // }
 
+        $user = User::findOrFail($user_id);
+        //$user_id = $request->user_id;
+
+        $rolesNot = Role::whereNotIn('id',
+            function ($query) use($user_id){
+                $query->select('roles.id')
+                ->from('roles')
+                ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
+                ->join('users', function ($join) use($user_id){
+                    $join->on('model_has_roles.model_id', '=', 'users.id')
+                        ->where('users.id', '=', $user_id);
+                });
+            }
+            )->get();
+        
+        return $this->sendResponse($rolesNot->toArray(), 'Roles from user gotten successfully.');  
+
+    }
 }
