@@ -15,7 +15,7 @@ class AddProjectsToModulesTable extends Migration
     {
         Schema::table('modules', function (Blueprint $table) {
             $table->unsignedBigInteger('project_id')->nullable(true);
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 
