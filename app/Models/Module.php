@@ -14,4 +14,12 @@ class Module extends Model
     protected $fillable = [
         'name', 'url', 'project_id'
     ];
+
+    /**
+     * Get the project that owns the module
+     */
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 }
