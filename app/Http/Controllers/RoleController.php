@@ -18,7 +18,7 @@ class RoleController extends BaseController
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::orderBy('name')->get();
             
         return $this->sendResponse($roles->toArray(), 'Roles retrieved successfully.');
     }
@@ -101,9 +101,13 @@ class RoleController extends BaseController
      * @param  \App\Model\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(int $id)
     {
-        //
+        $role = Role::findOrFail($id);
+
+        $role->delete();
+
+        return $this->sendResponse($role->toArray(), 'Role deleted successfully.');
     }
 
     /**
@@ -201,16 +205,7 @@ class RoleController extends BaseController
      */
     public function missingToUser(int $user_id){
 
-        // $validator = Validator::make($request->all(), [
-        //     'user_id' => 'required|exists:users,id'
-        // ]);
-        
-        // if ($validator->fails()) {
-        //     return $this->sendError($validator->errors()->first());
-        // }
-
         $user = User::findOrFail($user_id);
-        //$user_id = $request->user_id;
 
         $rolesNot = Role::whereNotIn('id',
             function ($query) use($user_id){
