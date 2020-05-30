@@ -14,4 +14,12 @@ class Project extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * Get the modules for the project
+     */
+    public function modules()
+    {
+        return $this->hasMany('App\Models\Module');
+    }
 }
