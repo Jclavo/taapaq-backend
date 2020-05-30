@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Module;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule; 
 
-class ModuleController extends Controller
+class ModuleController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,9 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        //
+        $module = Module::all();
+            
+        return $this->sendResponse($module->toArray(), 'Module retrieved successfully.');
     }
 
     /**
@@ -35,7 +40,26 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required|exists:projects,id',
+            'name' => ['required','max:45', 
+                        Rule::unique('modules')->where(function($query) use($request) {
+                            $query->where('project_id', '=', $request->project_id);
+                        })],
+            'url' => 'required|max:500',
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $module = new Module();
+        $module->name = $request->name;
+        $module->url = $request->url;
+        $module->project_id = $request->project_id;
+        $module->save();
+
+        return $this->sendResponse($module->toArray(), 'Module created successfully.'); 
     }
 
     /**
