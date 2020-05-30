@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::all();
+            
+        return $this->sendResponse($projects->toArray(), 'Projects retrieved successfully.');
     }
 
     /**
@@ -35,7 +39,17 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:45|unique:projects'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $project = Project::create(['name' => $request->name]);
+
+        return $this->sendResponse($project->toArray(), 'Project created successfully.');  
     }
 
     /**
@@ -78,8 +92,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(int $id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        $project->delete();
+
+        return $this->sendResponse($project->toArray(), 'Project deleted successfully.');
     }
 }
