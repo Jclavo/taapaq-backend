@@ -45,7 +45,7 @@ php artisan make:seeder UsersTableSeeder
 
 - RUN specific SEED
 
-artisan db:seed --class=UserTableSeeder
+php artisan db:seed --class=UserTableSeeder
 
 - CREATE TEST
 
