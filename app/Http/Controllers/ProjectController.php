@@ -100,4 +100,16 @@ class ProjectController extends BaseController
 
         return $this->sendResponse($project->toArray(), 'Project deleted successfully.');
     }
+
+    /**
+     * Get Projects and its modules
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function withModules(){
+
+        $projects = Project::with('modules')->get();
+            
+        return $this->sendResponse($projects->toArray(), 'Projects retrieved successfully.');
+    }
 }

@@ -39,6 +39,7 @@ Route::resource('permissions', 'PermissionController');
 Route::post('permissions/getAllByRole', 'PermissionController@getAllByRole');
 
 //Projects
+Route::get('projects/withModules', 'ProjectController@withModules');
 Route::resource('projects', 'ProjectController');
 
 //Modules
