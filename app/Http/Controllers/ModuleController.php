@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Module;
+use App\Models\Project;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -56,8 +57,9 @@ class ModuleController extends BaseController
         $module = new Module();
         $module->name = $request->name;
         $module->url = $request->url;
-        $module->project_id = $request->project_id;
-        $module->save();
+
+        $project = Project::findOrFail($request->project_id);
+        $project->modules()->save($module);
 
         return $this->sendResponse($module->toArray(), 'Module created successfully.'); 
     }
@@ -102,8 +104,12 @@ class ModuleController extends BaseController
      * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Module $module)
+    public function destroy(int $id)
     {
-        //
+        $module = Module::findOrFail($id);
+
+        $module->delete();
+
+        return $this->sendResponse($module->toArray(), 'Module deleted successfully.');
     }
 }
