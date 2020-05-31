@@ -93,9 +93,14 @@ class CompanyController extends BaseController
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(int $id)
     {
-        //
+        $company = Company::findOrFail($id);
+
+        $company->delete();
+
+        return $this->sendResponse($company->toArray(), 'Company deleted successfully.');
     }
+
 
 }
