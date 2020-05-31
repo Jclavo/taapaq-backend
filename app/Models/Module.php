@@ -20,6 +20,14 @@ class Module extends Model
      */
     public function project()
     {
-        return $this->belongsTo('App\Project');
+        return $this->belongsTo('App\Models\Project');
+    }
+
+    /**
+     * Get the resources for the module
+     */
+    public function resources()
+    {
+        return $this->hasMany('App\Models\Resource');
     }
 }
