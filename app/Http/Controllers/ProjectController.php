@@ -139,7 +139,7 @@ class ProjectController extends BaseController
     }
 
     /**
-     * 
+     * Assign a company to a Project
      */
     public function assignCompany(Request $request){
 
@@ -158,5 +158,17 @@ class ProjectController extends BaseController
         $project->companies()->attach($company); // Many to many relationship
 
         return $this->sendResponse($project->toArray(), 'Company was assigned successfully.');      
+    }
+
+    /**
+     * Get Project and its companies
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function companies(){
+
+        $projects = Project::with('companies')->get();
+
+        return $this->sendResponse($projects->toArray(), 'Projects and ist companies retrieved successfully.');
     }
 }

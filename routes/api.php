@@ -40,6 +40,7 @@ Route::post('permissions/getAllByRole', 'PermissionController@getAllByRole');
 
 //Projects
 Route::get('projects/modules', 'ProjectController@modules');
+Route::get('projects/companies', 'ProjectController@companies');
 Route::get('projects/{project_id}/modules', 'ProjectController@modulesByProject');
 Route::get('projects/{project_id}/modules/resources', 'ProjectController@resources');
 Route::post('projects/assignCompany', 'ProjectController@assignCompany');
