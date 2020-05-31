@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Resource;
 use App\Models\Module;
+use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -56,6 +57,10 @@ class ResourceController extends BaseController
 
         $module = Module::findOrFail($request->module_id);
         $module->resources()->save($resource);
+
+        //Create permission
+        $permissionName = $module->name . '/' . $resource->name;
+        Permission::create(['name' => $permissionName, 'resource_id' => $resource->id]);
 
         return $this->sendResponse($resource->toArray(), 'Resource created successfully.'); 
     }
