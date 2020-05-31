@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
+use App\Models\Company;
+use App\Models\Project;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class CompanyController extends Controller
+class CompanyController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Company::all();
+            
+        return $this->sendResponse($companies->toArray(), 'Companies retrieved successfully.');
     }
 
     /**
@@ -35,7 +40,17 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:companies'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $company = Company::create(['name' => $request->name]);
+
+        return $this->sendResponse($company->toArray(), 'Company created successfully.');      
     }
 
     /**
@@ -82,4 +97,5 @@ class CompanyController extends Controller
     {
         //
     }
+
 }

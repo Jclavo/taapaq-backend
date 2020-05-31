@@ -42,6 +42,7 @@ Route::post('permissions/getAllByRole', 'PermissionController@getAllByRole');
 Route::get('projects/modules', 'ProjectController@modules');
 Route::get('projects/{project_id}/modules', 'ProjectController@modulesByProject');
 Route::get('projects/{project_id}/modules/resources', 'ProjectController@resources');
+Route::post('projects/assignCompany', 'ProjectController@assignCompany');
 Route::resource('projects', 'ProjectController');
 
 //Modules
@@ -53,3 +54,6 @@ Route::resource('resources', 'ResourceController');
 
 //Resource Commons
 Route::resource('resource-commons', 'ResourceCommonController');
+
+//Company
+Route::resource('companies', 'CompanyController');
