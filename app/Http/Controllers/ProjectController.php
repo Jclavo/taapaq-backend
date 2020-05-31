@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Company;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -135,5 +136,27 @@ class ProjectController extends BaseController
         $projects = Project::with('modules.resources')->findOrFail($id);
 
         return $this->sendResponse($projects->toArray(), 'Project - Modules - Resources retrieved successfully.');
+    }
+
+    /**
+     * 
+     */
+    public function assignCompany(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required|exists:projects,id',
+            'company_id' => 'required|exists:companies,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $project = Project::findOrFail($request->project_id);
+        $company = Company::findOrFail($request->company_id);
+        
+        $project->companies()->attach($company); // Many to many relationship
+
+        return $this->sendResponse($project->toArray(), 'Company was assigned successfully.');      
     }
 }
