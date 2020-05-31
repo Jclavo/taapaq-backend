@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resource;
+use App\Models\Module;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule; 
 
-class ResourceController extends Controller
+class ResourceController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +18,7 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +39,25 @@ class ResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'module_id' => 'required|exists:modules,id',
+            'name' => ['required','max:45', 
+                        Rule::unique('resources')->where(function($query) use($request) {
+                            $query->where('module_id', '=', $request->module_id);
+                        })],
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $resource = new Resource();
+        $resource->name = $request->name;
+
+        $module = Module::findOrFail($request->module_id);
+        $module->resources()->save($resource);
+
+        return $this->sendResponse($resource->toArray(), 'Resource created successfully.'); 
     }
 
     /**
@@ -78,8 +100,12 @@ class ResourceController extends Controller
      * @param  \App\Models\Resource  $resource
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Resource $resource)
+    public function destroy(int $id)
     {
-        //
+        $resource = Resource::findOrFail($id);
+
+        $resource->delete();
+
+        return $this->sendResponse($resource->toArray(), 'Resource deleted successfully.');
     }
 }
