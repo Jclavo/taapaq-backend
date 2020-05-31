@@ -355,6 +355,325 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Projects",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Projects",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects - Modules - Resources",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects/2/modules/resources",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects - Modules",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects/modules",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects - Companies",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects/companies",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project - Modules",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects/2/modules",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Projects",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects/1",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Project",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "test project",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Assign company",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects/assignCompany",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "company_id",
+									"value": "3",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Modules",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Modules",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/modules",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Module - Resources",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/modules/2/resources",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Module",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/modules/6",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Module",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/modules",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "user4",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "user/",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resources",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Resource",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/resources",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "module_id",
+									"value": "42",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "anull",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Resource",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/resources/2",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resource-Commons",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Resource Commons",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/resource-commons",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Companies",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Company",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/companies",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Companies",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/companies",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Company",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/companies/1",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
