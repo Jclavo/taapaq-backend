@@ -22,4 +22,12 @@ class Resource extends Model
     {
         return $this->belongsTo('App\Models\Module');
     }
+
+    /**
+     * Get the permission associated with the resource
+     */
+    public function permission()
+    {
+        return $this->hasOne('Spatie\Permission\Models\Permission');
+    }
 }
