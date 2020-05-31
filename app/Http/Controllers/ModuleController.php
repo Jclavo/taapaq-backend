@@ -112,4 +112,16 @@ class ModuleController extends BaseController
 
         return $this->sendResponse($module->toArray(), 'Module deleted successfully.');
     }
+
+     /**
+     * Get Module and its resources
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function resourcesByModule(int $id){
+
+        $module = Module::with('resources')->findOrFail($id);
+            
+        return $this->sendResponse($module->toArray(), 'Module - Resources retrieved successfully.');
+    }
 }
