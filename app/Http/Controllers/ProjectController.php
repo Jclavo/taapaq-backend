@@ -155,9 +155,31 @@ class ProjectController extends BaseController
         $project = Project::findOrFail($request->project_id);
         $company = Company::findOrFail($request->company_id);
         
-        $project->companies()->syncWithoutDetaching($company); // Many to many relationship
+        $project->companies()->syncWithoutDetaching($company); // add many to many relationship
 
         return $this->sendResponse($project->toArray(), 'Company was assigned successfully.');      
+    }
+
+    /**
+     * Remove a company to a Project
+     */
+    public function removeCompany(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required|exists:projects,id',
+            'company_id' => 'required|exists:companies,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $project = Project::findOrFail($request->project_id);
+        $company = Company::findOrFail($request->company_id);
+        
+        $project->companies()->detach($company); // delete many to many relationship
+
+        return $this->sendResponse($project->toArray(), 'Company was removed successfully.');      
     }
 
     /**
