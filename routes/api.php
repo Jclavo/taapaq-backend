@@ -39,9 +39,14 @@ Route::resource('permissions', 'PermissionController');
 Route::post('permissions/getAllByRole', 'PermissionController@getAllByRole');
 
 //Projects
-Route::get('projects/withModulesAll', 'ProjectController@withModulesAll');
-Route::get('projects/withModules/{project_id}', 'ProjectController@withModules');
+Route::get('projects/modules', 'ProjectController@modules');
+Route::get('projects/{project_id}/modules', 'ProjectController@modulesByProject');
+Route::get('projects/{project_id}/modules/resources', 'ProjectController@resources');
 Route::resource('projects', 'ProjectController');
 
 //Modules
 Route::resource('modules', 'ModuleController');
+Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule');
+
+//Resource
+Route::resource('resources', 'ResourceController');
