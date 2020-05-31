@@ -14,4 +14,12 @@ class Resource extends Model
     protected $fillable = [
         'name', 'page_id'
     ];
+
+    /**
+     * Get the module that owns the resource
+     */
+    public function module()
+    {
+        return $this->belongsTo('App\Models\Module');
+    }
 }
