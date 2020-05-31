@@ -155,7 +155,7 @@ class ProjectController extends BaseController
         $project = Project::findOrFail($request->project_id);
         $company = Company::findOrFail($request->company_id);
         
-        $project->companies()->attach($company); // Many to many relationship
+        $project->companies()->syncWithoutDetaching($company); // Many to many relationship
 
         return $this->sendResponse($project->toArray(), 'Company was assigned successfully.');      
     }
