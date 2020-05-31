@@ -116,7 +116,7 @@ class UserController extends BaseController
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:45|exists:users',
+            'login' => 'required|max:45',
             'password' => 'required',
         ]);
 
@@ -124,10 +124,10 @@ class UserController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('login', 'password');
 
         if (!Auth::attempt($credentials)) {
-            return $this->sendError('Email/Password incorrect.');  
+            return $this->sendError('Login/Password incorrect.');  
         }
 
         return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
