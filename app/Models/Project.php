@@ -22,4 +22,12 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Module');
     }
+
+    /**
+     * The companies that belong to the project.
+     */
+    public function companies()
+    {
+        return $this->belongsToMany('App\Models\Company');
+    }
 }

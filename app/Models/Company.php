@@ -14,4 +14,12 @@ class Company extends Model
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * The projects that belong to the company.
+     */
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project');
+    }
 }
