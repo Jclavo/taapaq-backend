@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Company;
 
 class CompanySeeder extends Seeder
 {
@@ -11,6 +12,15 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        //
+        $companies = [
+            'restaurant R',
+            'pharmacy P',
+            'Shoes S',
+            'Store S'
+        ];
+
+        foreach ($companies as $company) {
+            factory(Company::class)->create(['name' => $company]);
+        }     
     }
 }

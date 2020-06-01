@@ -12,7 +12,16 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        factory(Project::class)->create(['name' => 'taapaq app']);
-        factory(Project::class,5)->create();
+        
+        $projects = [
+            'Taapaq',
+            'Store',
+            'Map',
+            'Corso'
+        ];
+
+        foreach ($projects as $project) {
+            factory(Project::class)->create(['name' => $project]);
+        }    
     }
 }

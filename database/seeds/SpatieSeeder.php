@@ -28,8 +28,8 @@ class SpatieSeeder extends Seeder
 
     public function run()
     {
-        $this->permissions();
-        $this->roles();        
+        // $this->permissions();
+        // $this->roles();        
     }
 
     public function permissions(){

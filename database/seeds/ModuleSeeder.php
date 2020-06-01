@@ -12,7 +12,7 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-        factory(Module::class,5)->create(['project_id' => '1']);
-        factory(Module::class,5)->create();
+        // factory(Module::class,5)->create(['project_id' => '1']);
+        // factory(Module::class,5)->create();
     }
 }

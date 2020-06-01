@@ -12,6 +12,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class,5)->create();
+        $users = [
+            '1111',
+            '2222',
+            '3333',
+            '4444'
+        ];
+
+        foreach ($users as $user) {
+            factory(User::class)->create(['login' => $user]);
+        }  
     }
 }
