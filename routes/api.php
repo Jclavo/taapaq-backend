@@ -60,3 +60,4 @@ Route::resource('resource-commons', 'ResourceCommonController');
 
 //Company
 Route::resource('companies', 'CompanyController');
+Route::get('companies/{company_id}/projects', 'CompanyController@projectsByCompany');
