@@ -1,59 +1,87 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "9d7d40c6-aaaa-4416-8d1b-f34d0b2c536d",
 		"name": "taapaq-app",
-		"_postman_id": "a209c380-ef25-0578-848c-893a4ade1e69",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Roles",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Roles",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/1",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/15",
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/15",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"15"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Create Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -61,19 +89,37 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "admin1",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "project_id",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Give Permission To Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/givePermissionTo",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -91,14 +137,28 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/givePermissionTo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"givePermissionTo"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Revoke Permission To Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/revokePermissionTo",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -116,34 +176,57 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/revokePermissionTo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"revokePermissionTo"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Permissions",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Permissions",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/permissions",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/permissions",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"permissions"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Create Permission",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/permissions",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -156,14 +239,27 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/permissions",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"permissions"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Permissions By Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/permissions/getAllByRole",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -176,45 +272,105 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/permissions/getAllByRole",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"permissions",
+								"getAllByRole"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Users",
-			"description": "",
 			"item": [
 				{
 					"name": "Create User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users",
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "name",
-									"value": "jc",
+									"key": "login",
+									"value": "cj",
 									"type": "text"
 								},
 								{
-									"key": "email",
-									"value": "jc@test.com",
+									"key": "company_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "project_id",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Assign Role to User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users/assignRole",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -232,14 +388,28 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/assignRole",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"assignRole"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Remove Role to User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users/removeRole",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -257,14 +427,28 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/removeRole",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"removeRole"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Roles By User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/byUser",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -277,34 +461,53 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/byUser",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"byUser"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Roles Missing to User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/missingToUser/2",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "user_id",
-									"value": "2",
-									"type": "text"
-								}
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/roles/missingToUser/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"roles",
+								"missingToUser",
+								"2"
 							]
-						},
-						"description": ""
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Login",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/login",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -322,114 +525,226 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Users",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Users with roles",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users/withRoles",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/withRoles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"withRoles"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Projects",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Projects",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Projects - Modules - Resources",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/2/modules/resources",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/2/modules/resources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"modules",
+								"resources"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Projects - Modules",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/modules",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/modules",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"modules"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Projects - Companies",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/companies",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/companies",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"companies"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Project - Modules",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/2/modules",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/2/modules",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"2",
+								"modules"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Projects",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/1",
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Create Project",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -438,19 +753,31 @@
 								{
 									"key": "name",
 									"value": "test project",
-									"description": "",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Assign company",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/assignCompany",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -459,64 +786,115 @@
 								{
 									"key": "project_id",
 									"value": "1",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "company_id",
-									"value": "3",
-									"description": "",
+									"value": "2",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/projects/assignCompany",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"projects",
+								"assignCompany"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Modules",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Modules",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/modules",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"modules"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Module - Resources",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules/2/resources",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/modules/2/resources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"modules",
+								"2",
+								"resources"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Module",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules/6",
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/modules/6",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"modules",
+								"6"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Create Module",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -525,37 +903,47 @@
 								{
 									"key": "project_id",
 									"value": "1",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "name",
 									"value": "user4",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "url",
 									"value": "user/",
-									"description": "",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/modules",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"modules"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Resources",
-			"description": "",
 			"item": [
 				{
 					"name": "Create Resource",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/resources",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -564,59 +952,95 @@
 								{
 									"key": "module_id",
 									"value": "42",
-									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "name",
 									"value": "anull",
-									"description": "",
 									"type": "text"
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/resources",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"resources"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Resource",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/resources/2",
 						"method": "DELETE",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/resources/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"resources",
+								"2"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Resource-Commons",
-			"description": "",
 			"item": [
 				{
 					"name": "Get Resource Commons",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/resource-commons",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/resource-commons",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"resource-commons"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Companies",
-			"description": "",
 			"item": [
 				{
 					"name": "Create Company",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/companies",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -629,34 +1053,75 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get Companies",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/companies",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "admin1",
-									"type": "text"
-								}
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies"
 							]
-						},
-						"description": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects By Company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies/3/projects",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"3",
+								"projects"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Delete Company",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/companies/1",
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -669,11 +1134,28 @@
 								}
 							]
 						},
-						"description": ""
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
