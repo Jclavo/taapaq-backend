@@ -30,4 +30,12 @@ class Project extends Model
     {
         return $this->belongsToMany('App\Models\Company')->withTimestamps()->withPivot('id');
     }
+
+    /**
+     * Get the roles for the project
+     */
+    public function roles()
+    {
+        return $this->hasMany('App\Models\Role');
+    }
 }
