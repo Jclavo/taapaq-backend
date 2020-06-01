@@ -20,6 +20,9 @@ class Company extends Model
      */
     public function projects()
     {
-        return $this->belongsToMany('App\Models\Project')->withTimestamps()->withPivot('id');
+        return $this->belongsToMany('App\Models\Project')
+                    ->using('App\Models\CompanyProject')
+                    ->withTimestamps()
+                    ->withPivot('id');
     }
 }
