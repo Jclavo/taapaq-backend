@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Company;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
@@ -43,20 +44,25 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:45',
-            'email' => 'required|email|max:45|unique:users',
+            'login' => 'required|max:45',
+            // 'email' => 'required|email|max:45|unique:users',
+            'company_id' => 'required|exists:companies,id',
+            'project_id' => 'required|exists:projects,id'
         ]);
         
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
+        //Get company project ID
+        $company = Company::findOrFail($request->company_id);
+        $company = $company->projects()->findOrFail($request->project_id);
+
         $user = new User();
         
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->email);
-
+        $user->login = $request->login;
+        $user->password = Hash::make($user->login);
+        $user->company_project_id = $company->pivot->id; //Assign company project ID
         $user->save();
 
         return $this->sendResponse($user->toArray(), 'User created successfully.');  
