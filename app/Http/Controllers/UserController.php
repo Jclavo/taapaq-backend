@@ -44,7 +44,7 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'login' => 'required|max:45',
+            'login' => 'required|max:45|unique:users',
             // 'email' => 'required|email|max:45|unique:users',
             'company_id' => 'required|exists:companies,id',
             'project_id' => 'required|exists:projects,id'
@@ -108,9 +108,13 @@ class UserController extends BaseController
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(int $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return $this->sendResponse($user->toArray(), 'User deleted successfully.');
     }
 
     /**
