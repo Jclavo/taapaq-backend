@@ -38,4 +38,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the company_project that owns the user.
+     */
+    public function company_project()
+    {
+        return $this->belongsTo('App\Models\CompanyProject');
+    }
 }
