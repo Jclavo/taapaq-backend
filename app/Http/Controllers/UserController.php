@@ -140,7 +140,9 @@ class UserController extends BaseController
             return $this->sendError('Login/Password incorrect.');  
         }
 
-        return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
+        $user = User::with('company_project')->findOrFail(Auth::user()->id);
+
+        return $this->sendResponse($user->toArray(), 'User login successfully.');  
     }
 
     /**
