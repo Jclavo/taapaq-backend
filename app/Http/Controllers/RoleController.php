@@ -42,18 +42,18 @@ class RoleController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:45|unique:roles'
+            'name' => 'required|max:45|unique:roles',
+            'project_id' => 'required|exists:projects,id'
         ]);
         
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
-        $role = new Role();
+        $role = Role::create(['name' => $request->name, 'project_id' => $request->project_id]);
         
-        $role->name = $request->name;
-
-        $role->save();
+        // $role->name = $request->name;
+        // $role->save();
 
         return $this->sendResponse($role->toArray(), 'Role created successfully.');  
     }
