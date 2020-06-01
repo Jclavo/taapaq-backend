@@ -14,8 +14,11 @@ class CreateCompanyProjectTable extends Migration
     public function up()
     {
         Schema::create('company_project', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('project_id');
+
+            $table->timestamps();
 
             $table->foreign('company_id')
                 ->references('id')
@@ -26,6 +29,7 @@ class CreateCompanyProjectTable extends Migration
                 ->references('id')
                 ->on('projects')
                 ->onDelete('cascade');
+
         });
     }
 
