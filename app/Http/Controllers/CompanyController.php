@@ -114,5 +114,17 @@ class CompanyController extends BaseController
         return $this->sendResponse($company->toArray(), 'Company - Projects retrieved successfully.');
     }
 
+    /**
+     * Get users from a company
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function usersRolesByCompany(int $id){
+
+        $company = Company::with('users.roles')->findOrFail($id);
+            
+        return $this->sendResponse($company->toArray(), 'Company - Projects retrieved successfully.');
+    }
+
 
 }
