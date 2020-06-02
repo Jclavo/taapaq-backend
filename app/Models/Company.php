@@ -25,4 +25,13 @@ class Company extends Model
                     ->withTimestamps()
                     ->withPivot('id');
     }
+
+    /**
+     * Get all of the users for the company.
+     */
+    public function users()
+    {
+        return $this->hasManyThrough('App\Models\User','App\Models\CompanyProject',
+                                      'company_id', 'company_project_id');
+    }
 }
