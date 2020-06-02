@@ -193,4 +193,16 @@ class ProjectController extends BaseController
 
         return $this->sendResponse($projects->toArray(), 'Projects and ist companies retrieved successfully.');
     }
+
+    /**
+     * Get Project and its roles
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function rolesByProject(int $id){
+
+        $projects = Project::with('roles')->findOrFail($id);
+            
+        return $this->sendResponse($projects->toArray(), 'Project - Roles retrieved successfully.');
+    }
 }
