@@ -329,13 +329,13 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
-									"value": "jc@test.com",
+									"key": "login",
+									"value": "1111",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "jc@test.com",
+									"value": "password",
 									"type": "text"
 								}
 							]
@@ -393,7 +393,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Projects - Modules - Resources",
+					"name": "Get Projects - Resources",
 					"request": {
 						"url": "http://127.0.0.1:8000/api/projects/2/modules/resources",
 						"method": "GET",
@@ -402,6 +402,17 @@
 							"mode": "raw",
 							"raw": ""
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects - Permissions",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/projects/1/modules/resources/permissions",
+						"method": "GET",
+						"header": [],
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -437,13 +448,10 @@
 				{
 					"name": "Get Project - Modules",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/2/modules",
+						"url": "http://127.0.0.1:8000/api/projects/1/modules",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -607,6 +615,31 @@
 					"request": {
 						"url": "http://127.0.0.1:8000/api/resources",
 						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "module_id",
+									"value": "42",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "anull",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Resource and Permission",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/resources/2/permission",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "formdata",
