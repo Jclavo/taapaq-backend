@@ -113,4 +113,15 @@ class ResourceController extends BaseController
 
         return $this->sendResponse($resource->toArray(), 'Resource deleted successfully.');
     }
+
+    /**
+     * 
+     */
+    public function permission(int $id)
+    {
+        $resource = Resource::with('permission')->findOrFail($id);
+
+        return $this->sendResponse($resource->toArray(), 'Resource and permission retrieved successfully.');
+        
+    }
 }

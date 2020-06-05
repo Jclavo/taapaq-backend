@@ -55,6 +55,7 @@ Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule'
 
 //Resource
 Route::resource('resources', 'ResourceController');
+Route::get('resources/{resource_id}/permission', 'ResourceController@permission');
 
 //Resource Commons
 Route::resource('resource-commons', 'ResourceCommonController');
