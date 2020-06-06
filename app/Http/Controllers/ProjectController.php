@@ -183,7 +183,7 @@ class ProjectController extends BaseController
     }
 
     /**
-     * Get Project and its companies
+     * Get Projects and its companies
      * 
      * @return \Illuminate\Http\Response
      */
@@ -192,6 +192,18 @@ class ProjectController extends BaseController
         $projects = Project::with('companies')->get();
 
         return $this->sendResponse($projects->toArray(), 'Projects and ist companies retrieved successfully.');
+    }
+
+    /**
+     * Get Project and its companies
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function companiesByProject(int $id){
+
+        $projects = Project::with('companies')->findOrFail($id);
+
+        return $this->sendResponse($projects->toArray(), 'Project and ist companies retrieved successfully.');
     }
 
     /**
