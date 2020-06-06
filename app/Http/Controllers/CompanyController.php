@@ -126,5 +126,19 @@ class CompanyController extends BaseController
         return $this->sendResponse($company->toArray(), 'Company - Projects retrieved successfully.');
     }
 
+    /**
+     * Get Companies that are missing in a project.
+     */
+
+    public function noCompanies(int $id){
+
+        $companies = Company::whereDoesntHave('projects', function ($query) use($id) {
+            $query->where('projects.id', '=', $id);
+        })->get();
+
+        return $this->sendResponse($companies->toArray(), 'Project - Roles retrieved successfully.');
+
+    }
+
 
 }
