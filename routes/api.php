@@ -36,13 +36,14 @@ Route::post('roles/byUser', 'RoleController@byUser');
 
 //Permissions
 Route::resource('permissions', 'PermissionController');
-Route::post('permissions/getAllByRole', 'PermissionController@getAllByRole');
+Route::get('permissions/roles/{role_id}', 'PermissionController@getByRole');
 
 //Projects
 Route::get('projects/modules', 'ProjectController@modules');
 Route::get('projects/companies', 'ProjectController@companies');
 Route::get('projects/{project_id}/modules', 'ProjectController@modulesByProject');
 Route::get('projects/{project_id}/modules/resources', 'ProjectController@resources');
+// Route::get('projects/{project_id}/modules/resources/permissions', 'ProjectController@permissions');
 Route::get('projects/{project_id}/roles', 'ProjectController@rolesByProject');
 Route::post('projects/assignCompany', 'ProjectController@assignCompany');
 Route::post('projects/assignCompany', 'ProjectController@assignCompany');
