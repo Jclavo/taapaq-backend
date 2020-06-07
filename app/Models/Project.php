@@ -39,6 +39,6 @@ class Project extends Model
      */
     public function roles()
     {
-        return $this->hasMany('App\Models\Role');
+        return $this->hasMany('Spatie\Permission\Models\Role');
     }
 }
