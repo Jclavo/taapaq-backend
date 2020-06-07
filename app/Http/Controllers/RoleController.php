@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Project;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\BaseController;
@@ -203,23 +204,17 @@ class RoleController extends BaseController
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function missingToUser(int $user_id){
+    public function notInUser(int $user_id, int $project_id){
 
         $user = User::findOrFail($user_id);
+        $project = Project::findOrFail($project_id);
 
-        $rolesNot = Role::whereNotIn('id',
-            function ($query) use($user_id){
-                $query->select('roles.id')
-                ->from('roles')
-                ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
-                ->join('users', function ($join) use($user_id){
-                    $join->on('model_has_roles.model_id', '=', 'users.id')
-                        ->where('users.id', '=', $user_id);
-                });
-            }
-            )->get();
-        
-        return $this->sendResponse($rolesNot->toArray(), 'Roles from user gotten successfully.');  
+        $rolesNot = Role::whereDoesntHave('users', function ($query) use($user_id){
+            $query->where('users.id', '=', $user_id);
+            
+        })->where('roles.project_id', '=', $project_id)->get();   
+
+        return $this->sendResponse($rolesNot->toArray(), 'Roles not in user gotten successfully.');  
 
     }
 }

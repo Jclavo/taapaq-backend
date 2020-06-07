@@ -29,7 +29,7 @@ Route::get('users/roles/companies/{company_id}/projects/{project_id}', 'UserCont
 
 //Roles
 Route::resource('roles', 'RoleController');
-Route::get('roles/missingToUser/{user_id}', 'RoleController@missingToUser');
+Route::get('roles/not/users/{user_id}/projects/{project_id}', 'RoleController@notInUser');
 Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
 Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
 Route::post('roles/byUser', 'RoleController@byUser');
