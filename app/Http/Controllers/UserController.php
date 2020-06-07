@@ -210,6 +210,19 @@ class UserController extends BaseController
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
     }
 
+    /**
+     * Display a listing of user and its roles by Project-Company relation
+     */
+    public function UserRolesByProjectCompany(int $company_id, int $project_id){
+
+        $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
+            $query->where('company_project.company_id', '=', $company_id)
+                  ->where('company_project.project_id', '=', $project_id);
+        })->with('roles')->get();
+            
+        return $this->sendResponse($company->toArray(), 'User-Roles by Project-Company relation retrieved successfully.');
+    }
+
     
     
 }

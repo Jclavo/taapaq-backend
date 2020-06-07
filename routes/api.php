@@ -24,6 +24,7 @@ Route::get('users/withRoles', 'UserController@withRoles');
 Route::resource('users', 'UserController');
 Route::post('users/assignRole', 'UserController@assignRole');
 Route::post('users/removeRole', 'UserController@removeRole');
+Route::get('users/roles/companies/{company_id}/projects/{project_id}', 'UserController@UserRolesByProjectCompany');
 
 
 //Roles
@@ -32,7 +33,6 @@ Route::get('roles/missingToUser/{user_id}', 'RoleController@missingToUser');
 Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
 Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
 Route::post('roles/byUser', 'RoleController@byUser');
-
 
 //Permissions
 Route::resource('permissions', 'PermissionController');
