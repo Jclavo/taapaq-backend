@@ -46,4 +46,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\CompanyProject');
     }
+
+    /**
+     * Get the UserDetail that owns the user.
+     */
+    public function user_detail()
+    {
+        return $this->belongsTo('App\Models\UserDetail');
+    }
 }
