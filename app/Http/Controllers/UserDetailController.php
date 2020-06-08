@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\UserDetail;
+use App\Models\UserDetail;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
-class UserDetailController extends Controller
+class UserDetailController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,9 @@ class UserDetailController extends Controller
      */
     public function index()
     {
-        //
+        $users = UserDetail::all();
+            
+        return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
     }
 
     /**

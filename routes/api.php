@@ -65,3 +65,6 @@ Route::resource('companies', 'CompanyController');
 Route::get('companies/{company_id}/projects', 'CompanyController@projectsByCompany');
 Route::get('companies/{company_id}/users/roles', 'CompanyController@usersRolesByCompany');
 Route::get('companies/not/project/{project_id}', 'CompanyController@noCompanies');
+
+//Resource Commons
+Route::resource('user-details', 'UserDetailController');
