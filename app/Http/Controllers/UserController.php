@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserDetail;
 use App\Models\Company;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\BaseController;
@@ -44,8 +45,7 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'login' => 'required|max:45|unique:users',
-            // 'email' => 'required|email|max:45|unique:users',
+            'user_detail_id' => 'required|exists:companies,id',
             'company_id' => 'required|exists:companies,id',
             'project_id' => 'required|exists:projects,id'
         ]);
@@ -58,11 +58,13 @@ class UserController extends BaseController
         $company = Company::findOrFail($request->company_id);
         $company = $company->projects()->findOrFail($request->project_id);
 
-        $user = new User();
+        $userDetails = UserDetail::findOrFail($request->user_detail_id);
         
-        $user->login = $request->login;
+        $user = new User();
+        $user->login = $userDetails->identification . $company->pivot->id;
         $user->password = Hash::make($user->login);
         $user->company_project_id = $company->pivot->id; //Assign company project ID
+        $user->user_detail_id = $userDetails->id;
         $user->save();
 
         return $this->sendResponse($user->toArray(), 'User created successfully.');  
@@ -140,7 +142,7 @@ class UserController extends BaseController
             return $this->sendError('Login/Password incorrect.');  
         }
 
-        $user = User::with('company_project')->findOrFail(Auth::user()->id);
+        $user = User::with(['company_project','user_detail'])->findOrFail(Auth::user()->id);
 
         return $this->sendResponse($user->toArray(), 'User login successfully.');  
     }
@@ -218,8 +220,8 @@ class UserController extends BaseController
         $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
             $query->where('company_project.company_id', '=', $company_id)
                   ->where('company_project.project_id', '=', $project_id);
-        })->with('roles')->get();
-            
+        })->with(['roles','user_detail'])->get();
+
         return $this->sendResponse($company->toArray(), 'User-Roles by Project-Company relation retrieved successfully.');
     }
 
