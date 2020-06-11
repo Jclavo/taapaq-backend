@@ -45,7 +45,7 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_detail_id' => 'required|exists:companies,id',
+            'user_detail_id' => 'required|exists:user_details,id',
             'company_id' => 'required|exists:companies,id',
             'project_id' => 'required|exists:projects,id'
         ]);
