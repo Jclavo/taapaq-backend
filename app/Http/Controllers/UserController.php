@@ -144,6 +144,11 @@ class UserController extends BaseController
 
         $user = User::with(['company_project','user_detail'])->findOrFail(Auth::user()->id);
 
+        //check if user status validated is true
+        if(!$user->activated){
+            return $this->sendError('Your user is not activated yet.');  
+        }
+
         return $this->sendResponse($user->toArray(), 'User login successfully.');  
     }
 
