@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule; 
 
 class RoleController extends BaseController
 {
@@ -43,15 +44,22 @@ class RoleController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:45|unique:roles',
-            'project_id' => 'required|exists:projects,id'
+            'project_id' => 'required|exists:projects,id',
+            'name' => ['required','max:45',
+                        // 'unique:roles',
+                        Rule::unique('roles')->where(function($query) use($request){
+                            $query->where('project_id', '=', $request->project_id);
+                        })  
+                       ],
+            
         ]);
         
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
-        $role = Role::create(['name' => $request->name, 'project_id' => $request->project_id]);
+        $request->name = $request->name . '/' . $request->project_id;
+        $role = Role::create(['name' => $request->name , 'project_id' => $request->project_id]);
         
         // $role->name = $request->name;
         // $role->save();
