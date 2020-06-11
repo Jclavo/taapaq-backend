@@ -40,7 +40,31 @@ class UserDetailController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'identification' => ['required', 'numeric', 'min:8', 'unique:user_details'],
+            'email' => ['nullable','email','unique:user_details'],
+            'name' => 'required|max:45',
+            'lastname' => 'required|max:45',
+            'phone' => ['required', 'max:45'],
+            'address' => 'required|max:100'
+        ]);
+      
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $user = new UserDetail();
+        
+        $user->identification = $request->identification;
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->lastname = $request->lastname;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+
+        $user->save();
+        
+        return $this->sendResponse($user->toArray(), 'User created successfully.');  
     }
 
     /**
