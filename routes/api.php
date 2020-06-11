@@ -25,7 +25,7 @@ Route::resource('users', 'UserController');
 Route::post('users/assignRole', 'UserController@assignRole');
 Route::post('users/removeRole', 'UserController@removeRole');
 Route::get('users/roles/companies/{company_id}/projects/{project_id}', 'UserController@UserRolesByProjectCompany');
-
+Route::get('users/{user_id}/changeActivatedStatus', 'UserController@changeActivatedStatus');
 
 //Roles
 Route::resource('roles', 'RoleController');

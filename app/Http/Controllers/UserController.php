@@ -225,6 +225,19 @@ class UserController extends BaseController
         return $this->sendResponse($company->toArray(), 'User-Roles by Project-Company relation retrieved successfully.');
     }
 
+    /**
+     * 
+     */
+    public function changeActivatedStatus(int $user_id){
+
+        $user = User::findOrFail($user_id);
+
+        $user->activated = !$user->activated;
+        $user->save();
+
+        return $this->sendResponse($user->toArray(), 'Users status changed successfully.');
+
+    }
     
     
 }
