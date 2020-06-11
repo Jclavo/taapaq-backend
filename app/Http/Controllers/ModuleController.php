@@ -124,4 +124,24 @@ class ModuleController extends BaseController
             
         return $this->sendResponse($module->toArray(), 'Module - Resources retrieved successfully.');
     }
+
+    /**
+     * 
+     */
+    public function byUser(int $user_id){
+
+        // $resources = Module::select('modules.id', 'modules.name', 'modules.url', 'resources.name as resource')
+        $resources = Module::select('modules.id', 'modules.name', 'modules.url')
+        ->join('resources','modules.id','=','resources.module_id')
+        ->join('permissions','resources.id','=','permissions.resource_id')
+        ->join('role_has_permissions','permissions.id','=','role_has_permissions.permission_id')
+        ->join('roles','role_has_permissions.role_id','=','roles.id')
+        ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
+        ->join('users','model_has_roles.model_id','=','users.id')
+        ->where('users.id','=',$user_id)
+        ->distinct()
+        ->get();
+
+        return $this->sendResponse($resources->toArray(), 'Module - Resources by User retrieved successfully.');
+    }
 }

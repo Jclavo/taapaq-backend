@@ -52,6 +52,8 @@ Route::resource('projects', 'ProjectController');
 //Modules
 Route::resource('modules', 'ModuleController');
 Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule');
+Route::get('modules/users/{user_id}', 'ModuleController@byUser');
+// Route::get('modules/resources/users/{user_id}', 'ModuleController@resourcesByUser');
 
 //Resource
 Route::resource('resources', 'ResourceController');
