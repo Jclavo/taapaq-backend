@@ -58,12 +58,11 @@ class RoleController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
+        $nickname = $request->name;
         $request->name = $request->name . '/' . $request->project_id;
-        $role = Role::create(['name' => $request->name , 'project_id' => $request->project_id]);
+        $role = Role::create(['name' => $request->name , 'project_id' => $request->project_id,
+                              'nickname' => $nickname]);
         
-        // $role->name = $request->name;
-        // $role->save();
-
         return $this->sendResponse($role->toArray(), 'Role created successfully.');  
     }
 
