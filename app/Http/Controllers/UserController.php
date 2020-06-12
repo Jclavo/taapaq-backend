@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController extends BaseController
 {
@@ -142,14 +143,18 @@ class UserController extends BaseController
             return $this->sendError('Login/Password incorrect.');  
         }
 
-        $user = User::with(['company_project','user_detail'])->findOrFail(Auth::user()->id);
-
         //check if user status validated is true
-        if(!$user->activated){
+        if(!Auth::user()->activated){
+            Auth::logout();
             return $this->sendError('Your user is not activated yet.');  
         }
 
-        return $this->sendResponse($user->toArray(), 'User login successfully.');  
+        Auth::user()->api_token = Str::random(80);
+        Auth::user()->save();
+
+        Auth::user()->load(['company_project','user_detail']);
+
+        return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
     }
 
     /**
