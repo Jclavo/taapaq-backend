@@ -12,10 +12,10 @@ class UserDetailController extends BaseController
 {
     function __construct()
     {
-         $this->middleware('permission:Users Masters/read'); 
-         $this->middleware('permission:Users Masters/create', ['only' => ['store']]);
-        //  $this->middleware('permission:Users Masters/create', ['only' => ['update']]);
-         $this->middleware('permission:Users Masters/delete', ['only' => ['destroy']]);
+        $this->middleware('permission_in_role:Users Masters/read'); 
+        $this->middleware('permission_in_role:Users Masters/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:Users Masters/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:Users Masters/delete', ['only' => ['destroy']]); 
     }
     
     /**

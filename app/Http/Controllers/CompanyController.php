@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends BaseController
 {
+    function __construct()
+    {
+        $this->middleware('permission_in_role:companies/read'); 
+        $this->middleware('permission_in_role:companies/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:companies/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:companies/delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

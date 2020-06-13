@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class PermissionController extends BaseController
 {
+    function __construct()
+    {
+        $this->middleware('permission_in_role:permissions/read'); 
+        $this->middleware('permission_in_role:permissions/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:permissions/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:permissions/delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

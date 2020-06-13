@@ -12,6 +12,14 @@ use Illuminate\Validation\Rule;
 
 class ResourceController extends BaseController
 {
+    function __construct()
+    {
+        $this->middleware('permission_in_role:resources/read'); 
+        $this->middleware('permission_in_role:resources/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:resources/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:resources/delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +67,7 @@ class ResourceController extends BaseController
         $module->resources()->save($resource);
 
         //Create permission
-        $permissionName = $module->name . '/' . $resource->name;
+        $permissionName = $module->name . '/' . str_replace(" ","-",$resource->name);
         $permissionName = strtolower($permissionName);
         Permission::create(['name' => $permissionName, 'resource_id' => $resource->id]);
 
@@ -116,7 +124,7 @@ class ResourceController extends BaseController
     }
 
     /**
-     * 
+     * Get resource and its permissions
      */
     public function permission(int $id)
     {

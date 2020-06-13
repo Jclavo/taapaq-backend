@@ -11,6 +11,13 @@ use Illuminate\Validation\Rule;
 
 class ModuleController extends BaseController
 {
+    function __construct()
+    {
+        $this->middleware('permission_in_role:modules/read'); 
+        $this->middleware('permission_in_role:modules/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:modules/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:modules/delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends BaseController
 {
+    function __construct()
+    {
+        $this->middleware('permission_in_role:projects/read'); 
+        $this->middleware('permission_in_role:projects/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:projects/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:projects/delete', ['only' => ['destroy']]);
+        $this->middleware('permission_in_role:projects/assign-company', ['only' => ['assignCompany']]);
+        $this->middleware('permission_in_role:projects/remove-company', ['only' => ['removeCompany']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
