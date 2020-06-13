@@ -41,17 +41,17 @@ class PermissionController extends BaseController
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:45|unique:permissions'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|max:45|unique:permissions'
+        // ]);
         
-        if ($validator->fails()) {
-            return $this->sendError($validator->errors()->first());
-        }
+        // if ($validator->fails()) {
+        //     return $this->sendError($validator->errors()->first());
+        // }
 
-        $permission = Permission::create(['name' => $request->name]);
+        // $permission = Permission::create(['name' => $request->name]);
 
-        return $this->sendResponse($permission->toArray(), 'Permission created successfully.');  
+        // return $this->sendResponse($permission->toArray(), 'Permission created successfully.');  
     }
 
     /**
