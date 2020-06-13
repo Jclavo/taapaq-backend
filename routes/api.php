@@ -25,6 +25,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('users/removeRole', 'UserController@removeRole');
     Route::get('users/roles/companies/{company_id}/projects/{project_id}', 'UserController@UserRolesByProjectCompany');
     Route::get('users/{user_id}/changeActivatedStatus', 'UserController@changeActivatedStatus');
+    Route::get('logout', 'UserController@logout');
 
     //Roles
     Route::resource('roles', 'RoleController');

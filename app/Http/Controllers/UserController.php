@@ -250,7 +250,7 @@ class UserController extends BaseController
     }
 
     /**
-     * 
+     * Change Activated status
      */
     public function changeActivatedStatus(int $user_id){
 
@@ -261,6 +261,15 @@ class UserController extends BaseController
 
         return $this->sendResponse($user->toArray(), 'Users status changed successfully.');
 
+    }
+
+    /**
+     * Close session
+     */
+    public function logout(){
+        Auth::user()->api_token = null;
+        Auth::user()->save();
+        return $this->sendResponse([], 'User logout.');
     }
     
     
