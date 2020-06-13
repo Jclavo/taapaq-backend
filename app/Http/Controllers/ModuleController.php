@@ -18,9 +18,9 @@ class ModuleController extends BaseController
      */
     public function index()
     {
-        $module = Module::all();
+        // $module = Module::all();
             
-        return $this->sendResponse($module->toArray(), 'Module retrieved successfully.');
+        // return $this->sendResponse($module->toArray(), 'Module retrieved successfully.');
     }
 
     /**
@@ -140,6 +140,7 @@ class ModuleController extends BaseController
         ->join('users','model_has_roles.model_id','=','users.id')
         ->where('users.id','=',$user_id)
         ->distinct()
+        ->orderBy('modules.name')
         ->get();
 
         return $this->sendResponse($resources->toArray(), 'Module - Resources by User retrieved successfully.');

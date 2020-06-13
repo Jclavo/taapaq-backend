@@ -199,6 +199,7 @@ class RoleController extends BaseController
                             $join->on('model_has_roles.model_id', '=', 'users.id')
                                 ->where('users.id', '=', $user_id);
                         })
+                        ->orderBy('roles.name')
                         ->get();
 
         return $this->sendResponse($roles->toArray(), 'Roles from user gotten successfully.');  
@@ -219,7 +220,9 @@ class RoleController extends BaseController
         $rolesNot = Role::whereDoesntHave('users', function ($query) use($user_id){
             $query->where('users.id', '=', $user_id);
             
-        })->where('roles.project_id', '=', $project_id)->get();   
+        })->where('roles.project_id', '=', $project_id)
+        ->orderBy('roles.name')
+        ->get();   
 
         return $this->sendResponse($rolesNot->toArray(), 'Roles not in user gotten successfully.');  
 

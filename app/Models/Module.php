@@ -28,6 +28,7 @@ class Module extends Model
      */
     public function resources()
     {
-        return $this->hasMany('App\Models\Resource');
+        return $this->hasMany('App\Models\Resource')
+                    ->orderBy('name');
     }
 }

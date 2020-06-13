@@ -20,7 +20,8 @@ class Project extends Model
      */
     public function modules()
     {
-        return $this->hasMany('App\Models\Module');
+        return $this->hasMany('App\Models\Module')
+                    ->orderBy('name');
     }
 
     /**
@@ -31,7 +32,8 @@ class Project extends Model
         return $this->belongsToMany('App\Models\Company')
                     ->using('App\Models\CompanyProject')
                     ->withTimestamps()
-                    ->withPivot('id');
+                    ->withPivot('id')
+                    ->orderBy('name');
     }
 
     /**
@@ -39,6 +41,7 @@ class Project extends Model
      */
     public function roles()
     {
-        return $this->hasMany('Spatie\Permission\Models\Role');
+        return $this->hasMany('Spatie\Permission\Models\Role')
+                    ->orderBy('name');
     }
 }

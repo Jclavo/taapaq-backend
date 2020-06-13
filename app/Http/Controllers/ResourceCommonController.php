@@ -15,7 +15,7 @@ class ResourceCommonController extends BaseController
      */
     public function index()
     {
-        $resourceCommon = ResourceCommon::all();
+        $resourceCommon = ResourceCommon::orderBy('name')->get();
             
         return $this->sendResponse($resourceCommon->toArray(), 'Resource Commons retrieved successfully.');
     }

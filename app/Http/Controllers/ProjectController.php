@@ -17,7 +17,7 @@ class ProjectController extends BaseController
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('name')->get();
             
         return $this->sendResponse($projects->toArray(), 'Projects retrieved successfully.');
     }

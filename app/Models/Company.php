@@ -23,7 +23,8 @@ class Company extends Model
         return $this->belongsToMany('App\Models\Project')
                     ->using('App\Models\CompanyProject')
                     ->withTimestamps()
-                    ->withPivot('id');
+                    ->withPivot('id')
+                    ->orderBy('name');
     }
 
     /**
@@ -32,6 +33,8 @@ class Company extends Model
     public function users()
     {
         return $this->hasManyThrough('App\Models\User','App\Models\CompanyProject',
-                                      'company_id', 'company_project_id');
+                                      'company_id', 'company_project_id')
+                                     ->orderBy('login');  
+                                      
     }
 }

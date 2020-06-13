@@ -18,9 +18,9 @@ class PermissionController extends BaseController
      */
     public function index()
     {
-        $permissions = Permission::all();
+        // $permissions = Permission::all();
             
-        return $this->sendResponse($permissions->toArray(), 'Permissions retrieved successfully.');
+        // return $this->sendResponse($permissions->toArray(), 'Permissions retrieved successfully.');
     }
 
     /**
@@ -129,6 +129,7 @@ class PermissionController extends BaseController
                                                 ->where('roles.id', '=', $role_id);
                                         });
                                 })
+                        ->orderBy('permissions.name')
                         ->get();
 
         return $this->sendResponse($permissions->toArray(), 'Permissions retrieved successfully.');

@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserDetailController extends BaseController
 {
+    function __construct()
+    {
+         $this->middleware('permission:Users Masters/read'); 
+         $this->middleware('permission:Users Masters/create', ['only' => ['store']]);
+        //  $this->middleware('permission:Users Masters/create', ['only' => ['update']]);
+         $this->middleware('permission:Users Masters/delete', ['only' => ['destroy']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +25,7 @@ class UserDetailController extends BaseController
      */
     public function index()
     {
-        $users = UserDetail::all();
+        $users = UserDetail::orderBy('name')->get();
             
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
     }

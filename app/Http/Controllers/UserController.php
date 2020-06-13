@@ -22,9 +22,9 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = User::all();
+        // $users = User::all();
             
-        return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
+        // return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
     }
 
     /**
@@ -230,7 +230,9 @@ class UserController extends BaseController
         $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
             $query->where('company_project.company_id', '=', $company_id)
                   ->where('company_project.project_id', '=', $project_id);
-        })->with(['roles','user_detail'])->get();
+        })->with(['roles','user_detail'])
+        ->orderBy('users.login')
+        ->get();
 
         return $this->sendResponse($company->toArray(), 'User-Roles by Project-Company relation retrieved successfully.');
     }
