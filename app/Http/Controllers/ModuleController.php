@@ -140,7 +140,10 @@ class ModuleController extends BaseController
         // $resources = Module::select('modules.id', 'modules.name', 'modules.url', 'resources.name as resource')
         $resources = Module::select('modules.id', 'modules.name', 'modules.url')
         ->join('resources','modules.id','=','resources.module_id')
-        ->join('permissions','resources.id','=','permissions.resource_id')
+        ->join('permissions', function ($join){
+            $join->on('resources.id', '=', 'permissions.resource_id')
+                ->where('permissions.name', 'like', '%/show');
+        })
         ->join('role_has_permissions','permissions.id','=','role_has_permissions.permission_id')
         ->join('roles','role_has_permissions.role_id','=','roles.id')
         ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
