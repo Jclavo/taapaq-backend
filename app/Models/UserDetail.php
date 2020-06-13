@@ -18,8 +18,9 @@ class UserDetail extends Model
     /**
      * Get the user for the userDetail
      */
-    public function modules()
+    public function users()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany('App\Models\User')
+                    ->orderBy('login');
     }
 }
