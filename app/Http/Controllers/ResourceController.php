@@ -60,6 +60,7 @@ class ResourceController extends BaseController
 
         //Create permission
         $permissionName = $module->name . '/' . $resource->name;
+        $permissionName = strtolower($permissionName);
         Permission::create(['name' => $permissionName, 'resource_id' => $resource->id]);
 
         return $this->sendResponse($resource->toArray(), 'Resource created successfully.'); 
