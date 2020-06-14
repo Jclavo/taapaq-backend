@@ -17,7 +17,7 @@ class UserController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('permission_in_role:users/read', ['except' => ['login']]);
+        $this->middleware('permission_in_role:users/read', ['except' => ['login','logout']]);
         $this->middleware('permission_in_role:users/create', ['only' => ['store']]);
         $this->middleware('permission_in_role:users/update', ['only' => ['update']]);
         $this->middleware('permission_in_role:users/delete', ['only' => ['destroy']]);
