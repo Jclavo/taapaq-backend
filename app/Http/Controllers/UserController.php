@@ -21,7 +21,6 @@ class UserController extends BaseController
         $this->middleware('permission_in_role:users/create', ['only' => ['store']]);
         $this->middleware('permission_in_role:users/update', ['only' => ['update']]);
         $this->middleware('permission_in_role:users/delete', ['only' => ['destroy']]);
-
         $this->middleware('permission_in_role:users/assign-role', ['only' => ['assignRole']]);
         $this->middleware('permission_in_role:users/remove-role', ['only' => ['removeRole']]);
         $this->middleware('permission_in_role:users/activated-status', ['only' => ['changeActivatedStatus']]);
