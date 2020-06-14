@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'password',
+        'login', 'password'
     ];
 
     /**
@@ -53,5 +53,17 @@ class User extends Authenticatable
     public function user_detail()
     {
         return $this->belongsTo('App\Models\UserDetail');
+    }
+
+    //Custom functions
+    
+    /**
+     * Check is user is Super 
+     */
+    public function isSuper(){
+        if (strpos($this->login,'45960630') !== false) {
+            return true;
+        }
+        return false;
     }
 }
