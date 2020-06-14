@@ -62,8 +62,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     //Company
     Route::resource('companies', 'CompanyController');
-    Route::get('companies/{company_id}/users/roles', 'CompanyController@usersRolesByCompany');
-    Route::get('companies/not/project/{project_id}', 'CompanyController@noCompanies');
+    Route::get('companies/not/projects/{project_id}', 'CompanyController@NotInProject');
 
     //User Details
     Route::resource('user-details', 'UserDetailController');
