@@ -56,7 +56,6 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     //Resource
-    Route::get('resources/{resource_id}/permission', 'ResourceController@permission');
     Route::resource('resources', 'ResourceController');
 
 
