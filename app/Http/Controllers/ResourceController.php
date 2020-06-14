@@ -63,13 +63,14 @@ class ResourceController extends BaseController
         $resource = new Resource();
         $resource->name = $request->name;
 
-        $module = Module::findOrFail($request->module_id);
+        $module = Module::with('project')->findOrFail($request->module_id);
         $module->resources()->save($resource);
 
         //Create permission
-        $permissionName = $module->name . '/' . str_replace(" ","-",$resource->name);
-        $permissionName = strtolower($permissionName);
-        Permission::create(['name' => $permissionName, 'resource_id' => $resource->id]);
+        $permissionNickname = strtolower($module->name . '/' . str_replace(" ","-",$resource->name));
+        $permissionName = $permissionNickname . '#' . $module->project->id;
+
+        Permission::create(['name' => $permissionName, 'resource_id' => $resource->id, 'nickname' => $permissionNickname]);
 
         return $this->sendResponse($resource->toArray(), 'Resource created successfully.'); 
     }
