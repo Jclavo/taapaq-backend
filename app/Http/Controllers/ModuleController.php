@@ -162,4 +162,16 @@ class ModuleController extends BaseController
 
         return $this->sendResponse($resources->toArray(), 'Module - Resources by User retrieved successfully.');
     }
+
+    /**
+     * Get Modules by Project
+     */
+    public function resourcesByProject($project_id){
+
+        $modules = Module::with('resources')->whereHas('project', function ($query) use($project_id) {
+            $query->where('projects.id', '=', $project_id);
+        })->get();
+
+        return $this->sendResponse($modules->toArray(), 'Modules retrieved successfully.');
+    }
 }

@@ -129,12 +129,12 @@ class ProjectController extends BaseController
      * 
      * @return \Illuminate\Http\Response
      */
-    public function modulesByProject(int $id){
+    // public function modulesByProject(int $id){
 
-        $projects = Project::with('modules')->findOrFail($id);
+    //     $projects = Project::with('modules')->findOrFail($id);
             
-        return $this->sendResponse($projects->toArray(), 'Project - Modules retrieved successfully.');
-    }
+    //     return $this->sendResponse($projects->toArray(), 'Project - Modules retrieved successfully.');
+    // }
 
     /**
      * Get Project and its modules and its resources
