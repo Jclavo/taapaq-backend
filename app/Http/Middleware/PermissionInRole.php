@@ -26,6 +26,8 @@ class PermissionInRole
 
         foreach ($permissions as $permission) {
 
+            $permission = $permission . '#' . app('auth')->user()->company_project->project_id;
+
             $hasPermission = app('auth')->user()::
                 join('model_has_roles','users.id','=','model_has_roles.model_id')
                 ->join('roles','model_has_roles.role_id','=','roles.id')
