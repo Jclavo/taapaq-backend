@@ -79,6 +79,34 @@
 					"response": []
 				},
 				{
+					"name": "Roles Missing to User",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/not/users/4/projects/2",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Roles by Project",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/roles/projects/6",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer g9M4uvNKQVwYpNLdaJPa8WMv8vCNSFZvveS45xSqvqcuyCvAvcQOyFuVGVPBtZ6fMgK2TcZIFPuFWZNS",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "Give Permission To Role",
 					"request": {
 						"url": "http://127.0.0.1:8000/api/roles/givePermissionTo",
@@ -173,6 +201,26 @@
 					"request": {
 						"url": "http://127.0.0.1:8000/api/permissions/getAllByRole",
 						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Permissions By Project",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/permissions/roles/4",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "formdata",
@@ -286,17 +334,22 @@
 					"response": []
 				},
 				{
-					"name": "Roles By User",
+					"name": "Login",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/byUser",
+						"url": "http://127.0.0.1:8000/api/login",
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "user_id",
-									"value": "4",
+									"key": "login",
+									"value": "1234567812",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567812",
 									"type": "text"
 								}
 							]
@@ -306,21 +359,7 @@
 					"response": []
 				},
 				{
-					"name": "Roles Missing to User",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/missingToUser/2",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Login",
+					"name": "Login SUPER",
 					"request": {
 						"url": "http://127.0.0.1:8000/api/login",
 						"method": "POST",
@@ -345,29 +384,69 @@
 					"response": []
 				},
 				{
-					"name": "Get Users",
+					"name": "Logout",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users",
+						"url": "http://127.0.0.1:8000/api/logout",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 4k9wR6Ei3jPocPALGzd9sqaJALmTwHNm5JsZ7sTzJNWqT5fHtgxJ0rUJrFTWwjyDKaW9CrnrfWnmxLZj",
+								"description": ""
+							}
+						],
 						"body": {
-							"mode": "raw",
-							"raw": ""
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "login",
+									"value": "1111",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
 						},
 						"description": ""
 					},
 					"response": []
 				},
 				{
-					"name": "Get Users with roles",
+					"name": "Change Activated Status",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users/withRoles",
+						"url": "http://127.0.0.1:8000/api/users/1/changeActivatedStatus",
 						"method": "GET",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": ""
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer RdfnjCL1Yn87LJKe4LG6fP16vNZxjucRUt0CPixFsTfTuBMAQRji8yqgFDlpPJDXyxYj47ou3OoO8DqR",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -383,83 +462,22 @@
 					"request": {
 						"url": "http://127.0.0.1:8000/api/projects",
 						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Projects - Resources",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/2/modules/resources",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Projects - Permissions",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/1/modules/resources/permissions",
-						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer BhB6BKYaUqHwNZZwZ3HqpnkMqLbcm1NllSs7tixw7oTB17D79TQN9iamgxZxWOfBYTP3BNokgw78mq3B",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
 					"response": []
 				},
 				{
-					"name": "Get Projects - Modules",
+					"name": "Get Project - Companies",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/modules",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Projects - Companies",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/companies",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Project - Modules",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/1/modules",
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Project - Roles",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/1/roles",
+						"url": "http://127.0.0.1:8000/api/projects/2/companies",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -549,13 +567,44 @@
 				{
 					"name": "Get Module - Resources",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules/2/resources",
+						"url": "http://127.0.0.1:8000/api/modules/12/resources",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Module by User",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/modules/user",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer KhvjtQ2RKYXTX2ASS45F7EKBIfRcmfWj2EYWrEFdlv1JRi0XbCtUtuDo8v0zSOIAJjsKTvAzwzugWyLD",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Module by Project",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/modules/resources/projects/7",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer kbkmCi4JU73336C7Yt2xW5M6dYSrHE7LSYEBLXVwa53vjci3XQeuUKNHgVJwNmKFoxyoAXJAIUs9WLsR",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -615,43 +664,24 @@
 					"request": {
 						"url": "http://127.0.0.1:8000/api/resources",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer qndRGHX7aQ0iLVbNTkT0AvqPbD7b7qI9iB2foipn8eH90hNe74O0xiBJGds1Ud0jJg120ZIW2vE4WE9V",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "module_id",
-									"value": "42",
+									"value": "24",
 									"type": "text"
 								},
 								{
 									"key": "name",
-									"value": "anull",
-									"type": "text"
-								}
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Resource and Permission",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/resources/2/permission",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "module_id",
-									"value": "42",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "anull",
+									"value": "test",
 									"type": "text"
 								}
 							]
@@ -735,26 +765,18 @@
 					"response": []
 				},
 				{
-					"name": "Get Users by Company",
+					"name": "Not In Project",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/companies/1/users/roles",
+						"url": "http://127.0.0.1:8000/api/companies/not/projects/3",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer Ekpu41TiMXFZKWnJ4aFbAqjmslFDxoJIXjCZCabR5Z0pQBgADL0zXhB8j3aAPhwNbXfn1EgXE7FfYz5y",
+								"description": ""
+							}
+						],
 						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Projects By Company",
-					"request": {
-						"url": "http://127.0.0.1:8000/api/companies/3/projects",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"description": ""
 					},
 					"response": []
@@ -771,6 +793,74 @@
 								{
 									"key": "name",
 									"value": "admin1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Details",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/user-details/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer jXPCojrnZHm9IZb6f3oIj0ZZO7FNNgwfswfDWKfHN147qd6UK6lvnQqtRaadlFYIWCu1m933Au7qUrc6",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"url": "http://127.0.0.1:8000/api/user-details/",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "identification",
+									"value": "12a",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "cris",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "clavo",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "504098",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "triunfo street",
+									"description": "",
 									"type": "text"
 								}
 							]
