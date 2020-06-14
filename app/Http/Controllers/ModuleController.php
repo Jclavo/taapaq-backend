@@ -8,12 +8,13 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
+use Illuminate\Support\Facades\Auth;
 
 class ModuleController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('permission_in_role:modules/read'); 
+        $this->middleware('permission_in_role:modules/read', ['except' => ['byUser']]); 
         $this->middleware('permission_in_role:modules/create', ['only' => ['store']]);
         $this->middleware('permission_in_role:modules/update', ['only' => ['update']]);
         $this->middleware('permission_in_role:modules/delete', ['only' => ['destroy']]);
@@ -135,23 +136,29 @@ class ModuleController extends BaseController
     /**
      * 
      */
-    public function byUser(int $user_id){
+    public function byUser(){
 
-        // $resources = Module::select('modules.id', 'modules.name', 'modules.url', 'resources.name as resource')
-        $resources = Module::select('modules.id', 'modules.name', 'modules.url')
-        ->join('resources','modules.id','=','resources.module_id')
-        ->join('permissions', function ($join){
-            $join->on('resources.id', '=', 'permissions.resource_id')
-                ->where('permissions.name', 'like', '%/show');
-        })
-        ->join('role_has_permissions','permissions.id','=','role_has_permissions.permission_id')
-        ->join('roles','role_has_permissions.role_id','=','roles.id')
-        ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
-        ->join('users','model_has_roles.model_id','=','users.id')
-        ->where('users.id','=',$user_id)
-        ->distinct()
-        ->orderBy('modules.name')
-        ->get();
+        $query = Module::query();
+
+        $query->select('modules.id', 'modules.name', 'modules.url')
+            ->join('resources','modules.id','=','resources.module_id')
+            ->join('permissions', function ($join){
+                $join->on('resources.id', '=', 'permissions.resource_id')
+                    ->where('permissions.name', 'like', '%/show%');
+            })
+            ->join('role_has_permissions','permissions.id','=','role_has_permissions.permission_id')
+            ->join('roles','role_has_permissions.role_id','=','roles.id')
+            ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
+            ->join('users','model_has_roles.model_id','=','users.id')
+            ->where('users.id','=',Auth::user()->id);
+
+        $query->when((!Auth::user()->isSuper()), function ($q) {
+            return $q->where('modules.visibled', 1);
+        });
+    
+        $resources = $query->distinct()
+                            ->orderBy('modules.name')
+                            ->get();
 
         return $this->sendResponse($resources->toArray(), 'Module - Resources by User retrieved successfully.');
     }

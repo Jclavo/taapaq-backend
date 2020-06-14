@@ -52,8 +52,7 @@ Route::middleware(['auth:api'])->group(function () {
     //Modules
     Route::resource('modules', 'ModuleController');
     Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule');
-    Route::get('modules/users/{user_id}', 'ModuleController@byUser');
-    // Route::get('modules/resources/users/{user_id}', 'ModuleController@resourcesByUser');
+    Route::get('modules/user', 'ModuleController@byUser');
 
     //Resource
     Route::resource('resources', 'ResourceController');
