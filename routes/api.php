@@ -19,14 +19,14 @@ Route::post('login', 'UserController@login');
 Route::middleware(['auth:api'])->group(function () {
 
     //Users
-    Route::get('users/withRoles', 'UserController@withRoles');
-    Route::resource('users', 'UserController');
+    Route::get('logout', 'UserController@logout');
     Route::post('users/assignRole', 'UserController@assignRole');
     Route::post('users/removeRole', 'UserController@removeRole');
     Route::get('users/roles/companies/{company_id}/projects/{project_id}', 'UserController@UserRolesByProjectCompany');
     Route::get('users/{user_id}/changeActivatedStatus', 'UserController@changeActivatedStatus');
-    Route::get('logout', 'UserController@logout');
-
+    Route::resource('users', 'UserController');
+    
+    
     //Roles
     Route::resource('roles', 'RoleController');
     Route::get('roles/not/users/{user_id}/projects/{project_id}', 'RoleController@notInUser');
@@ -49,7 +49,6 @@ Route::middleware(['auth:api'])->group(function () {
     //Modules
     Route::get('modules/user', 'ModuleController@byUser');
     Route::get('modules/resources/projects/{project_id}', 'ModuleController@resourcesByProject');
-
     Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule');
     Route::resource('modules', 'ModuleController');
 
