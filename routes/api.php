@@ -20,24 +20,26 @@ Route::middleware(['auth:api'])->group(function () {
 
     //Users
     Route::get('logout', 'UserController@logout');
-    Route::post('users/assignRole', 'UserController@assignRole');
-    Route::post('users/removeRole', 'UserController@removeRole');
     Route::get('users/roles/companies/{company_id}/projects/{project_id}', 'UserController@UserRolesByProjectCompany');
     Route::get('users/{user_id}/changeActivatedStatus', 'UserController@changeActivatedStatus');
+    Route::post('users/assignRole', 'UserController@assignRole');
+    Route::post('users/removeRole', 'UserController@removeRole');
     Route::resource('users', 'UserController');
     
-    
+
     //Roles
-    Route::resource('roles', 'RoleController');
     Route::get('roles/not/users/{user_id}/projects/{project_id}', 'RoleController@notInUser');
+    Route::get('roles/projects/{project_id}', 'RoleController@byProject');
+    Route::post('roles/byUser', 'RoleController@byUser');
     Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
     Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
-    Route::post('roles/byUser', 'RoleController@byUser');
-    Route::get('roles/projects/{project_id}', 'RoleController@byProject');
+    Route::resource('roles', 'RoleController');
+
 
     //Permissions
-    Route::resource('permissions', 'PermissionController');
     Route::get('permissions/roles/{role_id}', 'PermissionController@getByRole');
+    Route::resource('permissions', 'PermissionController');
+    
 
     //Projects
     Route::get('projects/companies', 'ProjectController@companies');
@@ -46,22 +48,26 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('projects/removeCompany', 'ProjectController@removeCompany');
     Route::resource('projects', 'ProjectController');
 
+
     //Modules
     Route::get('modules/user', 'ModuleController@byUser');
     Route::get('modules/resources/projects/{project_id}', 'ModuleController@resourcesByProject');
-    Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule');
     Route::resource('modules', 'ModuleController');
 
+
     //Resource
-    Route::resource('resources', 'ResourceController');
     Route::get('resources/{resource_id}/permission', 'ResourceController@permission');
+    Route::resource('resources', 'ResourceController');
+
 
     //Resource Commons
     Route::resource('resource-commons', 'ResourceCommonController');
 
+
     //Company
-    Route::resource('companies', 'CompanyController');
     Route::get('companies/not/projects/{project_id}', 'CompanyController@NotInProject');
+    Route::resource('companies', 'CompanyController');
+
 
     //User Details
     Route::resource('user-details', 'UserDetailController');
