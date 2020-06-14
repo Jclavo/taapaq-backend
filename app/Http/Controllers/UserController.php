@@ -165,14 +165,12 @@ class UserController extends BaseController
         Auth::user()->save();
 
         Auth::user()->load(['company_project','user_detail']);
-
-        //this hardcode is only for test, delete in PRD
-        if (strpos(Auth::user()->login, '45960630') !== false) {
+        
+        if (Auth::user()->isSuper()) {
             Auth::user()->isSuper = 1;
         }else{
             Auth::user()->isSuper = 0;
         }
-
 
         return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
     }
