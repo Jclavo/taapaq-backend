@@ -40,8 +40,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('permissions/roles/{role_id}', 'PermissionController@getByRole');
 
     //Projects
-    Route::get('projects/{project_id}/modules', 'ProjectController@modulesByProject');
-
     Route::get('projects/companies', 'ProjectController@companies');
     Route::get('projects/{project_id}/companies', 'ProjectController@companiesByProject');
     Route::post('projects/assignCompany', 'ProjectController@assignCompany');
