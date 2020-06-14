@@ -111,18 +111,6 @@ class CompanyController extends BaseController
     }
 
     /**
-     * Get Company and its projects
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function projectsByCompany(int $id){
-
-        $company = Company::with('projects')->findOrFail($id);
-            
-        return $this->sendResponse($company->toArray(), 'Company - Projects retrieved successfully.');
-    }
-
-    /**
      * Get users from a company
      * 
      * @return \Illuminate\Http\Response
