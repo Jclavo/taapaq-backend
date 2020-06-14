@@ -17,7 +17,8 @@ class ResourceCommonSeeder extends Seeder
             'update',
             'read',
             'delete',
-            'pagination'
+            'pagination',
+            'show'
         ];
 
         foreach ($resources as $resource) {
