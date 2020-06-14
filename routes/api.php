@@ -50,9 +50,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('projects', 'ProjectController');
 
     //Modules
-    Route::resource('modules', 'ModuleController');
-    Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule');
     Route::get('modules/user', 'ModuleController@byUser');
+    Route::get('modules/{module_id}/resources', 'ModuleController@resourcesByModule');
+    Route::resource('modules', 'ModuleController');
 
     //Resource
     Route::resource('resources', 'ResourceController');
