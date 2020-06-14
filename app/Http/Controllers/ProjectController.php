@@ -125,18 +125,6 @@ class ProjectController extends BaseController
     }
 
     /**
-     * Get Project and its modules
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    // public function modulesByProject(int $id){
-
-    //     $projects = Project::with('modules')->findOrFail($id);
-            
-    //     return $this->sendResponse($projects->toArray(), 'Project - Modules retrieved successfully.');
-    // }
-
-    /**
      * Get Project and its modules and its resources
      * 
      * @return \Illuminate\Http\Response
@@ -216,15 +204,4 @@ class ProjectController extends BaseController
         return $this->sendResponse($projects->toArray(), 'Project and ist companies retrieved successfully.');
     }
 
-    /**
-     * Get Project and its roles
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function rolesByProject(int $id){
-
-        $projects = Project::with('roles')->findOrFail($id);
-            
-        return $this->sendResponse($projects->toArray(), 'Project - Roles retrieved successfully.');
-    }
 }

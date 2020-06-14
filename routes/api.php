@@ -33,21 +33,20 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
     Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
     Route::post('roles/byUser', 'RoleController@byUser');
+    Route::get('roles/projects/{project_id}', 'RoleController@byProject');
 
     //Permissions
     Route::resource('permissions', 'PermissionController');
     Route::get('permissions/roles/{role_id}', 'PermissionController@getByRole');
 
     //Projects
+    Route::get('projects/{project_id}/modules', 'ProjectController@modulesByProject');
+
     Route::get('projects/companies', 'ProjectController@companies');
     Route::get('projects/{project_id}/companies', 'ProjectController@companiesByProject');
-    Route::get('projects/{project_id}/modules', 'ProjectController@modulesByProject');
-    Route::get('projects/{project_id}/roles', 'ProjectController@rolesByProject');
     Route::post('projects/assignCompany', 'ProjectController@assignCompany');
     Route::post('projects/removeCompany', 'ProjectController@removeCompany');
     Route::resource('projects', 'ProjectController');
-    // Route::get('projects/{project_id}/modules/resources', 'ProjectController@resources');
-    // Route::get('projects/modules', 'ProjectController@modules');
 
     //Modules
     Route::get('modules/user', 'ModuleController@byUser');

@@ -235,6 +235,21 @@ class RoleController extends BaseController
         ->get();   
 
         return $this->sendResponse($rolesNot->toArray(), 'Roles not in user gotten successfully.');  
+    }
 
+    /**
+     * Get Roles by project
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function byProject(int $project_id){
+ 
+        $roles = Role::select('roles.*')
+                       ->join('projects','roles.project_id','=','projects.id')
+                       ->where('projects.id', '=', $project_id)
+                       ->orderBy('roles.name')
+                       ->get();
+
+        return $this->sendResponse($roles->toArray(), 'Roles retrieved successfully.');
     }
 }
