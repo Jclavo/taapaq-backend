@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Project;
+use App\Models\Company;
+use App\Utils\ProjectUtil;
 
 class ProjectSeeder extends Seeder
 {
@@ -12,16 +14,19 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        
+        $project = 'Taapaq';
+        $newProject = ProjectUtil::createSuperProjectAndIts($project);
+
         $projects = [
-            'Taapaq',
             'Store',
             'Map',
             'Corso'
         ];
 
         foreach ($projects as $project) {
-            factory(Project::class)->create(['name' => $project]);
-        }    
+            ProjectUtil::createProjectAndIts($project);
+        }
+
     }
+
 }
