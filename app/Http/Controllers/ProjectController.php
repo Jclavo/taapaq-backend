@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Company;
+use App\Utils\ProjectUtil;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -58,7 +59,10 @@ class ProjectController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $project = Project::create(['name' => $request->name]);
+        // $project = Project::create(['name' => $request->name]);
+
+        //function to generate all records in tables for new project
+        $project = ProjectUtil::createProjectAndIts($request->name);
 
         return $this->sendResponse($project->toArray(), 'Project created successfully.');  
     }
@@ -202,6 +206,75 @@ class ProjectController extends BaseController
         $projects = Project::with('companies')->findOrFail($id);
 
         return $this->sendResponse($projects->toArray(), 'Project and ist companies retrieved successfully.');
+    }
+
+
+    /***
+     * Create Project and all its connections
+     */
+    private function createProjectAndItsXX(string $projectName){
+
+        $modules = [
+            (object) array('name' => 'Roles', 'url' => '/role-list', 'activated' => true),
+            (object) array('name' => 'Users', 'url' => '/user-list', 'activated' => true),
+            (object) array('name' => 'Users Master', 'url' => '/user-detail-list', 'activated' => true),
+            (object) array('name' => 'Permissions', 'url' => '/permission-list', 'activated' => false),
+        ];
+
+        $resources = [
+            'Create',
+            'Read',
+            'Update',
+            'Delete',
+            'Show',
+            'Pagination'
+        ];
+
+        $roles = [
+            'admin',
+        ];
+        
+        
+        //Create a project
+        $newProject = factory(Project::class)->create(['name' => $projectName]);
+
+        //Create Roles
+        foreach ($roles as $role) {
+
+            $adminRole = Role::create(['name' => $role . '/' . $newProject->id , 'project_id' => $newProject->id,
+                                   'nickname' => $role]);
+
+        }
+
+        //Create modules for the project
+        foreach ($modules as $module) {
+
+            $newModule = $newProject->modules()->save(
+                factory(Module::class)->make(['name' => $module->name,
+                                        'url' => $module->url, 
+                                        'visibled' =>  $module->activated])
+            );
+
+            foreach ($resources as $resource) {
+
+                $newResource = $newModule->resources()->save(
+                    factory(Resource::class)->make(['name' => $resource])
+                );
+
+                $permissionNickname = strtolower($newResource->module->name . '/' . str_replace(" ","-", $newResource->name));
+                $permissionName = $permissionNickname . '#' . $newResource->module->project_id;
+
+                $newPermission = Permission::create(['name' => $permissionName,
+                                                    'resource_id' => $newResource->id,
+                                                    'nickname' => $permissionNickname]);
+
+                $adminRole->givePermissionTo($newPermission->id);
+
+            }
+        }
+
+        return $newProject;
+
     }
 
 }
