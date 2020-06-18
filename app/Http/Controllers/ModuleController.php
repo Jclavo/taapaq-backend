@@ -138,11 +138,12 @@ class ModuleController extends BaseController
             ->join('roles','role_has_permissions.role_id','=','roles.id')
             ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
             ->join('users','model_has_roles.model_id','=','users.id')
-            ->where('users.id','=', Auth::user()->id);
+            ->where('users.id','=', Auth::user()->id)
+            ->where('modules.visibled', 1);
 
-        $query->when((!Auth::user()->isSuper()), function ($q) {
-            return $q->where('modules.visibled', 1);
-        });
+        // $query->when((!Auth::user()->isSuper()), function ($q) {
+        //     return $q->where('modules.visibled', 1);
+        // });
     
         $resources = $query->distinct()
                             ->orderBy('modules.name')
