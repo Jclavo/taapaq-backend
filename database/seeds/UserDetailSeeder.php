@@ -12,8 +12,6 @@ class UserDetailSeeder extends Seeder
      */
     public function run()
     {
-        factory(UserDetail::class)->create(['identification' => '45960630','email' => 'jclavo@example.com',
-                                      'name' => 'Jose', 'lastname' => 'cleivor']);
         factory(UserDetail::class)->create(['identification' => '12345678','email' => 'coco@example.com',
                                       'name' => 'Coco', 'lastname' => 'the cat']);
         factory(UserDetail::class,5)->create();
