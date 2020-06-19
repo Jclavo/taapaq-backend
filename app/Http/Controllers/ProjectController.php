@@ -62,9 +62,9 @@ class ProjectController extends BaseController
         // $project = Project::create(['name' => $request->name]);
 
         //function to generate all records in tables for new project
-        $project = ProjectUtil::createProjectAndIts($request->name);
+        ProjectUtil::createProjectAndIts($request->name);
 
-        return $this->sendResponse($project->toArray(), 'Project created successfully.');  
+        return $this->sendResponse([], 'Project created successfully.');  
     }
 
     /**
