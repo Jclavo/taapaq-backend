@@ -12,15 +12,15 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        $companies = [
-            'restaurant R',
-            'pharmacy P',
-            'Shoes S',
-            'Store S'
-        ];
+        // $companies = [
+        //     'restaurant R',
+        //     'pharmacy P',
+        //     'Shoes S',
+        //     'Store S'
+        // ];
 
-        foreach ($companies as $company) {
-            factory(Company::class)->create(['name' => $company]);
-        }     
+        // foreach ($companies as $company) {
+        //     factory(Company::class)->create(['name' => $company]);
+        // }     
     }
 }
