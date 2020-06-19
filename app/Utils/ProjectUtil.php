@@ -177,7 +177,7 @@ class ProjectUtil
             }
 
 
-            $newUserMaster = factory(UserDetail::class)->create(['identification' => '45960631','email' => 'jclavo1@example.com',
+            $newUserMaster = factory(UserDetail::class)->create(['identification' => '45960630','email' => 'jclavo@example.com',
                                                 'name' => 'Jose', 'lastname' => 'cleivor']);
 
                                             
