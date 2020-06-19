@@ -159,7 +159,9 @@ class ModuleController extends BaseController
 
         $modules = Module::with('resources')->whereHas('project', function ($query) use($project_id) {
             $query->where('projects.id', '=', $project_id);
-        })->get();
+        })
+        ->orderBy('modules.name')
+        ->get();
 
         return $this->sendResponse($modules->toArray(), 'Modules retrieved successfully.');
     }
