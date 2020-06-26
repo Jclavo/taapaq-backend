@@ -49,14 +49,15 @@ class CompanyController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:companies'
+            'name' => 'required|unique:companies',
+            'country_id' => 'required|exists:countries,id'
         ]);
         
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
-        $company = Company::create(['name' => $request->name]);
+        $company = Company::create(['name' => $request->name, 'country_id' => $request->country_id]);
 
         return $this->sendResponse($company->toArray(), 'Company created successfully.');      
     }
