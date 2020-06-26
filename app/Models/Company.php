@@ -39,4 +39,12 @@ class Company extends Model
                                      ->orderBy('login');  
                                       
     }
+
+    /**
+     * Get the country that owns the company.
+     */
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country');
+    }
 }
