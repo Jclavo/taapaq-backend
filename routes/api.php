@@ -67,9 +67,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('companies/not/projects/{project_id}', 'CompanyController@NotInProject');
     Route::resource('companies', 'CompanyController');
 
-
     //User Details
     Route::resource('user-details', 'UserDetailController');
+
+    //Company
+    Route::resource('countries', 'CountryController');
 });
 
 
