@@ -55,6 +55,21 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\UserDetail');
     }
 
+    /**
+     * Get the company that the user works.
+     */
+    public function company()
+    {
+        return $this->hasOneThrough(
+            'App\Models\Company',
+            'App\Models\CompanyProject', 
+            'id', 
+            'id', 
+            'company_project_id',
+            'company_id' 
+        );
+    }
+
     //Custom functions
     
     /**
