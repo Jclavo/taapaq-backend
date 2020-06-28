@@ -163,7 +163,7 @@ class UserController extends BaseController
         Auth::user()->api_token = Str::random(80);
         Auth::user()->save();
 
-        Auth::user()->load(['company_project','user_detail']);
+        Auth::user()->load(['company_project','user_detail','company.country']);
         
         if (Auth::user()->isSuper()) {
             Auth::user()->isSuper = 1;
