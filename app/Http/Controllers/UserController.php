@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
+//Utils
+use App\Utils\PaginationUtils;
+
 class UserController extends BaseController
 {
     function __construct()
@@ -263,6 +266,85 @@ class UserController extends BaseController
         Auth::user()->api_token = null;
         Auth::user()->save();
         return $this->sendResponse([], 'User logout.');
+    }
+
+
+    /**
+     * Pagination of table users
+     */
+    public function pagination(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'pageSize' => 'numeric|gt:0',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+
+        // $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
+        //     $query->where('company_project.company_id', '=', $company_id)
+        //           ->where('company_project.project_id', '=', $project_id);
+        // })->with(['roles','user_detail'])
+        // ->orderBy('users.login')
+        // ->get();
+
+
+       // SearchOptions values
+        $pageSize      = PaginationUtils::getPageSize($request->pageSize);
+        $sortColumn    = PaginationUtils::getSortColumn($request->sortColumn,'user_details');
+        $sortDirection = PaginationUtils::getSortDirection($request->sortDirection);
+        $searchValue   = $request->searchValue;
+
+
+        $query = User::query();
+        $query->with(['user_detail','company']);
+
+        // $query->whereHas('company_project', function ($query) {
+        //         $query->where('company_project.company_id', '=', Auth::user()->company->id);
+                      
+        // });
+
+        $query->whereHas('user_detail', function ($query) use ($searchValue,$sortColumn, $sortDirection) {
+            $query->where('user_details.identification', 'like', '%'. $searchValue .'%')
+                  ->orwhere('user_details.name', 'like', '%'. $searchValue .'%')
+                  ->orwhere('user_details.lastname', 'like', '%'. $searchValue .'%')
+                  ->orWhere('user_details.email', 'like', '%'. $searchValue .'%')
+                  ->orWhere('user_details.phone', 'like', '%'. $searchValue .'%')
+                  ->orWhere('user_details.address', 'like', '%'. $searchValue .'%');
+        });
+        
+        $results = $query->orderBy('users.'. $sortColumn, $sortDirection)
+                         ->paginate($pageSize);
+        // $results = $query->paginate($pageSize);
+
+
+        
+        // $query->select('users.id','users.login','users.identification','users.name','users.lastname','users.email',
+        //                 'users.phone','users.address', 'users.store_id','stores.name as store')
+        // $query->select('users.*','stores.name as store', 'countries.code as country_code')
+        //       ->join('stores', 'users.store_id', '=', 'stores.id')
+        //       ->join('countries', 'stores.country_id', '=', 'countries.id');    
+       
+        // $query->where(function($q) use ($searchValue){
+        //     $q->where('users.login', 'like', '%'. $searchValue .'%');
+        // });
+
+        // $query->where(function($q) use ($searchValue){
+        //     $q->orwhere('user_details.identification', 'like', '%'. $searchValue .'%')
+        //       ->orwhere('user_details.name', 'like', '%'. $searchValue .'%')
+        //       ->orwhere('user_details.lastname', 'like', '%'. $searchValue .'%')
+        //       ->orWhere('user_details.email', 'like', $searchValue .'%')
+        //       ->orWhere('user_details.phone', 'like', $searchValue .'%')
+        //       ->orWhere('user_details.address', 'like', $searchValue .'%');
+        // });
+
+        // $results = $query->orderBy('users.'.$sortColumn, $sortDirection)
+        //                  ->paginate($pageSize);
+ 
+        return $this->sendResponse($results->items(), 'Users retrieved successfully.', $results->total() );
+
     }
     
     
