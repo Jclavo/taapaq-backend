@@ -91,9 +91,11 @@ class UserController extends BaseController
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //
+        $user = User::with(['user_detail'])->findOrFail($id);
+                
+        return $this->sendResponse($user->toArray(), 'User retrieved successfully.');
     }
 
     /**
@@ -114,9 +116,28 @@ class UserController extends BaseController
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(int $id, Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'password' => 'nullable|min:8|max:45',
+            'repassword' => 'nullable|required_with:password|min:8|max:45|same:password'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $user = User::findOrFail($id);
+        $userDetails = UserDetail::findOrFail($user->user_detail_id);
+        
+        $user->login = $userDetails->identification . $user->company_project_id;
+        //Update password if it has a value
+        if(!empty($request->password)){
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+
+        return $this->sendResponse($user->toArray(), 'User updated successfully.');
     }
 
     /**
