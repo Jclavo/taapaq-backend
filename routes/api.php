@@ -23,6 +23,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('users/roles/companies/{company_id}/projects/{project_id}', 'UserController@UserRolesByProjectCompany');
     Route::get('users/{user_id}/changeActivatedStatus', 'UserController@changeActivatedStatus');
     Route::post('users/assignRole', 'UserController@assignRole');
+    Route::post('users/assignMassiveRole', 'UserController@assignMassiveRole');
     Route::post('users/removeRole', 'UserController@removeRole');
     Route::post('users/pagination', 'UserController@pagination');
     Route::resource('users', 'UserController');

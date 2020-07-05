@@ -93,7 +93,7 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = User::with(['user_detail'])->findOrFail($id);
+        $user = User::with(['user_detail','roles'])->findOrFail($id);
                 
         return $this->sendResponse($user->toArray(), 'User retrieved successfully.');
     }
@@ -222,6 +222,40 @@ class UserController extends BaseController
     }
 
     /**
+     * Assign massive roles to an User
+     * 
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function assignMassiveRole(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'roles' => 'nullable|array',
+            'roles.*' => 'nullable|exists:roles,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $user = User::findOrFail($request->user_id);
+        // $roles = $request->roles ;
+
+        // All current roles will be removed from the user and replaced by the array given
+        // $user->syncRoles(['writer', 'admin']);
+
+        $roles = array();
+        foreach ($request->roles as $value) {
+            array_push($roles, Role::findOrFail($value));
+        } 
+
+        $user->syncRoles($roles);
+
+        return $this->sendResponse($user->toArray(), 'Role assigned successfully.');  
+    }
+
+    /**
      * Remove a role to an User
      * 
      * @param  \App\Models\User  $user
@@ -320,7 +354,7 @@ class UserController extends BaseController
 
 
         $query = User::query();
-        $query->with(['user_detail','company']);
+        $query->with(['user_detail','company','roles']);
 
         // $query->whereHas('company_project', function ($query) {
         //         $query->where('company_project.company_id', '=', Auth::user()->company->id);
