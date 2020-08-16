@@ -333,6 +333,14 @@ class UserController extends BaseController
             'pageSize' => 'numeric|gt:0',
         ]);
 
+        $validator->sometimes('company_id', 'exists:companies,id', function ($input) {
+            return $input->company_id > 0;
+        });
+
+        $validator->sometimes('role_id', 'exists:roles,id', function ($input) {
+            return $input->role_id > 0;
+        });
+
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
@@ -351,15 +359,25 @@ class UserController extends BaseController
         $sortColumn    = PaginationUtils::getSortColumn($request->sortColumn,'user_details');
         $sortDirection = PaginationUtils::getSortDirection($request->sortDirection);
         $searchValue   = $request->searchValue;
+        //custom fields from User
+        $company_id    = $request->company_id;
+        $role_id       = $request->role_id;
 
 
         $query = User::query();
         $query->with(['user_detail','company','roles']);
 
-        // $query->whereHas('company_project', function ($query) {
-        //         $query->where('company_project.company_id', '=', Auth::user()->company->id);
-                      
-        // });
+        $query->whereHas('company_project', function ($query) use($company_id){
+                $query->when($company_id > 0, function ($query) use($company_id) {
+                    return $query->where('company_project.company_id', '=', $company_id);
+                });    
+        });
+
+        $query->when($role_id > 0, function ($query) use($role_id) {
+            return $query->whereHas('roles', function ($query) use($role_id){
+                $query->where('id',$role_id);    
+            });
+        });  
 
         $query->whereHas('user_detail', function ($query) use ($searchValue,$sortColumn, $sortDirection) {
             $query->where('user_details.identification', 'like', '%'. $searchValue .'%')
