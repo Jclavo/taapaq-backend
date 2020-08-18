@@ -12,7 +12,7 @@ class Module extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url', 'project_id', 'visibled'
+        'name', 'url', 'project_id', 'visibled', 'parent_id', 'labeled'
     ];
 
     /**

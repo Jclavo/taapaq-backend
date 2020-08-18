@@ -54,6 +54,7 @@ Route::middleware(['auth:api'])->group(function () {
     //Modules
     Route::get('modules/user', 'ModuleController@byUser');
     Route::get('modules/resources/projects/{project_id}', 'ModuleController@resourcesByProject');
+    Route::get('modules/labels/projects/{project_id}', 'ModuleController@labelsByProject');
     Route::resource('modules', 'ModuleController');
 
 

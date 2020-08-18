@@ -55,8 +55,14 @@ class ModuleController extends BaseController
                         Rule::unique('modules')->where(function($query) use($request) {
                             $query->where('project_id', '=', $request->project_id);
                         })],
-            'url' => 'required|max:500',
+            'labeled' => 'nullable|boolean',
+            'url' => 'required_unless:labeled,1|max:500',
         ]);
+
+        //Validate parent_id
+        $validator->sometimes('parent_id', 'exists:modules,id', function ($input) {
+            return $input->parent_id > 0;
+        });
         
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
@@ -65,6 +71,9 @@ class ModuleController extends BaseController
         $module = new Module();
         $module->name = $request->name;
         $module->url = $request->url;
+        $request->parent_id > 0 ? $module->parent_id = $request->parent_id : null;
+        $request->labeled ? $module->labeled = true : $module->labeled = false;
+
 
         $project = Project::findOrFail($request->project_id);
         $project->modules()->save($module);
@@ -159,6 +168,21 @@ class ModuleController extends BaseController
 
         $modules = Module::with('resources')->whereHas('project', function ($query) use($project_id) {
             $query->where('projects.id', '=', $project_id);
+        })
+        ->orderBy('modules.name')
+        ->get();
+
+        return $this->sendResponse($modules->toArray(), 'Modules retrieved successfully.');
+    }
+
+    /**
+     * Get Label Modules by Project
+     */
+    public function labelsByProject($project_id){
+
+        $modules = Module::whereHas('project', function ($query) use($project_id) {
+            $query->where('projects.id', '=', $project_id)
+                  ->where('modules.labeled',true);
         })
         ->orderBy('modules.name')
         ->get();
