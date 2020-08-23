@@ -31,4 +31,15 @@ class Module extends Model
         return $this->hasMany('App\Models\Resource')
                     ->orderBy('name');
     }
+
+    /**
+     * Local relationships
+     */
+
+    public function children() {
+        return $this->hasMany('App\Models\Module','parent_id')->with(['children','resources']);
+    }
+    public function parent() {
+        return $this->belongsTo('App\Models\Module','parent_id');
+    }
 }
