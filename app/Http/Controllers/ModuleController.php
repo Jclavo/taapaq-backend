@@ -135,30 +135,79 @@ class ModuleController extends BaseController
      */
     public function byUser(){
 
-        $query = Module::query();
+        Auth::user()->load(['company_project']);
+        $project_id = Auth::user()->company_project->project_id;
 
-        $query->select('modules.id', 'modules.name', 'modules.url')
-            ->join('resources','modules.id','=','resources.module_id')
-            ->join('permissions', function ($join){
-                $join->on('resources.id', '=', 'permissions.resource_id')
-                    ->where('permissions.name', 'like', '%/show%');
-            })
-            ->join('role_has_permissions','permissions.id','=','role_has_permissions.permission_id')
-            ->join('roles','role_has_permissions.role_id','=','roles.id')
-            ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
-            ->join('users','model_has_roles.model_id','=','users.id')
-            ->where('users.id','=', Auth::user()->id)
-            ->where('modules.visibled', 1);
+        $modules = Module::with(['children'])->whereHas('project', function ($query) use($project_id) {
+            $query->where('projects.id', '=', $project_id)
+                  ->whereNull('modules.parent_id');
+        })
+        ->orderBy('modules.name')
+        ->get();
 
-        // $query->when((!Auth::user()->isSuper()), function ($q) {
-        //     return $q->where('modules.visibled', 1);
-        // });
-    
-        $resources = $query->distinct()
-                            ->orderBy('modules.name')
-                            ->get();
+        $newModules = $this->filterModuleByUserPermission($modules->toArray(),Auth::user()->id);
 
-        return $this->sendResponse($resources->toArray(), 'Module - Resources by User retrieved successfully.');
+        return $this->sendResponse($newModules, 'Modules retrieved successfully.');
+
+    }
+
+
+    /**
+     * Return Modules where the user has permissions 
+     */
+
+    public function filterModuleByUserPermission($modules, $user_id){
+
+        $newModules = array();
+        foreach ($modules as $module) {
+
+            $moduleWithPermissions = false;
+
+            if($module['labeled']){
+                if(count($module['children']) > 0){
+                    $subModules = $this->filterModuleByUserPermission($module['children'],$user_id);
+                    if(count($subModules) > 0){
+                        $module['children'] = $subModules;
+                        $moduleWithPermissions = true;
+                    }
+                }
+            }else{
+                $queryPermission = $this->moduleByUserPermission($module['id'],$user_id);
+
+                if(!$queryPermission->isEmpty()){
+                    $moduleWithPermissions = true;
+                }
+            }
+
+            if($moduleWithPermissions){
+                unset($module['resources']);
+                array_push($newModules,(object) $module);
+            }
+            
+        }
+
+        return $newModules;
+
+    }
+
+
+    /**
+     * Check if the user has permission in that specific module
+     */
+
+    public function moduleByUserPermission($module_id,$user_id){
+
+        return Module::select('modules.id', 'modules.name', 'modules.url', 'modules.labeled' )
+                    ->join('resources','modules.id','=','resources.module_id')
+                    ->join('permissions','resources.id','=','permissions.resource_id')
+                    ->join('role_has_permissions','permissions.id','=','role_has_permissions.permission_id')
+                    ->join('roles','role_has_permissions.role_id','=','roles.id')
+                    ->join('model_has_roles','roles.id','=','model_has_roles.role_id')
+                    ->join('users','model_has_roles.model_id','=','users.id')
+                    ->where('users.id','=', $user_id)
+                    ->where('modules.id', $module_id)
+                    ->where('modules.visibled', 1)
+                    ->get();
     }
 
     /**
