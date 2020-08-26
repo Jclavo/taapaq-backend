@@ -22,6 +22,8 @@ php artisan make:migration add_votes_to_users_table --table=users
 $table->renameColumn('quantity', 'stock');
 $table->string('description')->nullable(true)->change();
 
+php artisan migrate:rollback
+
 
 - CREATE CONTROLLER (& resource)
 
