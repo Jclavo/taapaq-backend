@@ -75,6 +75,9 @@ Route::middleware(['auth:api'])->group(function () {
 
     //Company
     Route::resource('countries', 'CountryController');
+
+    //Language
+    Route::resource('languages', 'LanguageController');
 });
 
 
