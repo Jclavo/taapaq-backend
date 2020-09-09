@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'UserController@login');
 
+//Language
+Route::resource('languages', 'LanguageController');
+
 Route::middleware(['auth:api'])->group(function () {
 
     //Users
@@ -76,8 +79,6 @@ Route::middleware(['auth:api'])->group(function () {
     //Company
     Route::resource('countries', 'CountryController');
 
-    //Language
-    Route::resource('languages', 'LanguageController');
 });
 
 
