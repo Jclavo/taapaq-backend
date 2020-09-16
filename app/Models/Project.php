@@ -46,4 +46,14 @@ class Project extends Model
         return $this->hasMany('Spatie\Permission\Models\Role')
                     ->orderBy('name');
     }
+
+
+    /**
+     * Get the models for the project
+     */
+    public function system_models()
+    {
+        return $this->hasMany('App\Models\SystemModel')
+                    ->orderBy('name');
+    }
 }
