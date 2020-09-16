@@ -110,4 +110,24 @@ class SystemModelController extends BaseController
         return $this->sendResponse($systemModel->toArray(), 'Model deleted successfully.');
     }
 
+
+    /**
+     * Get Models by Project
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function modelsByProject(int $project_id){
+
+        $models = SystemModel::whereHas('project', function ($query) use($project_id) {
+            $query->where('projects.id', '=', $project_id);
+        })
+        ->get();
+
+        return $this->sendResponse($models->toArray(), 'Models retrieved successfully.');
+    }
+
+
+
+
+
 }

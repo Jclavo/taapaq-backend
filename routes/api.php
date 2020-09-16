@@ -80,6 +80,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('countries', 'CountryController');
 
     //Models
+    Route::get('models/projects/{project_id}', 'SystemModelController@modelsByProject');
     Route::resource('models', 'SystemModelController');
 
 });
