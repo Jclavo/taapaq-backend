@@ -79,6 +79,9 @@ Route::middleware(['auth:api'])->group(function () {
     //Company
     Route::resource('countries', 'CountryController');
 
+    //Models
+    Route::resource('models', 'SystemModelController');
+
 });
 
 

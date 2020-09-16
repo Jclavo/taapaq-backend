@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\SystemModel;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule; 
+use Illuminate\Support\Facades\Auth;
 
-class SystemModelController extends Controller
+class SystemModelController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +40,25 @@ class SystemModelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required|exists:projects,id',
+            'name' => ['required','max:45', 
+                        Rule::unique('system_models')->where(function($query) use($request) {
+                            $query->where('project_id', '=', $request->project_id);
+                        })],
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $systemModel = new SystemModel();
+        $systemModel->name = $request->name;
+
+        $project = Project::findOrFail($request->project_id);
+        $project->system_models()->save($systemModel);
+
+        return $this->sendResponse($systemModel->toArray(), 'Model created successfully.'); 
     }
 
     /**
@@ -78,8 +101,13 @@ class SystemModelController extends Controller
      * @param  \App\Models\SystemModel  $systemModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SystemModel $systemModel)
+    public function destroy(int $id)
     {
-        //
+        $systemModel = SystemModel::findOrFail($id);
+
+        $systemModel->delete();
+
+        return $this->sendResponse($systemModel->toArray(), 'Model deleted successfully.');
     }
+
 }
