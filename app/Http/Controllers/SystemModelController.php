@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class SystemModelController extends BaseController
 {
+    function __construct()
+    {
+        $this->middleware('permission_in_role:models/read', ['only' => ['modelsByProject']]);
+        $this->middleware('permission_in_role:models/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:models/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:models/delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +26,6 @@ class SystemModelController extends BaseController
      */
     public function index()
     {
-        //
     }
 
     /**
