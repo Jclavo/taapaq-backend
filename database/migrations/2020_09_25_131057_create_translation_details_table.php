@@ -16,9 +16,9 @@ class CreateTranslationDetailsTable extends Migration
         Schema::create('translation_details', function (Blueprint $table) {
             $table->id();
             $table->string('value');
-            $table->string('locale',5)->unique();
+            $table->string('locale',5);
 
-            $table->unsignedBigInteger('translation_id')->unique();
+            $table->unsignedBigInteger('translation_id');
             $table->foreign('translation_id')->references('id')->on('translations')->onDelete('cascade');
 
             // $table->unique( array('email','name') );
