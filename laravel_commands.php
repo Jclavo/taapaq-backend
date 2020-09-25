@@ -49,6 +49,8 @@ php artisan make:seeder UsersTableSeeder
 
 php artisan db:seed --class=UserTableSeeder
 
+php artisan migrate --seed
+
 - CREATE TEST
 
 php artisan make:test UserTest --unit
