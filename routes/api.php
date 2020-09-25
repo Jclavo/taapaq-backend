@@ -83,6 +83,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('models/projects/{project_id}', 'SystemModelController@modelsByProject');
     Route::resource('models', 'SystemModelController');
 
+    // Translations
+     Route::get('translations/models/{model_id}', 'TranslationController@translationsByModel');
+     Route::resource('translations', 'TranslationController');
 });
 
 

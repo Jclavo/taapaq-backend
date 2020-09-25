@@ -18,4 +18,13 @@ class SystemModel extends Model
     {
         return $this->belongsTo('App\Models\Project');
     }
+
+    /**
+     * Get the translation for the model
+     */
+    public function translations()
+    {
+        return $this->hasMany('App\Models\Translation', 'model_id')
+                    ->orderBy('name');
+    }
 }
