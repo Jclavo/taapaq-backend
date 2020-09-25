@@ -19,6 +19,7 @@ class CreateCountriesTable extends Migration
             $table->string('name',45);
             $table->string('timezone',45);
             $table->string('currency',3);
+            $table->string('locale',5);
             $table->timestamps();
         });
     }
