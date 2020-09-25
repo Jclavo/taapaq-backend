@@ -17,6 +17,7 @@ class CreateModulesTable extends Migration
             $table->id();
             $table->string('name',45);
             $table->string('url',500)->nullable();
+            $table->boolean('visibled')->default(true);
             $table->timestamps();
         });
     }
