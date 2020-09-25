@@ -13,12 +13,8 @@ class AddLocalesToCountriesTable extends Migration
      */
     public function up()
     {
-        // Schema::table('countries', function (Blueprint $table) {
-        //     $table->string('locale')->nullable();
-        // });
-
         Schema::table('countries', function (Blueprint $table) {
-            $table->foreign('locale')->references('locale')->on('languages')->onDelete('cascade');
+            $table->foreign('locale')->references('code')->on('locales')->onDelete('cascade');
         });
     }
 
