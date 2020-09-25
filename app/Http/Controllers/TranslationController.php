@@ -115,12 +115,27 @@ class TranslationController extends BaseController
      */
     public function translationsByModel(int $model_id){
 
-        $models = Translation::whereHas('model', function ($query) use($model_id) {
+        $translations = Translation::whereHas('model', function ($query) use($model_id) {
             $query->where('system_models.id', '=', $model_id);
         })
         ->get();
 
-        return $this->sendResponse($models->toArray(), 'Translations retrieved successfully.');
+        return $this->sendResponse($translations->toArray(), 'Translations retrieved successfully.');
+    }
+
+         /**
+     * Get Translation by Model
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function translationsByProject(int $project_id){
+
+        $translations = Translation::whereHas('model.project', function ($query) use($project_id) {
+            $query->where('projects.id', '=', $project_id);
+        })
+        ->get();
+
+        return $this->sendResponse($translations->toArray(), 'Translations retrieved successfully.');
     }
 
 

@@ -84,8 +84,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('models', 'SystemModelController');
 
     // Translations
-     Route::get('translations/models/{model_id}', 'TranslationController@translationsByModel');
-     Route::resource('translations', 'TranslationController');
+    Route::get('translations/models/{model_id}', 'TranslationController@translationsByModel');
+    Route::get('translations/models/projects/{project_id}', 'TranslationController@translationsByProject');
+    Route::resource('translations', 'TranslationController');
 
     // Translations
     Route::get('translation-details/translations/{translation_id}', 'TranslationDetailController@detailsByTranslation');
