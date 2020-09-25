@@ -18,4 +18,13 @@ class Translation extends Model
     {
         return $this->belongsTo('App\Models\SystemModel');
     }
+
+    /**
+     * Get the details for the translation
+     */
+    public function details()
+    {
+        return $this->hasMany('App\Models\TranslationDetail')
+                    ->orderBy('name');
+    }
 }
