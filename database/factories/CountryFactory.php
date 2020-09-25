@@ -11,5 +11,6 @@ $factory->define(Country::class, function (Faker $faker) {
         'name' => $faker->name,
         'timezone' => 'UTC',
         'currency' => $faker->currencyCode,
+        'locale' => $faker->languageCode
     ];
 });
