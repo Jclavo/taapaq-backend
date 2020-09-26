@@ -118,6 +118,7 @@ class TranslationController extends BaseController
         $translations = Translation::whereHas('model', function ($query) use($model_id) {
             $query->where('system_models.id', '=', $model_id);
         })
+        ->with('details')
         ->get();
 
         return $this->sendResponse($translations->toArray(), 'Translations retrieved successfully.');
@@ -130,9 +131,10 @@ class TranslationController extends BaseController
      */
     public function translationsByProject(int $project_id){
 
-        $translations = Translation::whereHas('model.project', function ($query) use($project_id) {
-            $query->where('projects.id', '=', $project_id);
+        $translations = Translation::whereHas('model', function ($query) use($project_id) {
+            $query->where('system_models.project_id', '=', $project_id);
         })
+        ->with('details')
         ->get();
 
         return $this->sendResponse($translations->toArray(), 'Translations retrieved successfully.');
