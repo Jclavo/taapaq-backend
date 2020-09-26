@@ -24,7 +24,6 @@ class Translation extends Model
      */
     public function details()
     {
-        return $this->hasMany('App\Models\TranslationDetail')
-                    ->orderBy('name');
+        return $this->hasMany('App\Models\TranslationDetail');
     }
 }
