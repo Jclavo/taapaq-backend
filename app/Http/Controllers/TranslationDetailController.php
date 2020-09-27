@@ -41,7 +41,10 @@ class TranslationDetailController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'translation_id' => 'required|exists:translations,id',
-            'locale' => 'required|exists:locales,code',
+            'locale' => ['required','exists:locales,code', 
+                        Rule::unique('translation_details')->where(function($query) use($request) {
+                            $query->where('translation_id', '=', $request->translation_id);
+                      })],
             'value' => ['required','max:45', 
                         Rule::unique('translation_details')->where(function($query) use($request) {
                             $query->where('translation_id', '=', $request->translation_id)
