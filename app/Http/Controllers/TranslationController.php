@@ -7,6 +7,7 @@ use App\Models\SystemModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule; 
 
 class TranslationController extends BaseController
 {
@@ -40,8 +41,12 @@ class TranslationController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'model_id' => 'required|exists:system_models,id',
-            'key' => 'required',
-            'translationable_id' => 'nullable|gt:0'
+            'translationable_id' => 'nullable|gt:0',
+            'key' => ['required','max:45', 
+                        Rule::unique('translations')->where(function($query) use($request) {
+                            $query->where('translationable_id', '=', $request->translationable_id)
+                                  ->where('model_id', '=', $request->model_id);
+                      })],
         ]);
 
         if ($validator->fails()) {
