@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Locale;
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController;
 
-class LocaleController extends Controller
+class LocaleController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,9 @@ class LocaleController extends Controller
      */
     public function index()
     {
-        //
+        $locales = Locale::orderBy('language')->get();
+            
+        return $this->sendResponse($locales->toArray(), 'Locales retrieved successfully.');
     }
 
     /**

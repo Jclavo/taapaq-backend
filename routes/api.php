@@ -91,6 +91,9 @@ Route::middleware(['auth:api'])->group(function () {
     // Translations
     Route::get('translation-details/translations/{translation_id}', 'TranslationDetailController@detailsByTranslation');
     Route::resource('translation-details', 'TranslationDetailController');
+
+    // Locales
+    Route::resource('locales', 'LocaleController');
 });
 
 
