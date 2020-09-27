@@ -7,6 +7,7 @@ use App\Models\TranslationDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule; 
 
 class TranslationDetailController extends BaseController
 {
@@ -40,8 +41,12 @@ class TranslationDetailController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'translation_id' => 'required|exists:translations,id',
-            'value' => 'required',
             'locale' => 'required|exists:locales,code',
+            'value' => ['required','max:45', 
+                        Rule::unique('translation_details')->where(function($query) use($request) {
+                            $query->where('translation_id', '=', $request->translation_id)
+                                  ->where('locale', '=', $request->locale);
+                      })],
         ]);
 
         if ($validator->fails()) {
