@@ -6,7 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class SystemModel extends Model
 {
-    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name','project_id'
+    ];
+
     /**
      * RELATIONSHIPS
      */
