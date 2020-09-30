@@ -131,4 +131,42 @@ class TranslationDetailController extends BaseController
 
         return $this->sendResponse($models->toArray(), 'Translation details retrieved successfully.');
     }
+
+
+    /**
+     * Get Translation
+     */
+
+    public function getTranslation(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'key' => 'required|max:45',
+            'translationable_id' => 'nullable|gt:0',
+            'model_id' => 'required|exists:system_models,id',
+            'locale' => 'required|exists:locales,code'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $translation = TranslationDetail::whereHas('translation', function ($query) use($request) {
+
+            $query->where('translations.key', strtolower($request->key));
+
+            $query->when((!empty($request->translationable_id)), function ($q) use($request) {
+                return $q->where('translations.translationable_id', $request->translationable_id);
+            });
+            
+            $query->where('translations.model_id', $request->model_id)
+                  ->where('translation_details.locale', $request->locale);
+
+        })
+        ->limit(1)
+        ->get();
+
+
+        return $this->sendResponse($translation->toArray(), 'Translation retrieved successfully.');
+
+     }
 }
