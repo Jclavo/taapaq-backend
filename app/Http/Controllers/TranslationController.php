@@ -41,7 +41,7 @@ class TranslationController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'model_id' => 'required|exists:system_models,id',
-            'translationable_id' => 'nullable|gt:0',
+            'translationable_id' => 'nullable|gte:0',
             'key' => ['required','max:45', 
                         Rule::unique('translations')->where(function($query) use($request) {
                             $query->where('translationable_id', '=', $request->translationable_id)
@@ -54,7 +54,7 @@ class TranslationController extends BaseController
         }
 
         $translation = new Translation();
-        $translation->key = $request->key;
+        $translation->key = strtolower($request->key);
         $translation->translationable_id = $request->translationable_id;
 
         $model = SystemModel::findOrFail($request->model_id);
