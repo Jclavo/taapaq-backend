@@ -172,6 +172,12 @@ class UserController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
+        //Decrypt password
+        $p = base64_decode($request->password);
+        $input = $request->all();
+        $input['password'] = base64_decode($input['password']);
+        $request->replace($input);
+
         $credentials = $request->only('login', 'password');
 
         if (!Auth::attempt($credentials)) {
