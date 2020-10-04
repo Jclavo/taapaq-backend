@@ -22,10 +22,10 @@ class UserController extends BaseController
     {
         $this->middleware('permission_in_role:users/read', ['except' => ['login','logout']]);
         $this->middleware('permission_in_role:users/create', ['only' => ['store']]);
-        $this->middleware('permission_in_role:users/update', ['only' => ['update']]);
+        
         $this->middleware('permission_in_role:users/delete', ['only' => ['destroy']]);
-        $this->middleware('permission_in_role:users/assign-role', ['only' => ['assignRole']]);
-        $this->middleware('permission_in_role:users/remove-role', ['only' => ['removeRole']]);
+        $this->middleware('permission_in_role:users/assign-role', ['only' => ['assignRole', 'assignMassiveRole']]);
+        $this->middleware('permission_in_role:users/remove-role', ['only' => ['removeRole', 'assignMassiveRole']]);
         $this->middleware('permission_in_role:users/activated-status', ['only' => ['changeActivatedStatus']]);
     }
 
@@ -133,7 +133,7 @@ class UserController extends BaseController
         $user->login = $userDetails->identification . $user->company_project_id;
         //Update password if it has a value
         if(!empty($request->password)){
-            $user->password = bcrypt($request->password);
+            $user->password = bcrypt(base64_decode($request->password));
         }
         $user->save();
 
