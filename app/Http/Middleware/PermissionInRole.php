@@ -20,6 +20,28 @@ class PermissionInRole
             throw UnauthorizedException::notLoggedIn();
         }
 
+        //Add some routes exception for user
+        $listExceptions = array('/users/','/user-details/');
+       
+        $route = $request->getRequestUri();
+        $method = $request->method();
+        foreach($listExceptions as $exception){
+            if(strpos($route,$exception) !== false){
+                switch ($method) {
+                    case "PUT":
+                        $userID = basename($route); //get the last value from url
+                        if($userID == app('auth')->user()->id){
+                            return $next($request);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            break;
+            }   
+        }
+
+        //Logic to validate permissions
         $permissions = is_array($permission)
             ? $permission
             : explode('|', $permission);
