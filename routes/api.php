@@ -95,6 +95,9 @@ Route::middleware(['auth:api'])->group(function () {
 
     // Locales
     Route::resource('locales', 'LocaleController');
+
+    // Images
+    Route::resource('images', 'ImageController');
 });
 
 
