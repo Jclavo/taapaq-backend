@@ -45,7 +45,7 @@ class TranslationDetailController extends BaseController
                         Rule::unique('translation_details')->where(function($query) use($request) {
                             $query->where('translation_id', '=', $request->translation_id);
                       })],
-            'value' => ['required','max:45', 
+            'value' => ['required','max:200', 
                         Rule::unique('translation_details')->where(function($query) use($request) {
                             $query->where('translation_id', '=', $request->translation_id)
                                   ->where('locale', '=', $request->locale);
