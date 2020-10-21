@@ -123,6 +123,20 @@ class TranslationSeeder extends Seeder
                                     (object) array('value' => 'El formato del telefono no esta correcto com el formate del pais de su empresa.', 'locale' => 'es'),
                                     (object) array('value' => 'O formato do telefone não está certo acorde o pais de sua empresa.', 'locale' => 'pt')]
                             ),
+
+             //ORDER SECTION
+            (object) array('key' => 'order.change-stage-canceled', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'To cancel the order, please use the another feature.', 'locale' => 'en'),
+                    (object) array('value' => 'Para cancelar el pedido, por favor usa otra opción.', 'locale' => 'es'),
+                    (object) array('value' => 'Para cancelar o pedido, por favor usa outra opção.', 'locale' => 'pt')]
+            ),
+            (object) array('key' => 'order.already-canceled', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'There is not possible to change the stage, because the order is canceled.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible cambiar el estado porque el pedido ya fue cancelado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel mudar o estado porque o pedido já foi cancelado.', 'locale' => 'pt')]
+            ),
         ];
 
 
