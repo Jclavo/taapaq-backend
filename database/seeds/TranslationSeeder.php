@@ -133,9 +133,15 @@ class TranslationSeeder extends Seeder
             ),
             (object) array('key' => 'order.already-canceled', 'translationable_id' => '',
             'details' => [
-                    (object) array('value' => 'There is not possible to change the stage, because the order is canceled.', 'locale' => 'en'),
-                    (object) array('value' => 'No es posible cambiar el estado porque el pedido ya fue cancelado.', 'locale' => 'es'),
-                    (object) array('value' => 'Não é possivel mudar o estado porque o pedido já foi cancelado.', 'locale' => 'pt')]
+                    (object) array('value' => 'There is not possible to finish the action requested, because the order wis canceled.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el pedido está cancelado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o pedido está cancelado.', 'locale' => 'pt')]
+            ),
+            (object) array('key' => 'order.already-delivered', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'There is not possible to finish the action requested, because the order was already delivered.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el pedido ya fue entregado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o pedido já foi entregado.', 'locale' => 'pt')]
             ),
         ];
 
