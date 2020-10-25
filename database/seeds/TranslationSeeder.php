@@ -54,8 +54,14 @@ class TranslationSeeder extends Seeder
                                     (object) array('value' => 'Records retrieved successfully.', 'locale' => 'en'),
                                     (object) array('value' => 'Registro obtenidos con exito.', 'locale' => 'es'),
                                     (object) array('value' => 'Registros retornados com éxito.', 'locale' => 'pt')]
-                            ),   
-            
+                            ),
+            (object) array('key' => 'crud.update-date', 'translationable_id' => '',
+                'details' => [
+                        (object) array('value' => 'The date was updated.', 'locale' => 'en'),
+                        (object) array('value' => 'A fecha fue actualizada.', 'locale' => 'es'),
+                        (object) array('value' => 'A data foi atualizada.', 'locale' => 'pt')]
+             ),   
+
             //INVOICE SECTION
             (object) array('key' => 'invoice.total-negative', 'translationable_id' => '',
                             'details' => [
@@ -131,39 +137,64 @@ class TranslationSeeder extends Seeder
                     (object) array('value' => 'Para cancelar el pedido, por favor usa otra opción.', 'locale' => 'es'),
                     (object) array('value' => 'Para cancelar o pedido, por favor usa outra opção.', 'locale' => 'pt')]
             ),
-            (object) array('key' => 'order.already-canceled', 'translationable_id' => '',
+
+            //STAGES SECTION
+            (object) array('key' => 'stage.already-canceled', 'translationable_id' => '',
             'details' => [
-                    (object) array('value' => 'There is not possible to finish the action requested, because the order wis canceled.', 'locale' => 'en'),
-                    (object) array('value' => 'No es posible concluir la acción solicitada porque el pedido está cancelado.', 'locale' => 'es'),
-                    (object) array('value' => 'Não é possivel concluir a ação porque o pedido está cancelado.', 'locale' => 'pt')]
+                    (object) array('value' => 'There is not possible to finish the action requested, because the record was canceled.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue cancelado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi cancelado.', 'locale' => 'pt')]
             ),
-            (object) array('key' => 'order.already-delivered', 'translationable_id' => '',
+            (object) array('key' => 'stage.already-delivered', 'translationable_id' => '',
             'details' => [
-                    (object) array('value' => 'There is not possible to finish the action requested, because the order was already delivered.', 'locale' => 'en'),
-                    (object) array('value' => 'No es posible concluir la acción solicitada porque el pedido ya fue entregado.', 'locale' => 'es'),
-                    (object) array('value' => 'Não é possivel concluir a ação porque o pedido já foi entregado.', 'locale' => 'pt')]
+                    (object) array('value' => 'There is not possible to finish the action requested, because the record was delivered.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue entregado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi entregado.', 'locale' => 'pt')]
+            ),
+            (object) array('key' => 'stage.already-paid', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'There is not possible to finish the action requested, because the record was paid.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue pagado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi pagado.', 'locale' => 'pt')]
             ),
         ];
 
 
         //EXECUTE
 
-        $newModel = factory(SystemModel::class)->create(['name' => 'SYSTEM',
+        // $newModel = factory(SystemModel::class)->updateOrCreate(['name' => 'SYSTEM',
+        //                                                  'project_id' => $this->project_id ]);
+
+        // foreach ($this->translations as $translation) {
+
+        //     $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;
+
+        //     $newTranslation = factory(Translation::class)->create(['key' => $translation->key,
+        //                                                            'translationable_id' => $translation->translationable_id,
+        //                                                            'model_id' => $newModel->id,
+        //                                                           ]);
+        //     foreach ($translation->details as $detail) {
+        //         $newTranslation->details()->save(
+        //             factory(TranslationDetail::class)->make(['value' => $detail->value,
+        //                                                      'locale' => $detail->locale])
+        //         );
+        //     } 
+        // }
+
+        $newModel = SystemModel::updateOrCreate(['name' => 'SYSTEM',
                                                          'project_id' => $this->project_id ]);
 
         foreach ($this->translations as $translation) {
 
             $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;
 
-            $newTranslation = factory(Translation::class)->create(['key' => $translation->key,
-                                                                   'translationable_id' => $translation->translationable_id,
-                                                                   'model_id' => $newModel->id,
-                                                                  ]);
+            $newTranslation = Translation::updateOrCreate(['key' => $translation->key,
+                                                           'translationable_id' => $translation->translationable_id,
+                                                           'model_id' => $newModel->id,
+                                                          ]);
             foreach ($translation->details as $detail) {
-                $newTranslation->details()->save(
-                    factory(TranslationDetail::class)->make(['value' => $detail->value,
-                                                             'locale' => $detail->locale])
-                );
+                    TranslationDetail::updateOrCreate(['translation_id' => $newTranslation->id, 'locale' => $detail->locale],
+                                                        ['value' => $detail->value,]);
             } 
         }
 
