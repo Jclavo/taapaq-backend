@@ -11,6 +11,7 @@ $factory->define(Country::class, function (Faker $faker) {
         'name' => $faker->name,
         'timezone' => 'UTC',
         'currency' => $faker->currencyCode,
-        'locale' => $faker->languageCode
+        'locale' => $faker->languageCode,
+        'tax' => $faker->unique()->randomNumber($nbDigits = 2, $strict = true),
     ];
 });

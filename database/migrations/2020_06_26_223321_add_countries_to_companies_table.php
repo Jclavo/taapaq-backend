@@ -14,8 +14,8 @@ class AddCountriesToCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->unsignedBigInteger('country_id')->nullable(true);
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->string('country_code',3);
+            $table->foreign('country_code')->references('code')->on('countries')->onDelete('cascade');
         });
     }
 
