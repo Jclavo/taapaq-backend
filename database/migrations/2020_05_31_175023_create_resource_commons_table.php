@@ -15,7 +15,7 @@ class CreateResourceCommonsTable extends Migration
     {
         Schema::create('resource_commons', function (Blueprint $table) {
             $table->id();
-            $table->string('name',45);
+            $table->string('name',45)->unique();
             $table->timestamps();
         });
     }

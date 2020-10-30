@@ -22,7 +22,7 @@ class ResourceCommonSeeder extends Seeder
         ];
 
         foreach ($resources as $resource) {
-            factory(ResourceCommon::class)->create(['name' => $resource]);
+             ResourceCommon::updateOrCreate(['name' => $resource]);
         }
     }
 }
