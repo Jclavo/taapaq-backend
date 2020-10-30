@@ -16,17 +16,6 @@ class ProjectSeeder extends Seeder
     {
         $project = 'Taapaq';
         $newProject = ProjectUtil::createSuperProjectAndIts($project);
-
-        // $projects = [
-        //     'Store',
-        //     'Map',
-        //     'Corso'
-        // ];
-
-        // foreach ($projects as $project) {
-        //     ProjectUtil::createProjectAndIts($project);
-        // }
-
     }
 
 }
