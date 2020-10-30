@@ -19,7 +19,10 @@ class CreateCountriesTable extends Migration
             $table->string('name',45);
             $table->string('timezone',45);
             $table->string('currency',3);
+            //FK for locales
             $table->string('locale',5);
+            $table->foreign('locale')->references('code')->on('locales');
+
             $table->timestamps();
         });
     }
