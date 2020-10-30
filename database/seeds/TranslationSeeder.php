@@ -60,7 +60,39 @@ class TranslationSeeder extends Seeder
                         (object) array('value' => 'The date was updated.', 'locale' => 'en'),
                         (object) array('value' => 'A fecha fue actualizada.', 'locale' => 'es'),
                         (object) array('value' => 'A data foi atualizada.', 'locale' => 'pt')]
+             ),
+             (object) array('key' => 'crud.annulled', 'translationable_id' => '',
+                'details' => [
+                        (object) array('value' => 'The record was annulled.', 'locale' => 'en'),
+                        (object) array('value' => 'El registro fue anulado.', 'locale' => 'es'),
+                        (object) array('value' => 'O registro foi anulado.', 'locale' => 'pt')]
              ),   
+
+                         //STAGES SECTION
+            (object) array('key' => 'stage.already-canceled', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'There is not possible to finish the action requested, because the record was canceled.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue cancelado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi cancelado.', 'locale' => 'pt')]
+            ),
+            (object) array('key' => 'stage.already-delivered', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'There is not possible to finish the action requested, because the record was delivered.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue entregado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi entregado.', 'locale' => 'pt')]
+            ),
+            (object) array('key' => 'stage.already-paid', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'There is not possible to finish the action requested, because the record was paid.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue pagado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi pagado.', 'locale' => 'pt')]
+            ),
+            (object) array('key' => 'stage.already-annulled', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'There is not possible to finish the action requested, because the record was annulled.', 'locale' => 'en'),
+                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue anulado.', 'locale' => 'es'),
+                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi anulado.', 'locale' => 'pt')]
+            ),
 
             //INVOICE SECTION
             (object) array('key' => 'invoice.total-negative', 'translationable_id' => '',
@@ -138,25 +170,8 @@ class TranslationSeeder extends Seeder
                     (object) array('value' => 'Para cancelar o pedido, por favor usa outra opção.', 'locale' => 'pt')]
             ),
 
-            //STAGES SECTION
-            (object) array('key' => 'stage.already-canceled', 'translationable_id' => '',
-            'details' => [
-                    (object) array('value' => 'There is not possible to finish the action requested, because the record was canceled.', 'locale' => 'en'),
-                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue cancelado.', 'locale' => 'es'),
-                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi cancelado.', 'locale' => 'pt')]
-            ),
-            (object) array('key' => 'stage.already-delivered', 'translationable_id' => '',
-            'details' => [
-                    (object) array('value' => 'There is not possible to finish the action requested, because the record was delivered.', 'locale' => 'en'),
-                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue entregado.', 'locale' => 'es'),
-                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi entregado.', 'locale' => 'pt')]
-            ),
-            (object) array('key' => 'stage.already-paid', 'translationable_id' => '',
-            'details' => [
-                    (object) array('value' => 'There is not possible to finish the action requested, because the record was paid.', 'locale' => 'en'),
-                    (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue pagado.', 'locale' => 'es'),
-                    (object) array('value' => 'Não é possivel concluir a ação porque o registro foi pagado.', 'locale' => 'pt')]
-            ),
+
+
         ];
 
 
