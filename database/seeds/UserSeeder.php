@@ -5,7 +5,7 @@ use App\Models\User;
 
 use App\Utils\UserUtil;
 
-class UsersTableSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
