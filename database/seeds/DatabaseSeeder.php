@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             LocaleSeeder::class,
             CountrySeeder::class,
             ResourceCommonSeeder::class,
-            UserDetailSeeder::class,
+            UniversalPersonSeeder::class,
             ProjectSeeder::class,
             CompanySeeder::class,
         ]);

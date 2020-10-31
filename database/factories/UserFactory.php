@@ -4,7 +4,7 @@
 
 use App\Models\User;
 use App\Models\CompanyProject;
-use App\Models\UserDetail;
+use App\Models\UniversalPerson;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -28,6 +28,6 @@ $factory->define(User::class, function (Faker $faker) {
         // 'remember_token' => Str::random(10),
         'activated' => 1,
         'company_project_id' => CompanyProject::all()->random()->id,
-        'user_detail_id' => UserDetail::all()->random()->id,
+        'universal_person_id' => UniversalPerson::all()->random()->id,
     ];
 });

@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\UserDetail;
+use App\Models\UniversalPerson;
 use Faker\Generator as Faker;
 
-$factory->define(UserDetail::class, function (Faker $faker) {
+$factory->define(UniversalPerson::class, function (Faker $faker) {
     return [
         'identification' => $faker->unique()->randomNumber(8, $strict = true),
         'email' => $faker->unique()->email,

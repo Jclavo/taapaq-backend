@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserDetail;
+use App\Models\UniversalPerson;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
 
-class UserDetailController extends BaseController
+class UniversalPersonController extends BaseController
 {
     function __construct()
     {
@@ -26,7 +26,7 @@ class UserDetailController extends BaseController
      */
     public function index()
     {
-        $users = UserDetail::orderBy('name')->get();
+        $users = UniversalPerson::orderBy('name')->get();
             
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
     }
@@ -50,11 +50,11 @@ class UserDetailController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', 'unique:user_details'],
-            'email' => ['nullable','email','unique:user_details'],
+            'identification' => ['required', 'numeric', 'min:8', 'unique:universal_persons'],
+            'email' => ['nullable','email','unique:universal_persons'],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
-            'phone' => ['required', 'max:45','unique:user_details'],
+            'phone' => ['required', 'max:45','unique:universal_persons'],
             'address' => 'required|max:100'
         ]);
       
@@ -62,7 +62,7 @@ class UserDetailController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $user = new UserDetail();
+        $user = new UniversalPerson();
         
         $user->identification = $request->identification;
         $user->email = $request->email;
@@ -79,10 +79,10 @@ class UserDetailController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\UserDetail  $userDetail
+     * @param  \App\UniversalPerson  $UniversalPerson
      * @return \Illuminate\Http\Response
      */
-    public function show(UserDetail $userDetail)
+    public function show(UniversalPerson $UniversalPerson)
     {
         //
     }
@@ -90,10 +90,10 @@ class UserDetailController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\UserDetail  $userDetail
+     * @param  \App\UniversalPerson  $UniversalPerson
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserDetail $userDetail)
+    public function edit(UniversalPerson $UniversalPerson)
     {
         //
     }
@@ -102,17 +102,17 @@ class UserDetailController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserDetail  $userDetail
+     * @param  \App\UniversalPerson  $UniversalPerson
      * @return \Illuminate\Http\Response
      */
     public function update(int $id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', Rule::unique('user_details')->ignore($id)],
-            'email' => ['nullable','email',Rule::unique('user_details')->ignore($id)],
+            'identification' => ['required', 'numeric', 'min:8', Rule::unique('universal_persons')->ignore($id)],
+            'email' => ['nullable','email',Rule::unique('universal_persons')->ignore($id)],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
-            'phone' => ['required', 'max:45', Rule::unique('user_details')->ignore($id)],
+            'phone' => ['required', 'max:45', Rule::unique('universal_persons')->ignore($id)],
             'address' => 'required|max:100'
         ]);
       
@@ -120,7 +120,7 @@ class UserDetailController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $user = UserDetail::findOrFail($id);
+        $user = UniversalPerson::findOrFail($id);
         
         $user->identification = $request->identification;
         $user->email = $request->email;
@@ -137,10 +137,10 @@ class UserDetailController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\UserDetail  $userDetail
+     * @param  \App\UniversalPerson  $UniversalPerson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserDetail $userDetail)
+    public function destroy(UniversalPerson $UniversalPerson)
     {
         //
     }

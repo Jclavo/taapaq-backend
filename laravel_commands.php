@@ -6,6 +6,7 @@ composer create-project --prefer-dist laravel/laravel blog "5.8.*"
 
 - CREATE ALL
 php artisan make:model modelName -a
+php artisan make:model Models/modelName -a
 
 - CREATE MODEL (& migration)
 
@@ -22,8 +23,6 @@ php artisan make:migration add_votes_to_users_table --table=users
 $table->renameColumn('quantity', 'stock');
 $table->string('description')->nullable(true)->change();
 
-php artisan migrate:rollback
-
 
 - CREATE CONTROLLER (& resource)
 
@@ -39,7 +38,7 @@ php artisan make:factory PostFactory --model=Post
 
 php artisan tinker
 
-factory(App\User::class)->create();
+factory(App\Models\User::class)->create();
 
 - CREATE SEEDER
 
@@ -49,7 +48,9 @@ php artisan make:seeder UsersTableSeeder
 
 php artisan db:seed --class=UserTableSeeder
 
-php artisan migrate --seed
+- HACK TO RELOAD SEEDER
+
+composer dump-autoload
 
 - CREATE TEST
 
@@ -70,7 +71,13 @@ php artisan make:policy PostPolicy
 
 php artisan make:rule RuleName
 
+- GENERATE NEW KEY
+
+php artisan key:generate
+php artisan config:cache
 
 
 
 
+
+https://laravel.com/api/7.x/Illuminate/Database/Eloquent/Concerns/HasRelationships.html#method_morphMany

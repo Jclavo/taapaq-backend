@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserDetail;
+use App\Models\UniversalPerson;
 use App\Models\Company;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\BaseController;
@@ -60,7 +60,7 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_detail_id' => 'required|exists:user_details,id',
+            'universal_person_id' => 'required|exists:universal_persons,id',
             'company_id' => 'required|exists:companies,id',
             'project_id' => 'required|exists:projects,id'
         ]);
@@ -73,13 +73,13 @@ class UserController extends BaseController
         $company = Company::findOrFail($request->company_id);
         $company = $company->projects()->findOrFail($request->project_id);
 
-        $userDetails = UserDetail::findOrFail($request->user_detail_id);
+        $universalPerson = UniversalPerson::findOrFail($request->universal_person_id);
         
         $user = new User();
-        $user->login = $userDetails->identification . $company->pivot->id;
+        $user->login = $universalPerson->identification . $company->pivot->id;
         $user->password = Hash::make($user->login);
         $user->company_project_id = $company->pivot->id; //Assign company project ID
-        $user->user_detail_id = $userDetails->id;
+        $user->universal_person_id = $universalPerson->id;
         $user->save();
 
         return $this->sendResponse($user->toArray(), 'User created successfully.');  
@@ -93,7 +93,7 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = User::with(['user_detail','roles'])->findOrFail($id);
+        $user = User::with(['universal_person','roles'])->findOrFail($id);
                 
         return $this->sendResponse($user->toArray(), 'User retrieved successfully.');
     }
@@ -128,9 +128,9 @@ class UserController extends BaseController
         }
 
         $user = User::findOrFail($id);
-        $userDetails = UserDetail::findOrFail($user->user_detail_id);
+        $universalPerson = UniversalPerson::findOrFail($user->universal_person_id);
         
-        $user->login = $userDetails->identification . $user->company_project_id;
+        $user->login = $universalPerson->identification . $user->company_project_id;
         //Update password if it has a value
         if(!empty($request->password)){
             $user->password = bcrypt(base64_decode($request->password));
@@ -193,7 +193,7 @@ class UserController extends BaseController
         Auth::user()->api_token = Str::random(80);
         Auth::user()->save();
 
-        Auth::user()->load(['company_project','user_detail','company.country']);
+        Auth::user()->load(['company_project','universal_person','company.country']);
         
         if (Auth::user()->isSuper()) {
             Auth::user()->isSuper = 1;
@@ -299,7 +299,7 @@ class UserController extends BaseController
         $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
             $query->where('company_project.company_id', '=', $company_id)
                   ->where('company_project.project_id', '=', $project_id);
-        })->with(['roles','user_detail'])
+        })->with(['roles','universal_person'])
         ->orderBy('users.login')
         ->get();
 
@@ -355,14 +355,14 @@ class UserController extends BaseController
         // $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
         //     $query->where('company_project.company_id', '=', $company_id)
         //           ->where('company_project.project_id', '=', $project_id);
-        // })->with(['roles','user_detail'])
+        // })->with(['roles','universal_person'])
         // ->orderBy('users.login')
         // ->get();
 
 
        // SearchOptions values
         $pageSize      = PaginationUtils::getPageSize($request->pageSize);
-        $sortColumn    = PaginationUtils::getSortColumn($request->sortColumn,'user_details');
+        $sortColumn    = PaginationUtils::getSortColumn($request->sortColumn,'universal_persons');
         $sortDirection = PaginationUtils::getSortDirection($request->sortDirection);
         $searchValue   = $request->searchValue;
         //custom fields from User
@@ -371,7 +371,7 @@ class UserController extends BaseController
 
 
         $query = User::query();
-        $query->with(['user_detail','company','roles']);
+        $query->with(['universal_person','company','roles']);
 
         $query->whereHas('company_project', function ($query) use($company_id){
                 $query->when($company_id > 0, function ($query) use($company_id) {
@@ -385,13 +385,13 @@ class UserController extends BaseController
             });
         });  
 
-        $query->whereHas('user_detail', function ($query) use ($searchValue,$sortColumn, $sortDirection) {
-            $query->where('user_details.identification', 'like', '%'. $searchValue .'%')
-                  ->orwhere('user_details.name', 'like', '%'. $searchValue .'%')
-                  ->orwhere('user_details.lastname', 'like', '%'. $searchValue .'%')
-                  ->orWhere('user_details.email', 'like', '%'. $searchValue .'%')
-                  ->orWhere('user_details.phone', 'like', '%'. $searchValue .'%')
-                  ->orWhere('user_details.address', 'like', '%'. $searchValue .'%');
+        $query->whereHas('universal_person', function ($query) use ($searchValue,$sortColumn, $sortDirection) {
+            $query->where('universal_persons.identification', 'like', '%'. $searchValue .'%')
+                  ->orwhere('universal_persons.name', 'like', '%'. $searchValue .'%')
+                  ->orwhere('universal_persons.lastname', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_persons.email', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_persons.phone', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_persons.address', 'like', '%'. $searchValue .'%');
         });
         
         $results = $query->orderBy('users.'. $sortColumn, $sortDirection)
@@ -411,12 +411,12 @@ class UserController extends BaseController
         // });
 
         // $query->where(function($q) use ($searchValue){
-        //     $q->orwhere('user_details.identification', 'like', '%'. $searchValue .'%')
-        //       ->orwhere('user_details.name', 'like', '%'. $searchValue .'%')
-        //       ->orwhere('user_details.lastname', 'like', '%'. $searchValue .'%')
-        //       ->orWhere('user_details.email', 'like', $searchValue .'%')
-        //       ->orWhere('user_details.phone', 'like', $searchValue .'%')
-        //       ->orWhere('user_details.address', 'like', $searchValue .'%');
+        //     $q->orwhere('universal_persons.identification', 'like', '%'. $searchValue .'%')
+        //       ->orwhere('universal_persons.name', 'like', '%'. $searchValue .'%')
+        //       ->orwhere('universal_persons.lastname', 'like', '%'. $searchValue .'%')
+        //       ->orWhere('universal_persons.email', 'like', $searchValue .'%')
+        //       ->orWhere('universal_persons.phone', 'like', $searchValue .'%')
+        //       ->orWhere('universal_persons.address', 'like', $searchValue .'%');
         // });
 
         // $results = $query->orderBy('users.'.$sortColumn, $sortDirection)

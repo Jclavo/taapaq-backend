@@ -16,8 +16,8 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_detail_id');
-            $table->foreign('user_detail_id')->references('id')->on('user_details')->onDelete('cascade');
+            $table->unsignedBigInteger('universal_person_id');
+            $table->foreign('universal_person_id')->references('id')->on('universal_people')->onDelete('cascade');
 
             $table->timestamps();
         });

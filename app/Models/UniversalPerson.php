@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserDetail extends Model
+class UniversalPerson extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -16,7 +16,7 @@ class UserDetail extends Model
     ];
 
     /**
-     * Get the user for the userDetail
+     * Get the user for the UniversalPerson
      */
     public function users()
     {

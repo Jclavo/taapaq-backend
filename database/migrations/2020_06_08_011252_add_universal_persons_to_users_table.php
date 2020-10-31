@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserDetailsToUsersTable extends Migration
+class AddUniversalPersonsToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddUserDetailsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_detail_id')->nullable(true);
-            $table->foreign('user_detail_id')->references('id')->on('user_details')->onDelete('cascade');
+            $table->unsignedBigInteger('universal_person_id');
+            $table->foreign('universal_person_id')->references('id')->on('universal_people')->onDelete('cascade');
         });
     }
 

@@ -48,11 +48,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the UserDetail that owns the user.
+     * Get the UniversalPerson that owns the user.
      */
-    public function user_detail()
+    public function universal_person()
     {
-        return $this->belongsTo('App\Models\UserDetail');
+        return $this->belongsTo('App\Models\UniversalPerson');
     }
 
     /**

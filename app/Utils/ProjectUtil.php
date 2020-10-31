@@ -5,7 +5,7 @@ namespace App\Utils;
 use App\Models\Project;
 use App\Models\Module;
 use App\Models\Resource;
-use App\Models\UserDetail;
+use App\Models\UniversalPerson;
 use App\Models\User;
 use App\Models\Company;
 use Illuminate\Support\Facades\DB;
@@ -177,7 +177,7 @@ class ProjectUtil
             }
 
 
-            $newUserMaster = factory(UserDetail::class)->create(['identification' => '45960630','email' => 'jclavo@example.com',
+            $newUserMaster = factory(UniversalPerson::class)->create(['identification' => '45960630','email' => 'jclavo@example.com',
                                                 'name' => 'Jose', 'lastname' => 'cleivor']);
 
                                             
@@ -185,7 +185,7 @@ class ProjectUtil
             $newUser = factory(User::class)->create([
                                                 'login' => $newUserMaster->identification . $project_company->pivot->id,
                                                 'company_project_id' => $project_company->pivot->id,
-                                                'user_detail_id' =>  $newUserMaster->id,                     
+                                                'universal_person_id' =>  $newUserMaster->id,                     
             ]);
 
             //Assign Role to user
