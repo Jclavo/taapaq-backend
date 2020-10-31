@@ -13,7 +13,7 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        $newUser = UniversalPerson::updateOrCreate(['identification' => '1145960630']);
+        $newUser = UniversalPerson::updateOrCreate(['identification' => '2045960630']);
 
         Company::updateOrCreate(['universal_person_id' => $newUser->id, 'country_code' => 55]);
     }

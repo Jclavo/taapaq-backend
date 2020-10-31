@@ -19,7 +19,7 @@ class UniversalPersonSeeder extends Seeder
                                     );
 
         //Companies
-        UniversalPerson::updateOrCreate(['identification' => '1145960630'],
+        UniversalPerson::updateOrCreate(['identification' => '2045960630'],
                                     ['email' => 'cleivor.sac@example.com', 'name' => 'CLEIVOR SAC', 
                                     'lastname' => '-', 'address' => 'Chepen', 'phone' => '51942051499']
                                         );
