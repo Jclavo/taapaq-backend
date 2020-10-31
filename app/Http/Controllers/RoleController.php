@@ -11,16 +11,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
 
+//Utils
+use App\Utils\RoleUtil;
+
 class RoleController extends BaseController
 {
     function __construct()
     {
         // $this->middleware('permission_in_role:roles/read'); 
-        $this->middleware('permission_in_role:roles/create', ['only' => ['store']]);
-        $this->middleware('permission_in_role:roles/update', ['only' => ['update']]);
-        $this->middleware('permission_in_role:roles/delete', ['only' => ['destroy']]);
-        $this->middleware('permission_in_role:roles/give-permission', ['only' => ['givePermissionTo']]);
-        $this->middleware('permission_in_role:roles/revoke-permission', ['only' => ['revokePermissionTo']]);
+        // $this->middleware('permission_in_role:roles/create', ['only' => ['store']]);
+        // $this->middleware('permission_in_role:roles/update', ['only' => ['update']]);
+        // $this->middleware('permission_in_role:roles/delete', ['only' => ['destroy']]);
+        // $this->middleware('permission_in_role:roles/give-permission', ['only' => ['givePermissionTo']]);
+        // $this->middleware('permission_in_role:roles/revoke-permission', ['only' => ['revokePermissionTo']]);
     }
 
     /**
@@ -58,7 +61,7 @@ class RoleController extends BaseController
             'name' => ['required','max:45',
                         // 'unique:roles',
                         Rule::unique('roles')->where(function($query) use($request){
-                            $query->where('project_id', '=', $request->project_id);
+                            $query->where('project_id', $request->project_id);
                         })  
                        ],
             
@@ -68,10 +71,7 @@ class RoleController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $nickname = $request->name;
-        $request->name = $request->name . '/' . $request->project_id;
-        $role = Role::create(['name' => $request->name , 'project_id' => $request->project_id,
-                              'nickname' => $nickname]);
+        $role = RoleUtil::createCore($request->project_id,$request->name);
         
         return $this->sendResponse($role->toArray(), 'Role created successfully.');  
     }
