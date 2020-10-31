@@ -16,7 +16,7 @@ class CreateUserDetailsTable extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->string('identification', 15)->unique();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->unique();
             $table->string('name',45);
             $table->string('lastname',45);
             $table->string('phone', 15)->unique();
