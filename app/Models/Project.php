@@ -43,8 +43,7 @@ class Project extends Model
         return $this->belongsToMany('App\Models\Company')
                     ->using('App\Models\CompanyProject')
                     ->withTimestamps()
-                    ->withPivot('id')
-                    ->orderBy('name');
+                    ->withPivot('id');
     }
 
     /**
