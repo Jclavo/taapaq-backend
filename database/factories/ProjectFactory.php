@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Project::class, function (Faker $faker) {
     return [
+        'code' => strtoupper($faker->unique()->lexify('??')),
         'name' => $faker->name
     ];
 });

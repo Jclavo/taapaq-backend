@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Project;
-use App\Models\Company;
 use App\Utils\ProjectUtil;
 
 class ProjectSeeder extends Seeder
@@ -14,8 +13,10 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        $project = 'Taapaq';
-        $newProject = ProjectUtil::createSuperProjectAndIts($project);
+        // $project = 'Taapaq';
+
+        Project::updateOrCreate(['code' => 'A1'],['name' => 'Taapaq']); 
+        // $newProject = ProjectUtil::createSuperProjectAndIts($project);
     }
 
 }

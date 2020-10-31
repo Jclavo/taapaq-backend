@@ -14,8 +14,17 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'code', 'name'
     ];
+
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = strtoupper($value);
+    }
+
+    /**
+     * Relationships
+     */
 
     /**
      * Get the modules for the project
