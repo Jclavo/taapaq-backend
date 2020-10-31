@@ -12,9 +12,16 @@ class UserDetailSeeder extends Seeder
      */
     public function run()
     {
+        //Users
         UserDetail::updateOrCreate(['identification' => '45960630'],
                                    ['email' => 'coco@example.com', 'name' => 'Coco', 
                                    'lastname' => 'The cat', 'address' => 'Chepen', 'phone' => '51942051400']
-                                );
+                                    );
+
+        //Companies
+        UserDetail::updateOrCreate(['identification' => '1145960630'],
+                                    ['email' => 'cleivor.sac@example.com', 'name' => 'CLEIVOR SAC', 
+                                    'lastname' => '-', 'address' => 'Chepen', 'phone' => '51942051499']
+                                        );
     }
 }

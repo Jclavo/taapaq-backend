@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             ResourceCommonSeeder::class,
             UserDetailSeeder::class,
+            ProjectSeeder::class,
+            CompanySeeder::class,
         ]);
         // $this->call(SpatieSeeder::class);
         // $this->call(ResourceCommonSeeder::class);
