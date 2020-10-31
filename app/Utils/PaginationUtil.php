@@ -4,7 +4,7 @@ namespace App\Utils;
 
 use Illuminate\Support\Facades\Schema;
 
-class PaginationUtils
+class PaginationUtil
 {
     static function getPageSize($pageSize){
         // Initialize values if they are empty.

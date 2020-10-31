@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 //Utils
-use App\Utils\PaginationUtils;
+use App\Utils\PaginationUtil;
 
 class UserController extends BaseController
 {
@@ -361,9 +361,9 @@ class UserController extends BaseController
 
 
        // SearchOptions values
-        $pageSize      = PaginationUtils::getPageSize($request->pageSize);
-        $sortColumn    = PaginationUtils::getSortColumn($request->sortColumn,'universal_persons');
-        $sortDirection = PaginationUtils::getSortDirection($request->sortDirection);
+        $pageSize      = PaginationUtil::getPageSize($request->pageSize);
+        $sortColumn    = PaginationUtil::getSortColumn($request->sortColumn,'universal_persons');
+        $sortDirection = PaginationUtil::getSortDirection($request->sortDirection);
         $searchValue   = $request->searchValue;
         //custom fields from User
         $company_id    = $request->company_id;
