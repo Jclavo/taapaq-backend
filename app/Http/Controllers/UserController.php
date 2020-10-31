@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UniversalPerson;
 use App\Models\Company;
+use App\Models\Project;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use Illuminate\Support\Str;
 
 //Utils
 use App\Utils\PaginationUtil;
+use App\Utils\UserUtil;
 
 class UserController extends BaseController
 {
@@ -60,7 +62,7 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'universal_person_id' => 'required|exists:universal_persons,id',
+            'universal_person_id' => 'required|exists:universal_people,id',
             'company_id' => 'required|exists:companies,id',
             'project_id' => 'required|exists:projects,id'
         ]);
@@ -69,18 +71,22 @@ class UserController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
+        //Get project 
+        $project = Project::findOrFail($request->project_id);
+
         //Get company project ID
         $company = Company::findOrFail($request->company_id);
-        $company = $company->projects()->findOrFail($request->project_id);
+        $company = $company->projects()->findOrFail($project->id);
 
         $universalPerson = UniversalPerson::findOrFail($request->universal_person_id);
         
-        $user = new User();
-        $user->login = $universalPerson->identification . $company->pivot->id;
-        $user->password = Hash::make($user->login);
-        $user->company_project_id = $company->pivot->id; //Assign company project ID
-        $user->universal_person_id = $universalPerson->id;
-        $user->save();
+        $user = UserUtil::createCore($company->id,$project->id,$universalPerson->id);;
+        // $user = new User();
+        // $user->login = $universalPerson->identification . $company->pivot->id;
+        // $user->password = Hash::make($user->login);
+        // $user->company_project_id = $company->pivot->id; //Assign company project ID
+        // $user->universal_person_id = $universalPerson->id;
+        // $user->save();
 
         return $this->sendResponse($user->toArray(), 'User created successfully.');  
     }
