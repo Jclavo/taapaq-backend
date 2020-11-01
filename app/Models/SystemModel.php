@@ -15,6 +15,11 @@ class SystemModel extends Model
         'name','project_id'
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
+    }
+
     /**
      * RELATIONSHIPS
      */

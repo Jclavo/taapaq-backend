@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             UserSeeder::class,
             SpatieSeeder::class,
+            ModuleSeeder::class,
+            SystemModelSeeder::class,
+            // ResourceSeeder::class,
         ]);
         // $this->call(SpatieSeeder::class);
         // $this->call(ResourceCommonSeeder::class);
