@@ -3,8 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Models\ResourceCommon;
 
-use App\Utils\ResourceUtil;
-
 class ResourceCommonSeeder extends Seeder
 {
     /**
@@ -14,7 +12,7 @@ class ResourceCommonSeeder extends Seeder
      */
     public function run()
     {
-        foreach (ResourceUtil::getResourceCommons() as $resource) {
+        foreach (ResourceSeeder::getResourceCommons() as $resource) {
              ResourceCommon::updateOrCreate(['name' => $resource]);
         }
     }
