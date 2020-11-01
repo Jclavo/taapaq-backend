@@ -5,6 +5,8 @@ namespace App\Utils;
 use App\Models\Project;
 use App\Models\Module;
 
+use  App\Utils\ResourceUtil;
+
 class ModuleUtil
 {
     static function createMassiveFromProjectCode($projectCode, $modules)
@@ -44,6 +46,15 @@ class ModuleUtil
                                 ['nickname' => $module->nickname, 'url' => $module->url,
                                  'visibled' => $module->visibled, 'parent_id' => $parent_id,
                                  'labeled' => $module->labeled, 'icon' => $module->icon ]);
+
+        //Check if the module has resources
+        if($module->resources){
+
+            foreach ($module->resources as $resource){
+                ResourceUtil::createCore($project_id, $newModule->id, $newModule->name,$resource);
+            }
+
+        }
                                 
         return $newModule;
     }
