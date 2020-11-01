@@ -10,14 +10,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
 use Illuminate\Support\Facades\Auth;
 
+//Utils
+use App\Utils\ModuleUtil;
+
 class ModuleController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('permission_in_role:modules/read', ['except' => ['byUser']]); 
-        $this->middleware('permission_in_role:modules/create', ['only' => ['store']]);
-        $this->middleware('permission_in_role:modules/update', ['only' => ['update']]);
-        $this->middleware('permission_in_role:modules/delete', ['only' => ['destroy']]);
+        // $this->middleware('permission_in_role:modules/read', ['except' => ['byUser']]); 
+        // $this->middleware('permission_in_role:modules/create', ['only' => ['store']]);
+        // $this->middleware('permission_in_role:modules/update', ['only' => ['update']]);
+        // $this->middleware('permission_in_role:modules/delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -68,15 +71,14 @@ class ModuleController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
+      
         $module = new Module();
         $module->name = $request->name;
         $module->url = $request->url;
-        $request->parent_id > 0 ? $module->parent_id = $request->parent_id : null;
-        $request->labeled ? $module->labeled = true : $module->labeled = false;
+        $module->parent_id = $request->parent_id;
+        $module->labeled = $request->labeled;
 
-
-        $project = Project::findOrFail($request->project_id);
-        $project->modules()->save($module);
+        $module = ModuleUtil::createCore($request->project_id, $module, $module->parent_id);
 
         return $this->sendResponse($module->toArray(), 'Module created successfully.'); 
     }
