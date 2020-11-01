@@ -37,11 +37,13 @@ class ModuleUtil
 
         $module->visibled = $module->visibled ?? true;
         $module->labeled = $module->labeled ?? false;
+        $module->nickname = $module->name;
+        $module->name = str_replace(" ","_",strtolower($module->name));
 
         $newModule = Module::updateOrCreate(['name' => $module->name,'project_id' => $project_id ],
-                                ['url' => $module->url, 'visibled' => $module->visibled, 
-                                 'parent_id' => $parent_id, 'labeled' => $module->labeled,
-                                 'icon' => $module->icon ]);
+                                ['nickname' => $module->nickname, 'url' => $module->url,
+                                 'visibled' => $module->visibled, 'parent_id' => $parent_id,
+                                 'labeled' => $module->labeled, 'icon' => $module->icon ]);
                                 
         return $newModule;
     }

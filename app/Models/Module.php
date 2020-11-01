@@ -12,8 +12,13 @@ class Module extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url', 'visibled', 'project_id', 'parent_id', 'labeled', 'icon'
+        'name', 'nickname', 'url', 'visibled', 'project_id', 'parent_id', 'labeled', 'icon'
     ];
+
+    // public function setNameAttribute($value)
+    // {
+    //     $this->attributes['name'] = str_replace(" ","_",strtolower($value));
+    // }
 
     /**
      * Get the project that owns the module
