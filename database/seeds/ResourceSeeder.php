@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Utils\ResourceUtil;
+
 class ResourceSeeder extends Seeder
 {
     /**
@@ -11,6 +13,6 @@ class ResourceSeeder extends Seeder
      */
     public function run()
     {
-        
+        ResourceUtil::createFromProjectCodeModule('A1','Companies','read');
     }
 }

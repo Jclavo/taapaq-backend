@@ -10,14 +10,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
 
+//Utils
+use App\Utils\ResourceUtil;
+
 class ResourceController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('permission_in_role:resources/read'); 
-        $this->middleware('permission_in_role:resources/create', ['only' => ['store']]);
-        $this->middleware('permission_in_role:resources/update', ['only' => ['update']]);
-        $this->middleware('permission_in_role:resources/delete', ['only' => ['destroy']]);
+        // $this->middleware('permission_in_role:resources/read'); 
+        // $this->middleware('permission_in_role:resources/create', ['only' => ['store']]);
+        // $this->middleware('permission_in_role:resources/update', ['only' => ['update']]);
+        // $this->middleware('permission_in_role:resources/delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -60,17 +63,9 @@ class ResourceController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $resource = new Resource();
-        $resource->name = $request->name;
-
         $module = Module::with('project')->findOrFail($request->module_id);
-        $module->resources()->save($resource);
 
-        //Create permission
-        $permissionNickname = strtolower($module->name . '/' . str_replace(" ","-",$resource->name));
-        $permissionName = $permissionNickname . '#' . $module->project->id;
-
-        Permission::create(['name' => $permissionName, 'resource_id' => $resource->id, 'nickname' => $permissionNickname]);
+        $resource = ResourceUtil::createCore($module->project->id, $module->id, $module->name,$request->name);
 
         return $this->sendResponse($resource->toArray(), 'Resource created successfully.'); 
     }

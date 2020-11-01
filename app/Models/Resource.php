@@ -12,7 +12,7 @@ class Resource extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'page_id'
+        'name', 'module_id'
     ];
 
     /**
