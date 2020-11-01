@@ -14,7 +14,7 @@ class ResourceUtil
         //get project
         $project = Project::where('code', $projectCode)->firstOrFail();
 
-        $newModule = Module::updateOrCreate(['name' => 'Companies','project_id' => $project->id]);
+        $newModule = Module::updateOrCreate(['nickname' => 'Companies','project_id' => $project->id]);
 
         self::createCore($project->id, $newModule->id, $newModule->name, $resourceName);
 
@@ -37,4 +37,53 @@ class ResourceUtil
             
         return $newResource;
     }
+
+
+    /**
+     * VALUES SECTION
+     */
+
+    static function getResourceCommons(){
+        return [
+                'create',
+                'update',
+                'read',
+                'delete',
+                'pagination',
+                'show',
+        ]; 
+    }
+
+    static function getForProjectModule(){
+
+        $forProject = [
+                'assign-company',
+                'remove-company',
+            ];
+            
+        return array_merge(self::getResourceCommons(), $forProject);
+    }
+
+    static function getForRoleModule(){
+
+        $forRole = [
+                'give-permission',
+                'revoke-permission',
+            ];
+            
+        return array_merge(self::getResourceCommons(), $forRole);
+    }
+
+    static function getForUserModule(){
+
+        $forRole = [
+                'activated-status',
+                'assign-role',
+                'remove-role',
+            ];
+            
+        return array_merge(self::getResourceCommons(), $forRole);
+    }
+
+    
 }
