@@ -13,10 +13,7 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        // $project = 'Taapaq';
-
         Project::updateOrCreate(['code' => 'A1'],['name' => 'Taapaq']); 
-        // $newProject = ProjectUtil::createSuperProjectAndIts($project);
     }
 
 }

@@ -15,8 +15,6 @@ class SystemModelSeeder extends Seeder
      */
     public function run()
     {
-        // $newProject = Project::updateOrCreate(['code' => 'A1']);
-        // SystemModel::updateOrCreate(['name' => 'SYSTEM', 'project_id' => $newProject->id]);
         foreach (self::getForTaapaq() as $module){
             SystemModelUtil::createFromProjectCode('A1',$module);
         }
