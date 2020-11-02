@@ -14,8 +14,8 @@ class AddProjectsToRolesTable extends Migration
     public function up()
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->unsignedBigInteger('project_id')->nullable(true);
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->unsignedBigInteger('company_project_id');
+            $table->foreign('company_project_id')->references('id')->on('company_project');
         });
     }
 
