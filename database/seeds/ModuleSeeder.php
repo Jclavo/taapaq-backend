@@ -13,7 +13,7 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-        ModuleUtil::createMassiveFromProjectCode('A1',self::getForTaapaq());
+        ModuleUtil::createMassiveFromProjectCode(env('PROJECT_TAAPAQ_CODE'),self::getForTaapaq());
     }
 
 

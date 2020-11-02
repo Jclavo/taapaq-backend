@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Company;
-use App\Models\UniversalPerson;
+use App\Utils\CompanyUtil;
 
 class CompanySeeder extends Seeder
 {
@@ -13,8 +12,6 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        $newUser = UniversalPerson::updateOrCreate(['identification' => '2045960630']);
-
-        Company::updateOrCreate(['universal_person_id' => $newUser->id, 'country_code' => 55]);
+        CompanyUtil::createFromIdentification(env('COMPANY_CLEIVOR_IDENTIFICATION'),55);   
     }
 }

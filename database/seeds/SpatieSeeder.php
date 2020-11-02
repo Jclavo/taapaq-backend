@@ -16,7 +16,7 @@ class SpatieSeeder extends Seeder
             if($role == 'admin'){
                 $assign = true;
             }
-            RoleUtil::createFromCompanyProjectCode('2045960630', 'A1',$role, $assign);
+            RoleUtil::createFromCompanyProjectCode(env('COMPANY_CLEIVOR_IDENTIFICATION'), env('PROJECT_TAAPAQ_CODE'),$role, $assign);
         }
     }
 

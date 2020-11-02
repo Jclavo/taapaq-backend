@@ -13,11 +13,11 @@ class UserSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        UserUtil::createFromCompanyProject(2045960630,'A1',45960630); 
+    { 
+        UserUtil::createFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),env('USER_COCO_IDENTIFICATION')); 
         
         foreach (SpatieSeeder::getCommons() as $role){
-            UserUtil::assignRoleFromCompanyProject(2045960630,'A1',$role,45960630); 
+            UserUtil::assignRoleFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),env('USER_COCO_IDENTIFICATION')); 
         }
         
         

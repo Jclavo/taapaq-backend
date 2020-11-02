@@ -13,13 +13,13 @@ class UniversalPersonSeeder extends Seeder
     public function run()
     {
         //Users
-        UniversalPerson::updateOrCreate(['identification' => '45960630'],
+        UniversalPerson::updateOrCreate(['identification' => env('USER_COCO_IDENTIFICATION')],
                                    ['email' => 'coco@example.com', 'name' => 'Coco', 
                                    'lastname' => 'The cat', 'address' => 'Chepen', 'phone' => '51942051400']
                                     );
 
         //Companies
-        UniversalPerson::updateOrCreate(['identification' => '2045960630'],
+        UniversalPerson::updateOrCreate(['identification' => env('COMPANY_CLEIVOR_IDENTIFICATION')],
                                     ['email' => 'cleivor.sac@example.com', 'name' => 'CLEIVOR SAC', 
                                     'lastname' => '-', 'address' => 'Chepen', 'phone' => '51942051499']
                                         );

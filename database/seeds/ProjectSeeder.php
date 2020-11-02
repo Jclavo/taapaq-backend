@@ -13,7 +13,7 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        Project::updateOrCreate(['code' => 'A1'],['name' => 'Taapaq']); 
+        Project::updateOrCreate(['code' => env('PROJECT_TAAPAQ_CODE')],['name' => 'Taapaq']); 
     }
 
 }

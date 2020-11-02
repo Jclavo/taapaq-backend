@@ -16,7 +16,7 @@ class SystemModelSeeder extends Seeder
     public function run()
     {
         foreach (self::getForTaapaq() as $module){
-            SystemModelUtil::createFromProjectCode('A1',$module);
+            SystemModelUtil::createFromProjectCode(env('PROJECT_TAAPAQ_CODE'),$module);
         }
         
     }
