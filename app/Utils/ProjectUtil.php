@@ -14,6 +14,32 @@ use Spatie\Permission\Models\Role;
 
 class ProjectUtil
 {
+    static function getFromCode($code){
+        return Project::where('code', $code)->firstOrFail();
+    }
+
+    static function getCompanyProjectIDFromCode($companyIdentification, $projectCode){
+
+        $company = CompanyUtil::getFromIdentification($companyIdentification);
+        $project = ProjectUtil::getFromCode($projectCode);
+        
+        return self::getCompanyProjectID($company->id,$project->id);
+    }
+
+    static function getCompanyProjectID($company_id, $project_id){
+
+        //get company 
+        $company = Company::findOrFail($company_id);
+
+        //get project
+        $project = Project::findOrFail($project_id);
+
+        //Create relationship between Project and Company
+        $project->companies()->syncWithoutDetaching($company);
+        $companyProject = $project->companies()->where('company_id', $company->id)->first();
+        
+        return $companyProject->pivot->id;
+    }
 
     /***
      * Create Project and all its connections

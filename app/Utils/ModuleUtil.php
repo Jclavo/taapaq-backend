@@ -6,13 +6,28 @@ use App\Models\Project;
 use App\Models\Module;
 
 use  App\Utils\ResourceUtil;
+use  App\Utils\ProjectUtil;
 
 class ModuleUtil
 {
+    static function getFromProjectCode($projectCode){
+        
+        //get project
+        $project = ProjectUtil::getFromCode($projectCode);
+
+        return self::getFromProject($project->id);
+    }
+
+    static function getFromProject($project_id){
+        return Module::where('name',$module->name)->
+                       where('project_id',$project_id)->firstOrFail();
+    }
+
+
     static function createMassiveFromProjectCode($projectCode, $modules)
     {
         //get project
-        $project = Project::where('code', $projectCode)->firstOrFail();
+        $project = ProjectUtil::getFromCode($projectCode);
 
         self::createMassiveCore($project->id,$modules);
         

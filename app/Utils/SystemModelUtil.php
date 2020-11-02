@@ -5,12 +5,14 @@ namespace App\Utils;
 use App\Models\Project;
 use App\Models\SystemModel;
 
+use  App\Utils\ProjectUtil;
+
 class SystemModelUtil
 {
     static function createFromProjectCode($projectCode, $systemModelName)
     {
         //get project
-        $project = Project::where('code', $projectCode)->firstOrFail();
+        $project = ProjectUtil::getFromCode($projectCode);
 
         return self::createCore($project->id, $systemModelName);
     }

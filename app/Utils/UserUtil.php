@@ -9,20 +9,27 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Hash;
 
+use App\Utils\ProjectUtil;
+use App\Utils\UniversalPersonUtil;
+use App\Utils\CompanyUtil;
+
 class UserUtil
 {
+    static function getForIdentification($identification){
+        $universalPersonCompany = UniversalPersonUtil::getFromIdentification($identification);
+        return User::where('universal_person_id', $universalPersonCompany->id)->firstOrFail();
+    }
 
     static function createFromCompanyProject($companyIdentification, $projectCode, $userIdentification ){
         
         //get company 
-        $universalPersonCompany = UniversalPerson::where('identification', $companyIdentification)->firstOrFail();
-        $company = Company::where('universal_person_id', $universalPersonCompany->id)->firstOrFail();
+       $company = CompanyUtil::getFromIdentification($companyIdentification);
 
         //get project
-        $project = Project::where('code', $projectCode)->firstOrFail();
+        $project = ProjectUtil::getFromCode($projectCode);
 
         //get company 
-        $universalPersonUser = UniversalPerson::where('identification', $userIdentification)->firstOrFail();
+        $universalPersonUser = UniversalPersonUtil::getFromIdentification($userIdentification);
 
         return self::createCore($company->id,$project->id,$universalPersonUser->id);
     }
@@ -31,28 +38,32 @@ class UserUtil
     static function createCore($company_id, $project_id, $universal_person_id){
         
         //get company 
-        $company = Company::findOrFail($company_id);
-
-        //get project
-        $project = Project::findOrFail($project_id);
-
-        //get company 
         $universalPersonUser = UniversalPerson::findOrFail($universal_person_id);
 
-        //Create relationship between Project and Company
-        $project->companies()->syncWithoutDetaching($company);
-        $projectCompany = $project->companies()->where('company_id', $company->id)->first();  
+        $companyProjectID = ProjectUtil::getCompanyProjectID($company_id,$project_id);
 
-        $login = $universalPersonUser->identification . $projectCompany->pivot->id;
+        $login = $universalPersonUser->identification . $companyProjectID;
 
         $newUser = User::updateOrCreate(['login' => $login ],
                                         ['password' => Hash::make($login),
                                          'activated' => false,
-                                         'company_project_id' => $projectCompany->pivot->id,
+                                         'company_project_id' => $companyProjectID,
                                          'universal_person_id' =>  $universalPersonUser->id ]);
 
         return $newUser;
     }
+
+
+    static function assignRoleFromCompanyProject($companyIdentification,$projectCode,$roleName,$userIdentification){
+
+        $role = RoleUtil::getFromCompanyProjectCode($companyIdentification, $projectCode,$roleName);
+
+        $user = self::getForIdentification($userIdentification);
+
+        $user->assignRole($role);
+    }
+
+
 
 
 }
