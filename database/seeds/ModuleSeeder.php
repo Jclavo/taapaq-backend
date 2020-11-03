@@ -74,7 +74,7 @@ class ModuleSeeder extends Seeder
         $moduleUser->resources = ResourceSeeder::getForUserModule();
 
         $moduleUniversalPerson = new Module();
-        $moduleUniversalPerson->name = 'Universal Persons';
+        $moduleUniversalPerson->name = 'Persons';
         $moduleUniversalPerson->url = '/user-detail-list';
         $moduleUniversalPerson->icon = null;
         $moduleUniversalPerson->resources = ResourceSeeder::getResourceCommons();
