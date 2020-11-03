@@ -8,6 +8,9 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+//Utils
+use App\Utils\CompanyUtil;
+
 class CompanyController extends BaseController
 {
     function __construct()
@@ -57,11 +60,7 @@ class CompanyController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        
-        $company = new Company();
-        $company->universal_person_id = $request->universal_person_id;
-        $company->country_code = $request->country_code;
-        $company->save();
+        $company = CompanyUtil::createCore($request->universal_person_id,$request->country_code);
 
         return $this->sendResponse($company->toArray(), 'Company created successfully.');      
     }
