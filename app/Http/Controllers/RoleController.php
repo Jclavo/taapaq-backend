@@ -224,15 +224,14 @@ class RoleController extends BaseController
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function notInUser(int $user_id, int $project_id){
+    public function notInUser(int $user_id){
 
-        $user = User::findOrFail($user_id);
-        $project = Project::findOrFail($project_id);
+        $user = User::with('company_project')->findOrFail($user_id);
 
         $rolesNot = Role::whereDoesntHave('users', function ($query) use($user_id){
             $query->where('users.id', '=', $user_id);
             
-        })->where('roles.project_id', '=', $project_id)
+        })->where('roles.company_project_id', '=', $user->company_project->id)
         ->orderBy('roles.name')
         ->get();   
 
