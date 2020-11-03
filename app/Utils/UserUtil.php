@@ -29,26 +29,38 @@ class UserUtil
         $project = ProjectUtil::getFromCode($projectCode);
 
         //get company 
-        $universalPersonUser = UniversalPersonUtil::getFromIdentification($userIdentification);
+        $universalPerson = UniversalPersonUtil::getFromIdentification($userIdentification);
 
-        return self::createCore($company->id,$project->id,$universalPersonUser->id, $activated);
+        return self::createCore($company->id,$project->id,$universalPerson->id, $activated);
     }
 
 
-    static function createCore($company_id, $project_id, $universal_person_id, $activated = false){
+    // static function createCore($company_id, $project_id, $universal_person_id, $activated = false){
         
-        //get company 
-        $universalPersonUser = UniversalPerson::findOrFail($universal_person_id);
+    //     //get company 
+    //     $universalPerson = UniversalPerson::findOrFail($universal_person_id);
 
-        $companyProjectID = ProjectUtil::getCompanyProjectID($company_id,$project_id);
+    //     $companyProjectID = ProjectUtil::getCompanyProjectID($company_id,$project_id);
 
-        $login = $universalPersonUser->identification . $companyProjectID;
+    //     $login = $universalPerson->identification . $companyProjectID;
+
+    //     $newUser = User::updateOrCreate(['login' => $login ],
+    //                                     ['password' => Hash::make($login),
+    //                                      'activated' => $activated,
+    //                                      'company_project_id' => $companyProjectID,
+    //                                      'universal_person_id' =>  $universalPerson->id ]);
+
+    //     return $newUser;
+    // }
+    static function createCore($company_project_id, $universalPerson, $activated = false){
+        
+        $login = $universalPerson->identification . $company_project_id;
 
         $newUser = User::updateOrCreate(['login' => $login ],
                                         ['password' => Hash::make($login),
                                          'activated' => $activated,
-                                         'company_project_id' => $companyProjectID,
-                                         'universal_person_id' =>  $universalPersonUser->id ]);
+                                         'company_project_id' => $company_project_id,
+                                         'universal_person_id' =>  $universalPerson->id ]);
 
         return $newUser;
     }

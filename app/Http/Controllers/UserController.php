@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 //Utils
 use App\Utils\PaginationUtil;
 use App\Utils\UserUtil;
+use App\Utils\ProjectUtil;
 
 class UserController extends BaseController
 {
@@ -71,22 +72,11 @@ class UserController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        //Get project 
-        $project = Project::findOrFail($request->project_id);
-
-        //Get company project ID
-        $company = Company::findOrFail($request->company_id);
-        $company = $company->projects()->findOrFail($project->id);
-
         $universalPerson = UniversalPerson::findOrFail($request->universal_person_id);
-        
-        $user = UserUtil::createCore($company->id,$project->id,$universalPerson->id);;
-        // $user = new User();
-        // $user->login = $universalPerson->identification . $company->pivot->id;
-        // $user->password = Hash::make($user->login);
-        // $user->company_project_id = $company->pivot->id; //Assign company project ID
-        // $user->universal_person_id = $universalPerson->id;
-        // $user->save();
+
+        $company_project_id = ProjectUtil::getCompanyProjectID($request->company_id, $request->project_id);
+
+        $user = UserUtil::createCore($company_project_id,$universalPerson);;
 
         return $this->sendResponse($user->toArray(), 'User created successfully.');  
     }

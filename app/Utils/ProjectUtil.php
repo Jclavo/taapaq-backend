@@ -35,9 +35,9 @@ class ProjectUtil
         $project = Project::findOrFail($project_id);
 
         //Create relationship between Project and Company
-        $project->companies()->syncWithoutDetaching($company);
-        $companyProject = $project->companies()->where('company_id', $company->id)->first();
-        
+        // $project->companies()->syncWithoutDetaching($company);
+        $companyProject = $project->companies()->where('company_id', $company->id)->firstOrFail();
+       
         return $companyProject->pivot->id;
     }
 
