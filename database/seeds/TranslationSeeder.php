@@ -4,11 +4,11 @@ use Illuminate\Database\Seeder;
 use App\Models\TranslationDetail;
 use App\Models\Translation;
 use App\Models\SystemModel;
+use App\Utils\SystemModelUtil;
 
 class TranslationSeeder extends Seeder
 {
     private $translations;
-    private $project_id = 2;
     /**
      * Run the database seeds.
      *
@@ -196,8 +196,7 @@ class TranslationSeeder extends Seeder
         //     } 
         // }
 
-        $newModel = SystemModel::updateOrCreate(['name' => 'SYSTEM',
-                                                         'project_id' => $this->project_id ]);
+        $newModel = SystemModelUtil::createFromProjectCode(env('PROJECT_TAAPAQ_CODE'),'SYSTEM');
 
         foreach ($this->translations as $translation) {
 
