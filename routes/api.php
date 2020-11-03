@@ -34,7 +34,8 @@ Route::middleware(['auth:api'])->group(function () {
     
     //Roles
     Route::get('roles/not/users/{user_id}/projects/{project_id}', 'RoleController@notInUser');
-    Route::get('roles/projects/{project_id}', 'RoleController@byProject');
+    // Route::get('roles/projects/{project_id}', 'RoleController@byProject');
+    Route::get('roles/companies/{company_id}/projects/{project_id}/', 'RoleController@byCompanyProject');
     Route::post('roles/byUser', 'RoleController@byUser');
     Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
     Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');

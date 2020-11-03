@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 
 //Utils
 use App\Utils\RoleUtil;
+use App\Utils\ProjectUtil;
 
 class RoleController extends BaseController
 {
@@ -242,11 +243,13 @@ class RoleController extends BaseController
      * 
      * @return \Illuminate\Http\Response
      */
-    public function byProject(int $project_id){
+    public function byCompanyProject(int $company_id,int $project_id){
  
+        $company_project_id = ProjectUtil::getCompanyProjectID($company_id, $project_id);
+
         $roles = Role::select('roles.*')
-                       ->join('projects','roles.project_id','=','projects.id')
-                       ->where('projects.id', '=', $project_id)
+                       ->join('company_project','roles.company_project_id','=','company_project.id')
+                       ->where('company_project.id', '=', $company_project_id)
                        ->orderBy('roles.name')
                        ->get();
 
