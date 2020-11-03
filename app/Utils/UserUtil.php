@@ -20,7 +20,7 @@ class UserUtil
         return User::where('universal_person_id', $universalPersonCompany->id)->firstOrFail();
     }
 
-    static function createFromCompanyProject($companyIdentification, $projectCode, $userIdentification ){
+    static function createFromCompanyProject($companyIdentification, $projectCode, $userIdentification, $activated = false){
         
         //get company 
        $company = CompanyUtil::getFromIdentification($companyIdentification);
@@ -31,11 +31,11 @@ class UserUtil
         //get company 
         $universalPersonUser = UniversalPersonUtil::getFromIdentification($userIdentification);
 
-        return self::createCore($company->id,$project->id,$universalPersonUser->id);
+        return self::createCore($company->id,$project->id,$universalPersonUser->id, $activated);
     }
 
 
-    static function createCore($company_id, $project_id, $universal_person_id){
+    static function createCore($company_id, $project_id, $universal_person_id, $activated = false){
         
         //get company 
         $universalPersonUser = UniversalPerson::findOrFail($universal_person_id);
@@ -46,7 +46,7 @@ class UserUtil
 
         $newUser = User::updateOrCreate(['login' => $login ],
                                         ['password' => Hash::make($login),
-                                         'activated' => false,
+                                         'activated' => $activated,
                                          'company_project_id' => $companyProjectID,
                                          'universal_person_id' =>  $universalPersonUser->id ]);
 

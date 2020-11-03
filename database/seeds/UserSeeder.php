@@ -14,7 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     { 
-        UserUtil::createFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),env('USER_COCO_IDENTIFICATION')); 
+        UserUtil::createFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),
+                                           env('USER_COCO_IDENTIFICATION'), true); 
         
         foreach (SpatieSeeder::getCommons() as $role){
             UserUtil::assignRoleFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),$role, env('USER_COCO_IDENTIFICATION')); 
