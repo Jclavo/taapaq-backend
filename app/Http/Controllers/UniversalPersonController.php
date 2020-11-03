@@ -13,10 +13,10 @@ class UniversalPersonController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('permission_in_role:Users Masters/read'); 
-        $this->middleware('permission_in_role:Users Masters/create', ['only' => ['store']]);
-        $this->middleware('permission_in_role:Users Masters/update', ['only' => ['update']]);
-        $this->middleware('permission_in_role:Users Masters/delete', ['only' => ['destroy']]); 
+        $this->middleware('permission_in_role:persons/read'); 
+        $this->middleware('permission_in_role:persons/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:persons/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:persons/delete', ['only' => ['destroy']]); 
     }
     
     /**
@@ -50,11 +50,11 @@ class UniversalPersonController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', 'unique:universal_persons'],
-            'email' => ['nullable','email','unique:universal_persons'],
+            'identification' => ['required', 'numeric', 'min:8', 'unique:persons'],
+            'email' => ['nullable','email','unique:persons'],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
-            'phone' => ['required', 'max:45','unique:universal_persons'],
+            'phone' => ['required', 'max:45','unique:persons'],
             'address' => 'required|max:100'
         ]);
       
@@ -108,11 +108,11 @@ class UniversalPersonController extends BaseController
     public function update(int $id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', Rule::unique('universal_persons')->ignore($id)],
-            'email' => ['nullable','email',Rule::unique('universal_persons')->ignore($id)],
+            'identification' => ['required', 'numeric', 'min:8', Rule::unique('persons')->ignore($id)],
+            'email' => ['nullable','email',Rule::unique('persons')->ignore($id)],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
-            'phone' => ['required', 'max:45', Rule::unique('universal_persons')->ignore($id)],
+            'phone' => ['required', 'max:45', Rule::unique('persons')->ignore($id)],
             'address' => 'required|max:100'
         ]);
       
