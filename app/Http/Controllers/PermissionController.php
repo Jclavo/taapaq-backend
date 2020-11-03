@@ -131,9 +131,10 @@ class PermissionController extends BaseController
                                         ->join('modules', 'resources.module_id', '=', 'modules.id')
                                         ->join('projects', 'modules.project_id', '=', 'projects.id')
                                         ->where('projects.id', function ($subquery2) use($role_id) {
-                                            $subquery2->select('roles.project_id')
+                                            $subquery2->select('company_project.project_id')
                                                 ->from('roles')
-                                                ->join('projects', 'roles.project_id', '=', 'projects.id')
+                                                ->join('company_project', 'roles.company_project_id', '=', 'company_project.id')
+                                                ->join('projects', 'company_project.project_id', '=', 'projects.id')
                                                 ->where('roles.id', '=', $role_id);
                                         });
                                 })
