@@ -58,12 +58,13 @@ class RoleController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'company_id' => 'required|exists:companies,id',
             'project_id' => 'required|exists:projects,id',
             'name' => ['required','max:45',
                         // 'unique:roles',
-                        Rule::unique('roles')->where(function($query) use($request){
-                            $query->where('project_id', $request->project_id);
-                        })  
+                        // Rule::unique('roles')->where(function($query) use($request){
+                        //     $query->where('project_id', $request->project_id);
+                        // })  
                        ],
             
         ]);
@@ -72,7 +73,7 @@ class RoleController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $role = RoleUtil::createCore($request->project_id,$request->name);
+        $role = RoleUtil::createCore($request->company_id, $request->project_id,$request->name);
         
         return $this->sendResponse($role->toArray(), 'Role created successfully.');  
     }
