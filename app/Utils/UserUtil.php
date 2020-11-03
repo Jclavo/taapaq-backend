@@ -22,16 +22,18 @@ class UserUtil
 
     static function createFromCompanyProject($companyIdentification, $projectCode, $userIdentification, $activated = false){
         
-        //get company 
-       $company = CompanyUtil::getFromIdentification($companyIdentification);
+    //     //get company 
+    //    $company = CompanyUtil::getFromIdentification($companyIdentification);
 
-        //get project
-        $project = ProjectUtil::getFromCode($projectCode);
+    //     //get project
+    //     $project = ProjectUtil::getFromCode($projectCode); = 
+
+    $company_project_id = ProjectUtil::getCompanyProjectIDFromCode($companyIdentification, $projectCode);
 
         //get company 
         $universalPerson = UniversalPersonUtil::getFromIdentification($userIdentification);
 
-        return self::createCore($company->id,$project->id,$universalPerson->id, $activated);
+        return self::createCore($company_project_id,$universalPerson, $activated);
     }
 
 
