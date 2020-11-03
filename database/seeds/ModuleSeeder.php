@@ -58,6 +58,7 @@ class ModuleSeeder extends Seeder
         $moduleResource = new Module();
         $moduleResource->name = 'Resources';
         $moduleResource->url = '/resource-list';
+        $moduleResource->visibled = false;
         $moduleResource->icon = null;
         $moduleResource->resources = ResourceSeeder::getResourceCommons();
 
@@ -82,6 +83,7 @@ class ModuleSeeder extends Seeder
         $modulePermission = new Module();
         $modulePermission->name = 'Permissions';
         $modulePermission->url = '/permission-list';
+        $modulePermission->visibled = false;
         $modulePermission->icon = null;
         $modulePermission->resources = ResourceSeeder::getResourceCommons();
 
