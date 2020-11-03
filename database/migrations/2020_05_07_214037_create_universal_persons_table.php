@@ -16,7 +16,7 @@ class CreateUniversalPersonsTable extends Migration
         Schema::create('universal_people', function (Blueprint $table) {
             $table->id();
             $table->string('identification', 15)->unique();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('name',45);
             $table->string('lastname',45);
             $table->string('phone', 15)->unique();
