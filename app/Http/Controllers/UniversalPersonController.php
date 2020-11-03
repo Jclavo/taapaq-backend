@@ -50,11 +50,11 @@ class UniversalPersonController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', 'unique:persons'],
-            'email' => ['nullable','email','unique:persons'],
+            'identification' => ['required', 'numeric', 'min:8', 'unique:universal_people'],
+            'email' => ['nullable','email','unique:universal_people'],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
-            'phone' => ['required', 'max:45','unique:persons'],
+            'phone' => ['required', 'max:45','unique:universal_people'],
             'address' => 'required|max:100'
         ]);
       
@@ -108,11 +108,11 @@ class UniversalPersonController extends BaseController
     public function update(int $id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', Rule::unique('persons')->ignore($id)],
-            'email' => ['nullable','email',Rule::unique('persons')->ignore($id)],
+            'identification' => ['required', 'numeric', 'min:8', Rule::unique('universal_people')->ignore($id)],
+            'email' => ['nullable','email',Rule::unique('universal_people')->ignore($id)],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
-            'phone' => ['required', 'max:45', Rule::unique('persons')->ignore($id)],
+            'phone' => ['required', 'max:45', Rule::unique('universal_people')->ignore($id)],
             'address' => 'required|max:100'
         ]);
       
