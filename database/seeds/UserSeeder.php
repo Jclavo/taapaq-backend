@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
                                            env('USER_COCO_IDENTIFICATION'), true); 
         
         foreach (SpatieSeeder::getCommons() as $role){
-            UserUtil::assignRoleFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),$role, env('USER_COCO_IDENTIFICATION')); 
+            UserUtil::assignRoleFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),$role->name, env('USER_COCO_IDENTIFICATION')); 
         }
         
         
