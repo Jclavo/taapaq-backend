@@ -179,7 +179,6 @@ class UserController extends BaseController
         }
 
         //Decrypt password
-        $p = base64_decode($request->password);
         $input = $request->all();
         $input['password'] = base64_decode($input['password']);
         $request->replace($input);
