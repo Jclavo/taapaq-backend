@@ -36,23 +36,24 @@ class ModuleSeeder extends Seeder
         $labelTapaaq->name = 'Taapaq';
         $labelTapaaq->url = null;
         $labelTapaaq->labeled = true;
+        $labelTapaaq->icon = 'start';
 
         $moduleCompany = new Module();
         $moduleCompany->name = 'Companies';
         $moduleCompany->url = '/company-list';
-        $moduleCompany->icon = null;
+        $moduleCompany->icon = 'business';
         $moduleCompany->resources = ResourceSeeder::getResourceCommons();
 
         $moduleProject = new Module();
         $moduleProject->name = 'Projects';
         $moduleProject->url = '/project-list';
-        $moduleProject->icon = null;
+        $moduleProject->icon = 'apps';
         $moduleProject->resources = ResourceSeeder::getForProjectModule();
 
         $moduleModule = new Module();
         $moduleModule->name = 'Modules';
         $moduleModule->url = '/module-list';
-        $moduleModule->icon = null;
+        $moduleModule->icon = 'build';
         $moduleModule->resources = ResourceSeeder::getResourceCommons();
 
         $moduleResource = new Module();
@@ -65,19 +66,19 @@ class ModuleSeeder extends Seeder
         $moduleRole = new Module();
         $moduleRole->name = 'Roles';
         $moduleRole->url = '/role-list';
-        $moduleRole->icon = null;
+        $moduleRole->icon = 'document';
         $moduleRole->resources = ResourceSeeder::getForRoleModule();
 
         $moduleUser = new Module();
         $moduleUser->name = 'Users';
         $moduleUser->url = '/user-list';
-        $moduleUser->icon = null;
+        $moduleUser->icon = 'person';
         $moduleUser->resources = ResourceSeeder::getForUserModule();
 
         $moduleUniversalPerson = new Module();
         $moduleUniversalPerson->name = 'Persons';
         $moduleUniversalPerson->url = '/user-detail-list';
-        $moduleUniversalPerson->icon = null;
+        $moduleUniversalPerson->icon = 'people';
         $moduleUniversalPerson->resources = ResourceSeeder::getResourceCommons();
 
         $modulePermission = new Module();
@@ -90,13 +91,13 @@ class ModuleSeeder extends Seeder
         $moduleModel = new Module();
         $moduleModel->name = 'Models';
         $moduleModel->url = '/model-list';
-        $moduleModel->icon = null;
+        $moduleModel->icon = 'albums';
         $moduleModel->resources = ResourceSeeder::getResourceCommons();
 
         $moduleTranslation = new Module();
         $moduleTranslation->name = 'Translations';
         $moduleTranslation->url = 'translation-list';
-        $moduleTranslation->icon = null;
+        $moduleTranslation->icon = 'language';
         $moduleTranslation->resources = ResourceSeeder::getResourceCommons();
 
         $labelTapaaq->children = [ $moduleCompany,
