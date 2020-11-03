@@ -52,6 +52,7 @@ class ProjectController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'code' => 'required|max:2|min:2|unique:projects',
             'name' => 'required|max:45|unique:projects'
         ]);
         
@@ -59,12 +60,12 @@ class ProjectController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        // $project = Project::create(['name' => $request->name]);
+        $project = new Project();
+        $project->code = $request->code;
+        $project->name = $request->name;
+        $project->save();
 
-        //function to generate all records in tables for new project
-        ProjectUtil::createProjectAndIts($request->name);
-
-        return $this->sendResponse([], 'Project created successfully.');  
+        return $this->sendResponse($project->toArray(), 'Project created successfully.');  
     }
 
     /**
