@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
+
+    protected $with = ['person'];
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -45,7 +48,7 @@ class Company extends Model
      */
     public function country()
     {
-        return $this->belongsTo('App\Models\Country');
+        return $this->belongsTo('App\Models\Country', 'country_code', 'code');
     }
 
     /**
