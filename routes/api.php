@@ -74,7 +74,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('companies', 'CompanyController');
 
     //User Details
-    Route::resource('user-details', 'UserDetailController');
+    Route::resource('persons', 'UniversalPersonController');
 
     //Company
     Route::resource('countries', 'CountryController');
