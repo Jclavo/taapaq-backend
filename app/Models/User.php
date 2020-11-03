@@ -12,6 +12,8 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
 
+    protected $with = ['person'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -50,9 +52,9 @@ class User extends Authenticatable
     /**
      * Get the UniversalPerson that owns the user.
      */
-    public function universal_person()
+    public function person()
     {
-        return $this->belongsTo('App\Models\UniversalPerson');
+        return $this->belongsTo('App\Models\UniversalPerson', 'universal_person_id', 'id');
     }
 
     /**

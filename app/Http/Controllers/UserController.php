@@ -89,7 +89,7 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = User::with(['universal_person','roles'])->findOrFail($id);
+        $user = User::with(['roles'])->findOrFail($id);
                 
         return $this->sendResponse($user->toArray(), 'User retrieved successfully.');
     }
@@ -188,7 +188,7 @@ class UserController extends BaseController
         Auth::user()->api_token = Str::random(80);
         Auth::user()->save();
 
-        Auth::user()->load(['company_project','universal_person','company.country']);
+        Auth::user()->load(['company_project','company.country']);
         
         if (Auth::user()->isSuper()) {
             Auth::user()->isSuper = 1;
@@ -294,7 +294,7 @@ class UserController extends BaseController
         $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
             $query->where('company_project.company_id', '=', $company_id)
                   ->where('company_project.project_id', '=', $project_id);
-        })->with(['roles','universal_person'])
+        })->with(['roles'])
         ->orderBy('users.login')
         ->get();
 
@@ -366,7 +366,7 @@ class UserController extends BaseController
 
 
         $query = User::query();
-        $query->with(['universal_person','company','roles']);
+        $query->with(['company','roles']);
 
         $query->whereHas('company_project', function ($query) use($company_id){
                 $query->when($company_id > 0, function ($query) use($company_id) {
@@ -380,7 +380,7 @@ class UserController extends BaseController
             });
         });  
 
-        $query->whereHas('universal_person', function ($query) use ($searchValue,$sortColumn, $sortDirection) {
+        $query->whereHas('person', function ($query) use ($searchValue,$sortColumn, $sortDirection) {
             $query->where('universal_persons.identification', 'like', '%'. $searchValue .'%')
                   ->orwhere('universal_persons.name', 'like', '%'. $searchValue .'%')
                   ->orwhere('universal_persons.lastname', 'like', '%'. $searchValue .'%')
