@@ -25,7 +25,7 @@ class CompanyController extends BaseController
      */
     public function index()
     {
-        $companies = Company::orderBy('name')->get();
+        $companies = Company::with('country')->get();
 
         return $this->sendResponse($companies->toArray(), 'Companies retrieved successfully.');
     }
@@ -49,15 +49,19 @@ class CompanyController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:companies',
-            'country_id' => 'required|exists:countries,id'
+            'universal_person_id' => 'required|exists:universal_people,id|unique:companies',
+            'country_code' => 'required|exists:countries,code'
         ]);
         
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
-        $company = Company::create(['name' => $request->name, 'country_id' => $request->country_id]);
+        
+        $company = new Company();
+        $company->universal_person_id = $request->universal_person_id;
+        $company->country_code = $request->country_code;
+        $company->save();
 
         return $this->sendResponse($company->toArray(), 'Company created successfully.');      
     }
