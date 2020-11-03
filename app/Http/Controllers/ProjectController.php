@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Company;
-use App\Utils\ProjectUtil;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
+//Utils
+use App\Utils\ProjectUtil;
 
 class ProjectController extends BaseController
 {
@@ -155,11 +157,17 @@ class ProjectController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $project = Project::findOrFail($request->project_id);
-        $company = Company::findOrFail($request->company_id);
-        
-        $project->companies()->syncWithoutDetaching($company); // add many to many relationship
+        $project = ProjectUtil::assignCompany($request->company_id, $request->project_id);
 
+        // $spatieSeeder = new \Database\Seeds\SpatieSeeder;
+
+        // $roles = $spatieSeeder::getCommons();
+        
+        // foreach ($roles as $role) {
+        //     RoleUtil::createCore($request->company_id,$request->project_id,
+        //                                            $role->name, $role->assign);
+        // }
+        
         return $this->sendResponse($project->toArray(), 'Company was assigned successfully.');      
     }
 
