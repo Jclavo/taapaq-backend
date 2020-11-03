@@ -13,7 +13,10 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        Project::updateOrCreate(['code' => env('PROJECT_TAAPAQ_CODE')],['name' => 'Taapaq']); 
+        Project::updateOrCreate(['code' => env('PROJECT_TAAPAQ_CODE')],['name' => 'Taapaq']);
+        
+        ProjectUtil::assignCompanyFromCode(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+                                           env('PROJECT_TAAPAQ_CODE'));
     }
 
 }
