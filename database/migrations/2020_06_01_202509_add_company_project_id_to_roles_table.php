@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProjectsToRolesTable extends Migration
+class AddCompanyProjectIdToRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AddProjectsToRolesTable extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             $table->unsignedBigInteger('company_project_id');
-            $table->foreign('company_project_id')->references('id')->on('company_project');
+            $table->foreign('company_project_id')->references('id')->on('company_project')->onDelete('cascade');
         });
     }
 
