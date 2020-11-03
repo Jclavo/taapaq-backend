@@ -191,7 +191,7 @@ class ProjectController extends BaseController
      */
     public function companies(){
 
-        $projects = Project::with('companies')->get();
+        $projects = Project::with('companies.person')->get();
 
         return $this->sendResponse($projects->toArray(), 'Projects and ist companies retrieved successfully.');
     }
@@ -203,7 +203,7 @@ class ProjectController extends BaseController
      */
     public function companiesByProject(int $id){
 
-        $projects = Project::with('companies')->findOrFail($id);
+        $projects = Project::with('companies.person')->findOrFail($id);
 
         return $this->sendResponse($projects->toArray(), 'Project and ist companies retrieved successfully.');
     }

@@ -47,4 +47,12 @@ class Company extends Model
     {
         return $this->belongsTo('App\Models\Country');
     }
+
+    /**
+     * Get the UniversalPerson that owns the company.
+     */
+    public function person()
+    {
+        return $this->belongsTo('App\Models\UniversalPerson','universal_person_id','id');
+    }
 }
