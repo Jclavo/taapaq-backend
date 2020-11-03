@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
             //seed Universal Person (User/Company)
             UniversalPersonSeeder::class,
 
-            //seed PROJECT with (MODULES/RESOURCES/PERMISSION)
-            ProjectSeeder::class,
-            ModuleSeeder::class,
-
             //seed COMPANY
             CompanySeeder::class,
+
+            //seed PROJECT (assign company) with (MODULES/RESOURCES/PERMISSION)
+            ProjectSeeder::class,
+            ModuleSeeder::class,
 
             //seed ROLES for COMPANY-PROJECT
             SpatieSeeder::class,
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
            
             //seed others
             SystemModelSeeder::class,
-            //translation 
+            TranslationSeeder::class,
 
         ]);
     }
