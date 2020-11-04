@@ -56,20 +56,32 @@
 				{
 					"name": "Create Role",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles",
+						"url": "{{url}}/api/roles",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "name",
-									"value": "admin",
+									"key": "company_id",
+									"value": "1",
+									"description": "",
 									"type": "text"
 								},
 								{
 									"key": "project_id",
 									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "client",
 									"type": "text"
 								}
 							]
@@ -81,9 +93,15 @@
 				{
 					"name": "Roles Missing to User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/not/users/4/projects/2",
+						"url": "{{url}}/api/roles/not/users/1",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -92,12 +110,12 @@
 				{
 					"name": "Roles by Project",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/roles/projects/6",
+						"url": "{{url}}/api/roles/companies/1/projects/2",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer g9M4uvNKQVwYpNLdaJPa8WMv8vCNSFZvveS45xSqvqcuyCvAvcQOyFuVGVPBtZ6fMgK2TcZIFPuFWZNS",
+								"value": "Bearer {{bearer_token}}",
 								"description": ""
 							}
 						],
@@ -219,9 +237,15 @@
 				{
 					"name": "Get Permissions By Project",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/permissions/roles/4",
+						"url": "{{url}}/api/permissions/roles/1",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -245,25 +269,88 @@
 				{
 					"name": "Create User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/users",
+						"url": "http://127.0.0.1:8080/api/users",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "login",
-									"value": "cj",
+									"key": "universal_person_id",
+									"value": "2",
 									"type": "text"
 								},
 								{
 									"key": "company_id",
-									"value": "2",
+									"value": "1",
 									"type": "text"
 								},
 								{
 									"key": "project_id",
 									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Pagination",
+					"request": {
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/users/pagination?page=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer pw3prppDav7CuJhS72mbwIm1b3TYjhCMPOtnbSw7psMTQPNys4AddmfFLHJNbSB95mr8xNkHvS0fB7GC",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "2",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "role_id",
+									"value": "4",
+									"description": "",
 									"type": "text"
 								}
 							]
@@ -309,6 +396,31 @@
 					"response": []
 				},
 				{
+					"name": "Assign Massive Role to User",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/users/assignMassiveRole",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer beu4Y6jTXXyVGWDidYVM8CvnNbLmAI5qzQOxGNulnYbo9PBsQOd1kGnmOSpa76p73RSM3gkgQOztLZFJ",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json;charset=UTF-8",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\" : 3,\n\t\"roles\": [3]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "Remove Role to User",
 					"request": {
 						"url": "http://127.0.0.1:8000/api/users/removeRole",
@@ -336,7 +448,7 @@
 				{
 					"name": "Login",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/login",
+						"url": "http://127.0.0.1:8080/api/login",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -344,12 +456,12 @@
 							"formdata": [
 								{
 									"key": "login",
-									"value": "1234567812",
+									"value": "123456780002",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "1234567812",
+									"value": "MTIzNDU2Nzgy",
 									"type": "text"
 								}
 							]
@@ -361,7 +473,7 @@
 				{
 					"name": "Login SUPER",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/login",
+						"url": "{{url}}/api/login",
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -369,12 +481,12 @@
 							"formdata": [
 								{
 									"key": "login",
-									"value": "1111",
+									"value": "459606301",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "password",
+									"value": "NDU5NjA2MzAx",
 									"type": "text"
 								}
 							]
@@ -442,11 +554,70 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer RdfnjCL1Yn87LJKe4LG6fP16vNZxjucRUt0CPixFsTfTuBMAQRji8yqgFDlpPJDXyxYj47ou3OoO8DqR",
+								"value": "Bearer beu4Y6jTXXyVGWDidYVM8CvnNbLmAI5qzQOxGNulnYbo9PBsQOd1kGnmOSpa76p73RSM3gkgQOztLZFJ",
 								"description": ""
 							}
 						],
 						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Roles User Company Project",
+					"request": {
+						"url": "{{url}}/api/users/roles/companies/1/projects/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get by ID",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/users/2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer pw3prppDav7CuJhS72mbwIm1b3TYjhCMPOtnbSw7psMTQPNys4AddmfFLHJNbSB95mr8xNkHvS0fB7GC",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/users/4",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer UHnt0rDGomIp26PFFug8oRlq9S8KjisSG3PLm872HvZgVAy1HW8AwPI1QGikuoTrWqZzgksmCbMsAje5",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\" : \"aaabbbccc\",\n\t\"repassword\" : \"aaabbbccc\"\n}"
+						},
 						"description": ""
 					},
 					"response": []
@@ -460,12 +631,12 @@
 				{
 					"name": "Get Projects",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects",
+						"url": "http://127.0.0.1:8080/api/projects/companies",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer BhB6BKYaUqHwNZZwZ3HqpnkMqLbcm1NllSs7tixw7oTB17D79TQN9iamgxZxWOfBYTP3BNokgw78mq3B",
+								"value": "Bearer {{bearer_token}}",
 								"description": ""
 							}
 						],
@@ -477,9 +648,15 @@
 				{
 					"name": "Get Project - Companies",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/2/companies",
+						"url": "{{url}}/api/projects/1/companies",
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {},
 						"description": ""
 					},
@@ -502,12 +679,24 @@
 				{
 					"name": "Create Project",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects",
+						"url": "{{url}}/api/projects",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
+								{
+									"key": "code",
+									"value": "as",
+									"description": "",
+									"type": "text"
+								},
 								{
 									"key": "name",
 									"value": "test project",
@@ -522,9 +711,15 @@
 				{
 					"name": "Assign company",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/projects/assignCompany",
+						"url": "{{url}}/api/projects/assignCompany",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -535,7 +730,7 @@
 								},
 								{
 									"key": "company_id",
-									"value": "2",
+									"value": "3",
 									"type": "text"
 								}
 							]
@@ -578,12 +773,17 @@
 				{
 					"name": "Get Module by User",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules/user",
+						"url": "{{url}}/api/modules/user",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer KhvjtQ2RKYXTX2ASS45F7EKBIfRcmfWj2EYWrEFdlv1JRi0XbCtUtuDo8v0zSOIAJjsKTvAzwzugWyLD",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							},
+							{
+								"key": "Accept-Language",
+								"value": "",
 								"description": ""
 							}
 						],
@@ -595,12 +795,29 @@
 				{
 					"name": "Get Module by Project",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules/resources/projects/7",
+						"url": "{{url}}/api/modules/resources/projects/1",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer kbkmCi4JU73336C7Yt2xW5M6dYSrHE7LSYEBLXVwa53vjci3XQeuUKNHgVJwNmKFoxyoAXJAIUs9WLsR",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Module Label by Project",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/modules/labels/projects/2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer IrR2VAwBl92GEgKX9fmRahAYsvhKpg0vDQIe1GxBa7nCSQYvDh2EYczzpxVxtrr0QwLDwVdGP0NPrIWc",
 								"description": ""
 							}
 						],
@@ -626,9 +843,15 @@
 				{
 					"name": "Create Module",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/modules",
+						"url": "http://127.0.0.1:8080/api/modules",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -639,12 +862,61 @@
 								},
 								{
 									"key": "name",
-									"value": "user4",
+									"value": "new module 2",
 									"type": "text"
 								},
 								{
 									"key": "url",
-									"value": "user/",
+									"value": "/new_module-list",
+									"type": "text"
+								},
+								{
+									"key": "parent_id",
+									"value": "20",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Module Label",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/modules",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "new label",
+									"type": "text"
+								},
+								{
+									"key": "parent_id",
+									"value": "15",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "labeled",
+									"value": "1",
+									"description": "",
 									"type": "text"
 								}
 							]
@@ -662,12 +934,12 @@
 				{
 					"name": "Create Resource",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/resources",
+						"url": "http://127.0.0.1:8080/api/resources",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer qndRGHX7aQ0iLVbNTkT0AvqPbD7b7qI9iB2foipn8eH90hNe74O0xiBJGds1Ud0jJg120ZIW2vE4WE9V",
+								"value": "Bearer {{bearer_token}}",
 								"description": ""
 							}
 						],
@@ -733,15 +1005,27 @@
 				{
 					"name": "Create Company",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/companies",
+						"url": "{{url}}/api/companies",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "name",
-									"value": "admin1",
+									"key": "universal_person_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "country_code",
+									"value": "55",
+									"description": "",
 									"type": "text"
 								}
 							]
@@ -753,13 +1037,16 @@
 				{
 					"name": "Get Companies",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/companies",
+						"url": "http://127.0.0.1:8080/api/companies",
 						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -767,12 +1054,12 @@
 				{
 					"name": "Not In Project",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/companies/not/projects/3",
+						"url": "{{url}}/api/companies/not/projects/1",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer Ekpu41TiMXFZKWnJ4aFbAqjmslFDxoJIXjCZCabR5Z0pQBgADL0zXhB8j3aAPhwNbXfn1EgXE7FfYz5y",
+								"value": "Bearer {{bearer_token}}",
 								"description": ""
 							}
 						],
@@ -804,18 +1091,18 @@
 			]
 		},
 		{
-			"name": "User Details",
+			"name": "Universal Person",
 			"description": "",
 			"item": [
 				{
-					"name": "Get Users",
+					"name": "Get Persons",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/user-details/",
+						"url": "http://127.0.0.1:8080/api/persons/",
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer jXPCojrnZHm9IZb6f3oIj0ZZO7FNNgwfswfDWKfHN147qd6UK6lvnQqtRaadlFYIWCu1m933Au7qUrc6",
+								"value": "Bearer {{bearer_token}}",
 								"description": ""
 							}
 						],
@@ -825,17 +1112,23 @@
 					"response": []
 				},
 				{
-					"name": "Create User",
+					"name": "Create Person",
 					"request": {
-						"url": "http://127.0.0.1:8000/api/user-details/",
+						"url": "http://127.0.0.1:8080/api/persons/",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "identification",
-									"value": "12a",
+									"value": "1212121212",
 									"description": "",
 									"type": "text"
 								},
@@ -860,6 +1153,532 @@
 								{
 									"key": "address",
 									"value": "triunfo street",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/user-details/13",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer J2zkhV4Pbtw3uEnMfOhRinCyPeDAEDkgjUV8CfRpsRRp9TemnAxdukMnbmfqgVzjmErolPYdFx6ybnkx",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"identification\": \"77777777776\",\n\t\"email\" : \"julio11@test.com\",\n\t\"name\" : \"julio11\",\n\t\"lastname\" : \"mejia11\",\n\t\"phone\": \"123\",\n\t\"address\": \"venezuela\"\n\t\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Country",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Countries",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/countries",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin1",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Languages",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Languages",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/languages/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Models",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Model",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/models",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer JyVPqpkm2rYM9Cry5tTZIKqpeSzMmlzZguvvbQ5D0i6orL0Z6VDHiEdWfYPl25O4nIxfx0mJAkigWDxr",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "MyModelD",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Models",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/models/projects/2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer JyVPqpkm2rYM9Cry5tTZIKqpeSzMmlzZguvvbQ5D0i6orL0Z6VDHiEdWfYPl25O4nIxfx0mJAkigWDxr",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "MyModel2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Model",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/models/3",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer au68yF8lQ3ZW0FmBKzR7pm8nrrF3kd9rYi5u9qNmARupB96XdT4iPgsicqUrSiULWFXbOxlzH10OMc9Y",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Translations",
+			"description": "",
+			"item": [
+				{
+					"name": "Delete Translations",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/translations/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer JyVPqpkm2rYM9Cry5tTZIKqpeSzMmlzZguvvbQ5D0i6orL0Z6VDHiEdWfYPl25O4nIxfx0mJAkigWDxr",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Translation",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/translations",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer elmRdtIzXlcnnOwD4cZxHcRsPqFPRcvR7nmJR6dGSqHEnkAefIIJ0CLQtQG1Z3GlJXzS1ZpBE630MKBG",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "model_id",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "key",
+									"value": "caty",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "translationable_id",
+									"value": "3",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Translation",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/getTranslation",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "key",
+									"value": "nome",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "translationable_id",
+									"value": "",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "model_id",
+									"value": "7",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "locale",
+									"value": "en",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Translations by Model",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/translations/models/6",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "MyModel2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Translations by Project",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/translations/models/projects/2",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 5OEvGk14zQ5uThyltW0jLd1rPrC93OXkJHlJbBAM1KJZFqgE1bQJboiUdbU8BYpQmMdXdKgN18oiQWgp",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "MyModel2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Translation Details",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Translation Detail",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/translation-details",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer mR1D65jlTEimAVNxv83bzZnuzhl74tzHyrh8RgeYcv1ztxs6nT9Qh2H8J1BqR78dbeX8Xd6Uk42TV54y",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "translation_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "nombre",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "locale",
+									"value": "es",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Translation Details",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/translation-details/1",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer JyVPqpkm2rYM9Cry5tTZIKqpeSzMmlzZguvvbQ5D0i6orL0Z6VDHiEdWfYPl25O4nIxfx0mJAkigWDxr",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Translation Detail",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/translation-details/translations/1",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer JyVPqpkm2rYM9Cry5tTZIKqpeSzMmlzZguvvbQ5D0i6orL0Z6VDHiEdWfYPl25O4nIxfx0mJAkigWDxr",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "MyModel2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locale",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Locales",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/locales",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer XNtpcS5f0NIh5VU4U6wBcVtXXMHZapcJE0BkEOrmt4RjFhO9qNdly5raMhmwnTiNK3voj0AEOWsqnZ2v",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "MyModel2",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"description": "",
+			"item": [
+				{
+					"name": "Save Image",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/images",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "GOPR1838.JPG"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Image",
+					"request": {
+						"url": "http://127.0.0.1:8080/api/images/1601995162.png",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "MyModel2",
 									"description": "",
 									"type": "text"
 								}
