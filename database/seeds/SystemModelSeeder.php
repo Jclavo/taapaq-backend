@@ -28,7 +28,21 @@ class SystemModelSeeder extends Seeder
     static function getForTaapaq(){
         return [
                 'system',
-                // '',
+                'company',
+                'country', //without permissions
+                'image', //without permissions
+                'locale', //without permissions
+                'module',
+                'permission',
+                'project',
+                'resource-common', //without permissions
+                'resource',
+                'role',
+                'system-model',
+                'translation', //without permissions
+                'translation-detail', //without permissions
+                'universal-person',
+                'user',  
         ]; 
     }
 }
