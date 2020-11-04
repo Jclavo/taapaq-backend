@@ -51,7 +51,7 @@ class Project extends Model
      */
     public function roles()
     {
-        return $this->hasMany('Spatie\Permission\Models\Role')
+        return $this->hasMany('App\Models\CustomSpatieRole')
                     ->orderBy('name');
     }
 

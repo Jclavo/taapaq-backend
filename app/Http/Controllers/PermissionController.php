@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\CustomSpatieRole as Role;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

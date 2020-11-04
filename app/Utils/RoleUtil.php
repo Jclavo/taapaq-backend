@@ -5,7 +5,7 @@ namespace App\Utils;
 use App\Models\Project;
 use App\Models\Company;
 use App\Models\UniversalPerson;
-use Spatie\Permission\Models\Role;
+use App\Models\CustomSpatieRole as Role;
 use Spatie\Permission\Models\Permission;
 
 use  App\Utils\ProjectUtil;

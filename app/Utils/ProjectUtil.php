@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\Company;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\CustomSpatieRole as Role;
 
 class ProjectUtil
 {

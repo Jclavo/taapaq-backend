@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Project;
-use Spatie\Permission\Models\Role;
+use App\Models\CustomSpatieRole as Role;
 use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
