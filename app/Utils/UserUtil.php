@@ -15,9 +15,13 @@ use App\Utils\CompanyUtil;
 
 class UserUtil
 {
-    static function getForIdentification($identification){
+    static function getForIdentification($company_id,$project_id, $identification){
+
+        $companyProjectID = ProjectUtil::getCompanyProjectID($company_id,$project_id);
+
         $universalPersonCompany = UniversalPersonUtil::getFromIdentification($identification);
-        return User::where('universal_person_id', $universalPersonCompany->id)->firstOrFail();
+        return User::where('universal_person_id', $universalPersonCompany->id)->
+                     where('company_project_id', $companyProjectID)->firstOrFail();
     }
 
     static function createFromCompanyProject($companyIdentification, $projectCode, $userIdentification, $activated = false){
@@ -72,9 +76,18 @@ class UserUtil
 
         $role = RoleUtil::getFromCompanyProjectCode($companyIdentification, $projectCode,$roleName);
 
-        $user = self::getForIdentification($userIdentification);
+        $user = self::getForIdentificationCode($companyIdentification, $projectCode,$userIdentification);
 
         $user->assignRole($role);
+    }
+
+    static function getForIdentificationCode($companyIdentification,$projectCode,$userIdentification){
+
+        $company = CompanyUtil::getFromIdentification($companyIdentification);
+        $project = ProjectUtil::getFromCode($projectCode);
+
+        return self::getForIdentification($company->id,$project->id, $userIdentification);
+
     }
 
 
