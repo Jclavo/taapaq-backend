@@ -72,6 +72,21 @@ class User extends Authenticatable
         );
     }
 
+    /**
+     * Get the project that the user works.
+     */
+    public function project()
+    {
+        return $this->hasOneThrough(
+            'App\Models\Project',
+            'App\Models\CompanyProject', 
+            'id', 
+            'id', 
+            'company_project_id',
+            'project_id' 
+        );
+    }
+
     //Custom functions
     
     /**

@@ -30,6 +30,7 @@ class UserController extends BaseController
         $this->middleware('permission_in_role:users/assign-role', ['only' => ['assignRole', 'assignMassiveRole']]);
         $this->middleware('permission_in_role:users/remove-role', ['only' => ['removeRole', 'assignMassiveRole']]);
         $this->middleware('permission_in_role:users/activated-status', ['only' => ['changeActivatedStatus']]);
+        $this->middleware('permission_in_role:users/pagination', ['only' => ['pagination']]);
     }
 
     /**
@@ -188,7 +189,7 @@ class UserController extends BaseController
         Auth::user()->api_token = Str::random(80);
         Auth::user()->save();
 
-        Auth::user()->load(['company_project','company.country']);
+        Auth::user()->load(['company_project','company.country','project']);
         
         if (Auth::user()->isSuper()) {
             Auth::user()->isSuper = 1;
@@ -357,7 +358,7 @@ class UserController extends BaseController
 
        // SearchOptions values
         $pageSize      = PaginationUtil::getPageSize($request->pageSize);
-        $sortColumn    = PaginationUtil::getSortColumn($request->sortColumn,'universal_persons');
+        $sortColumn    = PaginationUtil::getSortColumn($request->sortColumn,'universal_people');
         $sortDirection = PaginationUtil::getSortDirection($request->sortDirection);
         $searchValue   = $request->searchValue;
         //custom fields from User
@@ -381,12 +382,12 @@ class UserController extends BaseController
         });  
 
         $query->whereHas('person', function ($query) use ($searchValue,$sortColumn, $sortDirection) {
-            $query->where('universal_persons.identification', 'like', '%'. $searchValue .'%')
-                  ->orwhere('universal_persons.name', 'like', '%'. $searchValue .'%')
-                  ->orwhere('universal_persons.lastname', 'like', '%'. $searchValue .'%')
-                  ->orWhere('universal_persons.email', 'like', '%'. $searchValue .'%')
-                  ->orWhere('universal_persons.phone', 'like', '%'. $searchValue .'%')
-                  ->orWhere('universal_persons.address', 'like', '%'. $searchValue .'%');
+            $query->where('universal_people.identification', 'like', '%'. $searchValue .'%')
+                  ->orwhere('universal_people.name', 'like', '%'. $searchValue .'%')
+                  ->orwhere('universal_people.lastname', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_people.email', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_people.phone', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_people.address', 'like', '%'. $searchValue .'%');
         });
         
         $results = $query->orderBy('users.'. $sortColumn, $sortDirection)
@@ -406,12 +407,12 @@ class UserController extends BaseController
         // });
 
         // $query->where(function($q) use ($searchValue){
-        //     $q->orwhere('universal_persons.identification', 'like', '%'. $searchValue .'%')
-        //       ->orwhere('universal_persons.name', 'like', '%'. $searchValue .'%')
-        //       ->orwhere('universal_persons.lastname', 'like', '%'. $searchValue .'%')
-        //       ->orWhere('universal_persons.email', 'like', $searchValue .'%')
-        //       ->orWhere('universal_persons.phone', 'like', $searchValue .'%')
-        //       ->orWhere('universal_persons.address', 'like', $searchValue .'%');
+        //     $q->orwhere('universal_people.identification', 'like', '%'. $searchValue .'%')
+        //       ->orwhere('universal_people.name', 'like', '%'. $searchValue .'%')
+        //       ->orwhere('universal_people.lastname', 'like', '%'. $searchValue .'%')
+        //       ->orWhere('universal_people.email', 'like', $searchValue .'%')
+        //       ->orWhere('universal_people.phone', 'like', $searchValue .'%')
+        //       ->orWhere('universal_people.address', 'like', $searchValue .'%');
         // });
 
         // $results = $query->orderBy('users.'.$sortColumn, $sortDirection)
