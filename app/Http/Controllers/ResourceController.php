@@ -17,10 +17,10 @@ class ResourceController extends BaseController
 {
     function __construct()
     {
-        // $this->middleware('permission_in_role:resources/read'); 
-        // $this->middleware('permission_in_role:resources/create', ['only' => ['store']]);
-        // $this->middleware('permission_in_role:resources/update', ['only' => ['update']]);
-        // $this->middleware('permission_in_role:resources/delete', ['only' => ['destroy']]);
+        $this->middleware('permission_in_role:resources/read'); 
+        $this->middleware('permission_in_role:resources/create', ['only' => ['store']]);
+        $this->middleware('permission_in_role:resources/update', ['only' => ['update']]);
+        $this->middleware('permission_in_role:resources/delete', ['only' => ['destroy']]);
     }
 
     /**
