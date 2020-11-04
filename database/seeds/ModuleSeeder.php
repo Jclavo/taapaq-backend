@@ -150,7 +150,7 @@ class ModuleSeeder extends Seeder
         $modulePermission->resources = ResourceSeeder::getResourceCommons();
 
         $moduleUser = new Module();
-        $moduleUser->name = 'My Users';
+        $moduleUser->name = 'Users';
         $moduleUser->url = '/user-list';
         $moduleUser->icon = 'person';
         $moduleUser->resources = ResourceSeeder::getForUserModule();
