@@ -14,6 +14,8 @@ class ModuleSeeder extends Seeder
     public function run()
     {
         ModuleUtil::createMassiveFromProjectCode(env('PROJECT_TAAPAQ_CODE'),self::getForTaapaq());
+
+        ModuleUtil::createMassiveFromProjectCode(env('PROJECT_RANQHANA_CODE'),self::getForRanqhana());
     }
 
 
@@ -116,5 +118,226 @@ class ModuleSeeder extends Seeder
 
         return $arrayTaapaq;
     }
+
+    static function getForRanqhana(){
+
+        /**
+         * Label TAAPAQ and its
+         */
+        $labelTapaaq = new Module();
+        $labelTapaaq->name = 'Taapaq';
+        $labelTapaaq->url = null;
+        $labelTapaaq->labeled = true;
+        $labelTapaaq->icon = 'tools';
+
+        $moduleCompany = new Module();
+        $moduleCompany->name = 'Roles';
+        $moduleCompany->url = '/role-list';
+        $moduleCompany->icon = 'document';
+        $moduleCompany->resources = ResourceSeeder::getResourceCommons();
+
+        $moduleUniversalPerson = new Module();
+        $moduleUniversalPerson->name = 'Persons';
+        $moduleUniversalPerson->url = '/user-detail-list';
+        $moduleUniversalPerson->icon = 'people';
+        $moduleUniversalPerson->resources = ResourceSeeder::getResourceCommons();
+
+        $modulePermission = new Module();
+        $modulePermission->name = 'Permissions';
+        $modulePermission->url = '/permission-list';
+        $modulePermission->visibled = false;
+        $modulePermission->icon = null;
+        $modulePermission->resources = ResourceSeeder::getResourceCommons();
+
+        $moduleUser = new Module();
+        $moduleUser->name = 'My Users';
+        $moduleUser->url = '/user-list';
+        $moduleUser->icon = 'person';
+        $moduleUser->resources = ResourceSeeder::getForUserModule();
+
+        $labelTapaaq->children = [ $moduleCompany,
+                                   $moduleUniversalPerson,
+                                   $modulePermission,
+                                   $moduleUser,
+        ];
+
+        /**
+         * DASHBOARD module
+         */
+
+        $moduleDashboard = new Module();
+        $moduleDashboard->name = 'Dashboard';
+        $moduleDashboard->url = '/dashboard';
+        $moduleDashboard->icon = 'tachometer-alt';
+        $moduleDashboard->resources = ResourceSeeder::getForUserModule();
+
+
+        /**
+         * Label INVOICE and its
+         */
+
+        $labelInvoice = new Module();
+        $labelInvoice->name = 'Invoices';
+        $labelInvoice->url = null;
+        $labelInvoice->labeled = true;
+        $labelInvoice->icon = 'file-invoice-dollar';
+
+        $moduleSellInvoice = new Module();
+        $moduleSellInvoice->name = 'Sell Invoice';
+        $moduleSellInvoice->url = '/invoices/sell';
+        $moduleSellInvoice->icon = 'file-invoice-dollar';
+        $moduleSellInvoice->resources = ResourceSeeder::getForUserModule();
+
+        $moduleInvoiceList = new Module();
+        $moduleInvoiceList->name = 'Invoices List';
+        $moduleInvoiceList->url = '/invoices';
+        $moduleInvoiceList->icon = 'table';
+        $moduleInvoiceList->resources = ResourceSeeder::getForUserModule();
+
+        $modulePurchaseInvoice = new Module();
+        $modulePurchaseInvoice->name = 'Purchase Invoice';
+        $modulePurchaseInvoice->url = '/invoices/purchase';
+        $modulePurchaseInvoice->icon = 'file-invoice-dollar';
+        $modulePurchaseInvoice->resources = ResourceSeeder::getForUserModule();
+
+        $moduleInvoiceChart = new Module();
+        $moduleInvoiceChart->name = 'Charts';
+        $moduleInvoiceChart->url = '/invoices/chart';
+        $moduleInvoiceChart->icon = 'chart-area';
+        $moduleInvoiceChart->resources = ResourceSeeder::getForUserModule();
+
+        $labelInvoice->children = [ $moduleInvoiceList,
+                                    $moduleSellInvoice,
+                                    $modulePurchaseInvoice,
+                                    $moduleInvoiceChart,
+        ];
+        /**
+         * Label ORDER and its
+         */
+
+        $labelOrder = new Module();
+        $labelOrder->name = 'Orders';
+        $labelOrder->url = null;
+        $labelOrder->labeled = true;
+        $labelOrder->icon = 'file-invoice-dollar';
+
+        $moduleOrderList = new Module();
+        $moduleOrderList->name = 'Orders List';
+        $moduleOrderList->url = '/orders/';
+        $moduleOrderList->icon = '';
+        $moduleOrderList->resources = ResourceSeeder::getForUserModule();
+
+        $moduleSellOrder = new Module();
+        $moduleSellOrder->name = 'Sell Order';
+        $moduleSellOrder->url = '/orders/sell';
+        $moduleSellOrder->icon = '';
+        $moduleSellOrder->resources = ResourceSeeder::getForUserModule();
+
+        $modulePurchaseOrder = new Module();
+        $modulePurchaseOrder->name = 'Purchase Order';
+        $modulePurchaseOrder->url = '/orders/purchase';
+        $modulePurchaseOrder->icon = '';
+        $modulePurchaseOrder->resources = ResourceSeeder::getForUserModule();
+
+        $labelOrder->children = [ $moduleOrderList,
+                                  $moduleSellOrder,
+                                  $modulePurchaseOrder,
+        ];
+
+        /**
+         * Label PRODUCT and its
+         */
+
+        $labelProduct = new Module();
+        $labelProduct->name = 'Products';
+        $labelProduct->url = null;
+        $labelProduct->labeled = true;
+        $labelProduct->icon = 'boxes';
+
+        $moduleProductList = new Module();
+        $moduleProductList->name = 'Products List';
+        $moduleProductList->url = '/items/products';
+        $moduleProductList->icon = 'table';
+        $moduleProductList->resources = ResourceSeeder::getForUserModule();
+
+        $moduleProduct = new Module();
+        $moduleProduct->name = 'Product';
+        $moduleProduct->url = '/items/product';
+        $moduleProduct->icon = 'box';
+        $moduleProduct->resources = ResourceSeeder::getForUserModule();
+
+        $labelProduct->children = [ $moduleProductList,
+                                    $moduleProduct,
+        ];
+
+        /**
+        * Label SERVICE and its
+        */
+
+        $labelService = new Module();
+        $labelService->name = 'Services';
+        $labelService->url = null;
+        $labelService->labeled = true;
+        $labelService->icon = 'toolbox';
+
+        $moduleServiceList = new Module();
+        $moduleServiceList->name = 'Services List';
+        $moduleServiceList->url = '/items/services';
+        $moduleServiceList->icon = 'table';
+        $moduleServiceList->resources = ResourceSeeder::getForUserModule();
+
+        $moduleService = new Module();
+        $moduleService->name = 'Service';
+        $moduleService->url = '/items/service';
+        $moduleService->icon = 'toolbox';
+        $moduleService->resources = ResourceSeeder::getForUserModule();
+
+        $labelService->children = [ $moduleServiceList,
+                                    $moduleService,
+        ];
+        /**
+        * Label USER and its
+        */
+
+        $labelUser = new Module();
+        $labelUser->name = 'Users';
+        $labelUser->url = null;
+        $labelUser->labeled = true;
+        $labelUser->icon = 'users';
+
+        $moduleUserList = new Module();
+        $moduleUserList->name = 'Users List';
+        $moduleUserList->url = '/users';
+        $moduleUserList->icon = 'table';
+        $moduleUserList->resources = ResourceSeeder::getForUserModule();
+
+        $moduleUser = new Module();
+        $moduleUser->name = 'User';
+        $moduleUser->url = '/users/user';
+        $moduleUser->icon = 'user';
+        $moduleUser->resources = ResourceSeeder::getForUserModule();
+
+        $labelUser->children = [ $moduleUserList,
+                                 $moduleUser,
+        ];
+
+        $arrayRanqhana = [
+            $labelTapaaq,
+            $moduleDashboard,
+            $labelInvoice,
+            $labelOrder,
+            $labelProduct,
+            $labelService,
+            $labelUser
+        ];
+
+        return $arrayRanqhana;
+    }
  
 }
+
+// $module = new Module();
+// $module->name = '';
+// $module->url = '/';
+// $module->icon = '';
+// $module->resources = ResourceSeeder::getForUserModule();

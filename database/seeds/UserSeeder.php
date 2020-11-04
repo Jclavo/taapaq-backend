@@ -14,13 +14,26 @@ class UserSeeder extends Seeder
      */
     public function run()
     { 
-        UserUtil::createFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),
+         /**from TAAPAQ */
+        UserUtil::createFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+                                           env('PROJECT_TAAPAQ_CODE'),
                                            env('USER_COCO_IDENTIFICATION'), true); 
-        
+        /**from RANQHANA */
+        UserUtil::createFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+                                           env('PROJECT_RANQHANA_CODE'),
+                                           env('USER_COCO_IDENTIFICATION'), true); 
+
         foreach (SpatieSeeder::getCommons() as $role){
-            UserUtil::assignRoleFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),env('PROJECT_TAAPAQ_CODE'),$role->name, env('USER_COCO_IDENTIFICATION')); 
+            /**from TAAPAQ */
+            UserUtil::assignRoleFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+                                                   env('PROJECT_TAAPAQ_CODE'),$role->name,
+                                                   env('USER_COCO_IDENTIFICATION'));
+                                            
+            /**from RANQHANA */
+            UserUtil::assignRoleFromCompanyProject(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+                                                   env('PROJECT_RANQHANA_CODE'),$role->name,
+                                                   env('USER_COCO_IDENTIFICATION'));
         }
-        
-        
+
     }
 }

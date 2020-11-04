@@ -11,7 +11,15 @@ class SpatieSeeder extends Seeder
     public function run()
     { 
         foreach (self::getCommons() as $role){
-            RoleUtil::createFromCompanyProjectCode(env('COMPANY_CLEIVOR_IDENTIFICATION'), env('PROJECT_TAAPAQ_CODE'),
+
+            /**from TAAPAQ */
+            RoleUtil::createFromCompanyProjectCode(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+                                                   env('PROJECT_TAAPAQ_CODE'),
+                                                   $role->name, $role->assign);
+
+            /**from RANQHANA */
+            RoleUtil::createFromCompanyProjectCode(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+                                                   env('PROJECT_RANQHANA_CODE'),
                                                    $role->name, $role->assign);
         }
     }
