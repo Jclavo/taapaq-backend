@@ -339,6 +339,10 @@ class UserController extends BaseController
             return $input->company_id > 0;
         });
 
+        $validator->sometimes('project_id', 'exists:projects,id', function ($input) {
+            return $input->project_id > 0;
+        });
+
         $validator->sometimes('role_id', 'exists:roles,id', function ($input) {
             return $input->role_id > 0;
         });
@@ -347,15 +351,6 @@ class UserController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-
-        // $company = User::whereHas('company_project', function ($query) use($company_id, $project_id) {
-        //     $query->where('company_project.company_id', '=', $company_id)
-        //           ->where('company_project.project_id', '=', $project_id);
-        // })->with(['roles','universal_person'])
-        // ->orderBy('users.login')
-        // ->get();
-
-
        // SearchOptions values
         $pageSize      = PaginationUtil::getPageSize($request->pageSize);
         $sortColumn    = PaginationUtil::getSortColumn($request->sortColumn,'universal_people');
@@ -363,16 +358,20 @@ class UserController extends BaseController
         $searchValue   = $request->searchValue;
         //custom fields from User
         $company_id    = $request->company_id;
+        $project_id    = $request->project_id;
         $role_id       = $request->role_id;
 
 
         $query = User::query();
         $query->with(['company','roles']);
 
-        $query->whereHas('company_project', function ($query) use($company_id){
-                $query->when($company_id > 0, function ($query) use($company_id) {
-                    return $query->where('company_project.company_id', '=', $company_id);
-                });    
+        $query->whereHas('company_project', function ($query) use($company_id,$project_id){
+            $query->when($company_id > 0, function ($query) use($company_id) {
+                return $query->where('company_project.company_id', '=', $company_id);
+            });
+            $query->when($project_id > 0, function ($query) use($project_id) {
+                return $query->where('company_project.project_id', '=', $project_id);
+            }); 
         });
 
         $query->when($role_id > 0, function ($query) use($role_id) {
