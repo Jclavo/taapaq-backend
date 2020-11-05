@@ -108,7 +108,7 @@ class UniversalPersonController extends BaseController
     public function update(int $id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', Rule::unique('universal_people')->ignore($id)],
+            // 'identification' => ['required', 'numeric', 'min:8', Rule::unique('universal_people')->ignore($id)],
             'email' => ['nullable','email',Rule::unique('universal_people')->ignore($id)],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
@@ -122,7 +122,7 @@ class UniversalPersonController extends BaseController
 
         $user = UniversalPerson::findOrFail($id);
         
-        $user->identification = $request->identification;
+        // $user->identification = $request->identification;
         $user->email = $request->email;
         $user->name = $request->name;
         $user->lastname = $request->lastname;
