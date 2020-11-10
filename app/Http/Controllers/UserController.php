@@ -199,7 +199,7 @@ class UserController extends BaseController
         }
 
         // sync user in Ranqhana DB
-        UserUtil::syncRanqhanaUser(Auth::user()->id, Auth::user()->login, Auth::user()->person->id);
+        UserUtil::syncRanqhanaUser(Auth::user()->id, Auth::user()->login, Auth::user()->company_project->id);
 
         return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
     }
