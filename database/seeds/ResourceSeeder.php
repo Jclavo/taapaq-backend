@@ -21,15 +21,31 @@ class ResourceSeeder extends Seeder
      * VALUES SECTION
     */
 
-    static function getResourceCommons(){
+    static function getResourceCommonsForListPage(){
         return [
-                'create',
-                'update',
-                'read',
                 'delete',
                 'pagination',
-                'show',
+                'read',
+                // 'show',
         ]; 
+    }
+
+    static function getResourceCommonsForSimplePage(){
+        return [
+            'create',
+            'update'
+        ];
+    }
+
+    static function getResourceCommons(){
+
+        $resources = [];
+
+        $resources = array_merge($resources,self::getResourceCommonsForListPage());
+
+        $resources = array_merge($resources,self::getResourceCommonsForSimplePage());
+
+        return $resources;
     }
 
     static function getForProjectModule(){
