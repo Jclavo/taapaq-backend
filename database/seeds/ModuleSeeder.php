@@ -321,6 +321,18 @@ class ModuleSeeder extends Seeder
                                  $moduleUser,
         ];
 
+         /**
+         * Payment module
+         */
+        $modulePayment = new Module();
+        $modulePayment->name = 'Payment';
+        $modulePayment->url = '/payment';
+        $modulePayment->visibled = false;
+        // $modulePayment->icon = 'tachometer-alt';
+        $modulePayment->resources = ResourceSeeder::getResourceCommons();
+
+
+        //final array
         $arrayRanqhana = [
             $labelTapaaq,
             $moduleDashboard,
@@ -328,7 +340,8 @@ class ModuleSeeder extends Seeder
             $labelOrder,
             $labelProduct,
             $labelService,
-            $labelUser
+            $labelUser,
+            $modulePayment,
         ];
 
         return $arrayRanqhana;
