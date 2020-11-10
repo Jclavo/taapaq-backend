@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
 
+//Utils
+use App\Utils\PaginationUtil;
+
 class UniversalPersonController extends BaseController
 {
     function __construct()
@@ -17,6 +20,7 @@ class UniversalPersonController extends BaseController
         $this->middleware('permission_in_role:persons/create', ['only' => ['store']]);
         $this->middleware('permission_in_role:persons/update', ['only' => ['update']]);
         $this->middleware('permission_in_role:persons/delete', ['only' => ['destroy']]); 
+        $this->middleware('permission_in_role:persons/pagination', ['only' => ['pagination']]); 
     }
     
     /**
@@ -144,4 +148,54 @@ class UniversalPersonController extends BaseController
     {
         //
     }
+
+        /**
+     * Pagination of table users
+     */
+    public function pagination(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'pageSize' => 'numeric|gt:0',
+        ]);
+
+        $validator->sometimes('company_id', 'exists:companies,id', function ($input) {
+            return $input->company_id > 0;
+        });
+
+        $validator->sometimes('project_id', 'exists:projects,id', function ($input) {
+            return $input->project_id > 0;
+        });
+
+        $validator->sometimes('role_id', 'exists:roles,id', function ($input) {
+            return $input->role_id > 0;
+        });
+
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+       // SearchOptions values
+        $pageSize      = PaginationUtil::getPageSize($request->pageSize);
+        $sortColumn    = PaginationUtil::getSortColumn($request->sortColumn,'universal_people');
+        $sortDirection = PaginationUtil::getSortDirection($request->sortDirection);
+        $searchValue   = $request->searchValue;
+        //custom fields from User
+
+        $query = UniversalPerson::query();
+
+        $query->where('universal_people.identification', 'like', '%'. $searchValue .'%')
+                  ->orwhere('universal_people.name', 'like', '%'. $searchValue .'%')
+                  ->orwhere('universal_people.lastname', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_people.email', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_people.phone', 'like', '%'. $searchValue .'%')
+                  ->orWhere('universal_people.address', 'like', '%'. $searchValue .'%');
+
+        
+        $results = $query->orderBy('universal_people.'. $sortColumn, $sortDirection)
+                         ->paginate($pageSize);
+ 
+        return $this->sendResponse($results->items(), 'Persons retrieved successfully.', $results->total() );
+
+    }
+
 }
