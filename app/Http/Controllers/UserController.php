@@ -189,6 +189,7 @@ class UserController extends BaseController
         Auth::user()->api_token = Str::random(80);
         Auth::user()->save();
 
+        //load relationships
         Auth::user()->load(['company_project','company.country','project']);
         
         if (Auth::user()->isSuper()) {
@@ -196,6 +197,9 @@ class UserController extends BaseController
         }else{
             Auth::user()->isSuper = 0;
         }
+
+        // sync user in Ranqhana DB
+        UserUtil::syncRanqhanaUser(Auth::user()->id, Auth::user()->login, Auth::user()->person->id);
 
         return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
     }
