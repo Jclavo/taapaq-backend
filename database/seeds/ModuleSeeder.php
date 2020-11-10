@@ -169,7 +169,7 @@ class ModuleSeeder extends Seeder
         $moduleDashboard->name = 'Dashboard';
         $moduleDashboard->url = '/dashboard';
         $moduleDashboard->icon = 'tachometer-alt';
-        $moduleDashboard->resources = ResourceSeeder::getResourceCommons();
+        $moduleDashboard->resources = ResourceSeeder::getResourceCommonsForListPage();
 
 
         /**
@@ -186,25 +186,25 @@ class ModuleSeeder extends Seeder
         $moduleSellInvoice->name = 'Sell Invoice';
         $moduleSellInvoice->url = '/invoices/sell';
         $moduleSellInvoice->icon = 'file-invoice-dollar';
-        $moduleSellInvoice->resources = ResourceSeeder::getResourceCommons();
+        $moduleSellInvoice->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $moduleInvoiceList = new Module();
         $moduleInvoiceList->name = 'Invoices List';
         $moduleInvoiceList->url = '/invoices';
         $moduleInvoiceList->icon = 'table';
-        $moduleInvoiceList->resources = ResourceSeeder::getResourceCommons();
+        $moduleInvoiceList->resources = ResourceSeeder::getResourceCommonsForListPage();
 
         $modulePurchaseInvoice = new Module();
         $modulePurchaseInvoice->name = 'Purchase Invoice';
         $modulePurchaseInvoice->url = '/invoices/purchase';
         $modulePurchaseInvoice->icon = 'file-invoice-dollar';
-        $modulePurchaseInvoice->resources = ResourceSeeder::getResourceCommons();
+        $modulePurchaseInvoice->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $moduleInvoiceChart = new Module();
         $moduleInvoiceChart->name = 'Charts';
         $moduleInvoiceChart->url = '/invoices/chart';
         $moduleInvoiceChart->icon = 'chart-area';
-        $moduleInvoiceChart->resources = ResourceSeeder::getResourceCommons();
+        $moduleInvoiceChart->resources = ResourceSeeder::getResourceCommonsForListPage();
 
         $labelInvoice->children = [ $moduleInvoiceList,
                                     $moduleSellInvoice,
@@ -225,19 +225,19 @@ class ModuleSeeder extends Seeder
         $moduleOrderList->name = 'Orders List';
         $moduleOrderList->url = '/orders/';
         $moduleOrderList->icon = '';
-        $moduleOrderList->resources = ResourceSeeder::getResourceCommons();
+        $moduleOrderList->resources = ResourceSeeder::getResourceCommonsForListPage();
 
         $moduleSellOrder = new Module();
         $moduleSellOrder->name = 'Sell Order';
         $moduleSellOrder->url = '/orders/sell';
         $moduleSellOrder->icon = '';
-        $moduleSellOrder->resources = ResourceSeeder::getResourceCommons();
+        $moduleSellOrder->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $modulePurchaseOrder = new Module();
         $modulePurchaseOrder->name = 'Purchase Order';
         $modulePurchaseOrder->url = '/orders/purchase';
         $modulePurchaseOrder->icon = '';
-        $modulePurchaseOrder->resources = ResourceSeeder::getResourceCommons();
+        $modulePurchaseOrder->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $labelOrder->children = [ $moduleOrderList,
                                   $moduleSellOrder,
@@ -258,13 +258,13 @@ class ModuleSeeder extends Seeder
         $moduleProductList->name = 'Products List';
         $moduleProductList->url = '/items/products';
         $moduleProductList->icon = 'table';
-        $moduleProductList->resources = ResourceSeeder::getResourceCommons();
+        $moduleProductList->resources = ResourceSeeder::getResourceCommonsForListPage();
 
         $moduleProduct = new Module();
         $moduleProduct->name = 'Product';
         $moduleProduct->url = '/items/product';
         $moduleProduct->icon = 'box';
-        $moduleProduct->resources = ResourceSeeder::getResourceCommons();
+        $moduleProduct->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $labelProduct->children = [ $moduleProductList,
                                     $moduleProduct,
@@ -284,13 +284,13 @@ class ModuleSeeder extends Seeder
         $moduleServiceList->name = 'Services List';
         $moduleServiceList->url = '/items/services';
         $moduleServiceList->icon = 'table';
-        $moduleServiceList->resources = ResourceSeeder::getResourceCommons();
+        $moduleServiceList->resources = ResourceSeeder::getResourceCommonsForListPage();
 
         $moduleService = new Module();
         $moduleService->name = 'Service';
         $moduleService->url = '/items/service';
         $moduleService->icon = 'toolbox';
-        $moduleService->resources = ResourceSeeder::getResourceCommons();
+        $moduleService->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $labelService->children = [ $moduleServiceList,
                                     $moduleService,
@@ -309,13 +309,13 @@ class ModuleSeeder extends Seeder
         $moduleUserList->name = 'Users List';
         $moduleUserList->url = '/users';
         $moduleUserList->icon = 'table';
-        $moduleUserList->resources = ResourceSeeder::getResourceCommons();
+        $moduleUserList->resources = ResourceSeeder::getResourceCommonsForListPage();
 
         $moduleUser = new Module();
         $moduleUser->name = 'User';
         $moduleUser->url = '/users/user';
         $moduleUser->icon = 'user';
-        $moduleUser->resources = ResourceSeeder::getResourceCommons();
+        $moduleUser->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $labelUser->children = [ $moduleUserList,
                                  $moduleUser,
