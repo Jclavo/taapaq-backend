@@ -182,17 +182,17 @@ class ModuleSeeder extends Seeder
         $labelInvoice->labeled = true;
         $labelInvoice->icon = 'file-invoice-dollar';
 
-        $moduleSellInvoice = new Module();
-        $moduleSellInvoice->name = 'Sell Invoice';
-        $moduleSellInvoice->url = '/invoices/sell';
-        $moduleSellInvoice->icon = 'file-invoice-dollar';
-        $moduleSellInvoice->resources = ResourceSeeder::getResourceCommonsForSimplePage();
-
         $moduleInvoiceList = new Module();
         $moduleInvoiceList->name = 'Invoices List';
         $moduleInvoiceList->url = '/invoices';
         $moduleInvoiceList->icon = 'table';
         $moduleInvoiceList->resources = ResourceSeeder::getResourceCommonsForListPage();
+
+        $moduleSellInvoice = new Module();
+        $moduleSellInvoice->name = 'Sell Invoice';
+        $moduleSellInvoice->url = '/invoices/sell';
+        $moduleSellInvoice->icon = 'file-invoice-dollar';
+        $moduleSellInvoice->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $modulePurchaseInvoice = new Module();
         $modulePurchaseInvoice->name = 'Purchase Invoice';
@@ -201,7 +201,7 @@ class ModuleSeeder extends Seeder
         $modulePurchaseInvoice->resources = ResourceSeeder::getResourceCommonsForSimplePage();
 
         $moduleInvoiceChart = new Module();
-        $moduleInvoiceChart->name = 'Charts';
+        $moduleInvoiceChart->name = 'Invoices Chart';
         $moduleInvoiceChart->url = '/invoices/chart';
         $moduleInvoiceChart->icon = 'chart-area';
         $moduleInvoiceChart->resources = ResourceSeeder::getResourceCommonsForListPage();
