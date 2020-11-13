@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonType;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
-class PersonTypeController extends Controller
+class PersonTypeController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,9 @@ class PersonTypeController extends Controller
      */
     public function index()
     {
-        //
+        $personTypes = PersonType::all();
+            
+        return $this->sendResponse($personTypes->toArray(), 'Resource Commons retrieved successfully.');
     }
 
     /**

@@ -100,6 +100,9 @@ Route::middleware(['auth:api'])->group(function () {
 
     // Images
     Route::resource('images', 'ImageController');
+
+    // Images
+    Route::resource('person-types', 'PersonTypeController');
 });
 
 
