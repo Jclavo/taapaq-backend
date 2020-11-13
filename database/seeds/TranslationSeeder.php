@@ -93,6 +93,12 @@ class TranslationSeeder extends Seeder
                     (object) array('value' => 'No es posible concluir la acción solicitada porque el registro fue anulado.', 'locale' => 'es'),
                     (object) array('value' => 'Não é possivel concluir a ação porque o registro foi anulado.', 'locale' => 'pt')]
             ),
+            (object) array('key' => 'stage.updated', 'translationable_id' => '',
+            'details' => [
+                    (object) array('value' => 'The stage was updated.', 'locale' => 'en'),
+                    (object) array('value' => 'El estado fue actualizado.', 'locale' => 'es'),
+                    (object) array('value' => 'O estado foi atualizado.', 'locale' => 'pt')]
+            ),
 
             //INVOICE SECTION
             (object) array('key' => 'invoice.total-negative', 'translationable_id' => '',
