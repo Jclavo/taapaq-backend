@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UniversalPerson extends Model
 {
     protected $table = 'universal_people';
+    protected $with = 'type';
     /**
      * The attributes that are mass assignable.
      *
@@ -32,5 +33,13 @@ class UniversalPerson extends Model
     {
         return $this->hasMany('App\Models\Company');
                     // ->orderBy('login');
+    }
+
+    /**
+     * Get the UniversalPerson that owns the user.
+     */
+    public function type()
+    {
+        return $this->belongsTo('App\Models\PersonType', 'type_id', 'code');
     }
 }
