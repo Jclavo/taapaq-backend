@@ -12,6 +12,9 @@ use Illuminate\Validation\Rule;
 //Utils
 use App\Utils\PaginationUtil;
 
+//Rules
+use App\Rules\Identification;
+
 class UniversalPersonController extends BaseController
 {
     function __construct()
@@ -54,13 +57,17 @@ class UniversalPersonController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identification' => ['required', 'numeric', 'min:8', 'unique:universal_people'],
+            'country_code' => 'required|exists:countries,code',
             'type_id' => 'required|exists:person_types,code',
+            'identification' => ['required', 'numeric' ,
+                    'min:8', 'unique:universal_people',
+                    new Identification($request->country_code, $request->type_id)],
             'email' => ['nullable','email','unique:universal_people'],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
             'phone' => ['required', 'max:45','unique:universal_people'],
             'address' => 'required|max:100',
+            
         ]);
       
         if ($validator->fails()) {
