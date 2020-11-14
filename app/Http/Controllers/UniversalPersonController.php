@@ -13,7 +13,9 @@ use Illuminate\Validation\Rule;
 use App\Utils\PaginationUtil;
 
 //Rules
-use App\Rules\Identification;
+use App\Rules\IdentificationCountry;
+use App\Rules\PhoneCountry;
+
 
 class UniversalPersonController extends BaseController
 {
@@ -61,12 +63,12 @@ class UniversalPersonController extends BaseController
             'type_id' => 'required|exists:person_types,code',
             'identification' => ['required', 'numeric' ,
                     'min:8', 'unique:universal_people',
-                    new Identification($request->country_code, $request->type_id)],
+                    new IdentificationCountry($request->country_code, $request->type_id)],
             'email' => ['nullable','email','unique:universal_people'],
             'name' => 'required|max:45',
             'lastname' => 'required|max:45',
-            'phone' => ['required', 'max:45','unique:universal_people'],
-            'address' => 'required|max:100',
+            'phone' => ['required', 'max:45','unique:universal_people', new PhoneCountry($request->country_code) ],
+            'address' => 'required|max:100', 
             
         ]);
       
