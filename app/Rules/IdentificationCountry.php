@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class Identification implements Rule
+class IdentificationCountry implements Rule
 {
     protected $countryCode;
     protected $personTypeID;
@@ -73,6 +73,6 @@ class Identification implements Rule
      */
     public function message()
     {
-        return 'The Identification format is incorrected.';
+        return 'The Identification format is incorrect.';
     }
 }
