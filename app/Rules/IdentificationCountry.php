@@ -4,6 +4,8 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
+use App\Models\PersonType;
+
 class IdentificationCountry implements Rule
 {
     protected $countryCode;
@@ -31,12 +33,12 @@ class IdentificationCountry implements Rule
         switch ($this->countryCode) {
             case "55":
                 switch ($this->personTypeID) {
-                    case 1:
+                    case PersonType::getForNatural():
                         if(strlen($value) != 11){
                             return false;
                         }
                         break;
-                    case 2:
+                    case PersonType::getForJuridical():
                         if(strlen($value) != 14){
                             return false;
                         }
@@ -47,12 +49,12 @@ class IdentificationCountry implements Rule
                 break;
             case "51":
                 switch ($this->personTypeID) {
-                    case 1:
+                    case PersonType::getForNatural():
                         if(strlen($value) != 8){
                             return false;
                         }
                         break;
-                    case 2:
+                    case PersonType::getForJuridical():
                         if(strlen($value) != 10){
                             return false;
                         }
