@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Project;
+use App\Models\UniversalPerson;
+use App\Models\PersonType;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -52,15 +54,20 @@ class CompanyController extends BaseController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'universal_person_id' => 'required|exists:universal_people,id|unique:companies',
-            'country_code' => 'required|exists:countries,code'
+            'universal_person_id' => 'required|exists:universal_people,id|unique:companies'
         ]);
         
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
-        $company = CompanyUtil::createCore($request->universal_person_id,$request->country_code);
+        $person = UniversalPerson::findOrFail($request->universal_person_id);
+
+        if($person->type_id == PersonType::getForNatural()){
+            return $this->sendError('The person is not juridical.');
+        }
+
+        $company = CompanyUtil::createCore($request->universal_person_id);
 
         return $this->sendResponse($company->toArray(), 'Company created successfully.');      
     }

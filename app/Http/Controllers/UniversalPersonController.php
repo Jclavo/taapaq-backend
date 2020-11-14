@@ -85,6 +85,7 @@ class UniversalPersonController extends BaseController
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->type_id = $request->type_id;
+        $user->country_code = $request->country_code;
 
         $user->save();
         

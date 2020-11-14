@@ -17,7 +17,7 @@ class Company extends Model
      * @var array
      */
     protected $fillable = [
-        'universal_person_id', 'country_code'
+        'universal_person_id'
     ];
 
     /**

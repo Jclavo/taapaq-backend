@@ -15,13 +15,13 @@ class CompanyUtil
 
     }
 
-    static function createFromIdentification($identification, $countryCode){
+    static function createFromIdentification($identification){
         $universalPerson = UniversalPersonUtil::getFromIdentification($identification);
-        return self::createCore($universalPerson->id,$countryCode);
+        return self::createCore($universalPerson->id);
     }
 
-    static function createCore($universal_person_id, $countryCode){
+    static function createCore($universal_person_id){
 
-        return Company::updateOrCreate(['universal_person_id' => $universal_person_id, 'country_code' => $countryCode]);
+        return Company::updateOrCreate(['universal_person_id' => $universal_person_id]);
     }
 }

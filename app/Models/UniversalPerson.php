@@ -14,7 +14,7 @@ class UniversalPerson extends Model
      * @var array
      */
     protected $fillable = [
-        'identification', 'email', 'name', 'lastname', 'phone', 'address'
+        'identification', 'email', 'name', 'lastname', 'phone', 'address', 'country_code'
     ];
 
     /**

@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\UniversalPerson;
+use App\Models\Country;
 use Faker\Generator as Faker;
 
 $factory->define(UniversalPerson::class, function (Faker $faker) {
@@ -12,6 +13,7 @@ $factory->define(UniversalPerson::class, function (Faker $faker) {
         'name' => $faker->name,
         'lastname' => $faker->name,
         'phone' => $faker->e164PhoneNumber,
-        'address' => $faker->address,        
+        'address' => $faker->address, 
+        'country_id' => Country::all()->random()->code,  
     ];
 });

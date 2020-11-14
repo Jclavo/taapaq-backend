@@ -12,6 +12,6 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        CompanyUtil::createFromIdentification(env('COMPANY_CLEIVOR_IDENTIFICATION'),55);   
+        CompanyUtil::createFromIdentification(env('COMPANY_CLEIVOR_IDENTIFICATION'));   
     }
 }
