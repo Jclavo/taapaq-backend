@@ -98,9 +98,11 @@ class UniversalPersonController extends BaseController
      * @param  \App\UniversalPerson  $UniversalPerson
      * @return \Illuminate\Http\Response
      */
-    public function show(UniversalPerson $UniversalPerson)
+    public function show($id)
     {
-        //
+        $person = UniversalPerson::findOrFail($id);
+                
+        return $this->sendResponse($person->toArray(), 'Person retrieved successfully.');
     }
 
     /**
