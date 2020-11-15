@@ -44,14 +44,6 @@ class Company extends Model
     }
 
     /**
-     * Get the country that owns the company.
-     */
-    public function country()
-    {
-        return $this->belongsTo('App\Models\Country', 'country_code', 'code');
-    }
-
-    /**
      * Get the UniversalPerson that owns the company.
      */
     public function person()

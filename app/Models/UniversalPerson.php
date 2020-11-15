@@ -42,4 +42,12 @@ class UniversalPerson extends Model
     {
         return $this->belongsTo('App\Models\PersonType', 'type_id', 'code');
     }
+
+    /**
+     * Get the country that owns the person.
+     */
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country', 'country_code', 'code');
+    }
 }
