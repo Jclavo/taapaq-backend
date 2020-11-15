@@ -172,16 +172,24 @@ class UniversalPersonController extends BaseController
             'pageSize' => 'numeric|gt:0',
         ]);
 
-        $validator->sometimes('company_id', 'exists:companies,id', function ($input) {
-            return $input->company_id > 0;
+        $validator->sometimes('company_id', 'exists:companies,id', function ($request) {
+            return $request->company_id > 0;
         });
 
-        $validator->sometimes('project_id', 'exists:projects,id', function ($input) {
-            return $input->project_id > 0;
+        $validator->sometimes('project_id', 'exists:projects,id', function ($request) {
+            return $request->project_id > 0;
         });
 
-        $validator->sometimes('role_id', 'exists:roles,id', function ($input) {
-            return $input->role_id > 0;
+        $validator->sometimes('role_id', 'exists:roles,id', function ($request) {
+            return $request->role_id > 0;
+        });
+
+        $validator->sometimes('type_id', 'required|exists:person_types,code', function ($request) {
+            return $request->type_id > 0;
+        });
+
+        $validator->sometimes('country_code', 'required|exists:countries,code', function ($request) {
+            return !empty($request->country_code);
         });
 
         if ($validator->fails()) {
@@ -194,17 +202,30 @@ class UniversalPersonController extends BaseController
         $sortDirection = PaginationUtil::getSortDirection($request->sortDirection);
         $searchValue   = $request->searchValue;
         //custom fields from User
+        $identification   = $request->identification;
+        $type_id   = $request->type_id;
+        $country_code   = $request->country_code;
 
         $query = UniversalPerson::query();
 
-        $query->where('universal_people.identification', 'like', '%'. $searchValue .'%')
-                  ->orwhere('universal_people.name', 'like', '%'. $searchValue .'%')
-                  ->orwhere('universal_people.lastname', 'like', '%'. $searchValue .'%')
-                  ->orWhere('universal_people.email', 'like', '%'. $searchValue .'%')
-                  ->orWhere('universal_people.phone', 'like', '%'. $searchValue .'%')
-                  ->orWhere('universal_people.address', 'like', '%'. $searchValue .'%');
+        $query->where('universal_people.identification', 'like', '%'. $identification .'%');
+        // 
+                //   ->orwhere('universal_people.name', 'like', '%'. $searchValue .'%')
+                //   ->orwhere('universal_people.lastname', 'like', '%'. $searchValue .'%')
+                //   ->orWhere('universal_people.email', 'like', '%'. $searchValue .'%')
+                //   ->orWhere('universal_people.phone', 'like', '%'. $searchValue .'%')
+                //   ->orWhere('universal_people.address', 'like', '%'. $searchValue .'%');
 
-        
+        $query->when($type_id > 0, function ($query) use($type_id) {
+            return $query->where('universal_people.type_id',$type_id);    
+        });
+
+        $query->when(!empty($country_code), function ($query) use($country_code) {
+            return $query->where('universal_people.country_code', $country_code);   
+        });  
+
+        // $query->with('country');
+
         $results = $query->orderBy('universal_people.'. $sortColumn, $sortDirection)
                          ->paginate($pageSize);
  
