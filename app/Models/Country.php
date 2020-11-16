@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Country extends Model
+class Country extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
@@ -23,7 +23,7 @@ class Country extends Model
      */
     public function translations()
     {
-        return $this->morphMany('App\Models\Translation', 'translationable')->with('details');
+        return $this->morphMany('App\Models\Translation', 'translationable')->with('detail');
         // return $this->morphMany('App\Models\Translation', 'translationable', null,null,'code');
     }
 

@@ -31,9 +31,9 @@ class Translation extends Model
     /**
      * Get the details for the translation
      */
-    public function details()
+    public function detail()
     {
-        return $this->hasMany('App\Models\TranslationDetail')
+        return $this->hasOne('App\Models\TranslationDetail')
                               ->where('locale',App::getLocale());;
     }
 }
