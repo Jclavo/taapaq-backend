@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'UserController@login');
 
-//Language
-Route::resource('languages', 'LanguageController');
+// Locales
+Route::resource('locales', 'LocaleController');
 
 Route::middleware(['auth:api'])->group(function () {
 
@@ -94,9 +94,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('translation-details/translations/{translation_id}', 'TranslationDetailController@detailsByTranslation');
     Route::post('getTranslation', 'TranslationDetailController@getTranslation');
     Route::resource('translation-details', 'TranslationDetailController');
-
-    // Locales
-    Route::resource('locales', 'LocaleController');
 
     // Images
     Route::resource('images', 'ImageController');
