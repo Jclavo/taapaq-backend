@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Translation extends Model
 {
@@ -32,6 +33,7 @@ class Translation extends Model
      */
     public function details()
     {
-        return $this->hasMany('App\Models\TranslationDetail');
+        return $this->hasMany('App\Models\TranslationDetail')
+                              ->where('locale',App::getLocale());;
     }
 }

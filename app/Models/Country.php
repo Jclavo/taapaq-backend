@@ -17,6 +17,15 @@ class Country extends Model
 
 
     //Relationships
+    
+    /**
+     * Get all of the PaymentMethod translations.
+     */
+    public function translations()
+    {
+        return $this->morphMany('App\Models\Translation', 'translationable')->with('details');
+        // return $this->morphMany('App\Models\Translation', 'translationable', null,null,'code');
+    }
 
     /**
      * Get the companies for the country.
@@ -25,5 +34,5 @@ class Country extends Model
     {
         return $this->hasMany('App\Models\Company');
     }
-    
+   
 }
