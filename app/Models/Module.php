@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Module extends Model
+class Module extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
@@ -19,6 +19,14 @@ class Module extends Model
     // {
     //     $this->attributes['name'] = str_replace(" ","_",strtolower($value));
     // }
+
+    /**
+     * Get all translations.
+     */
+    public function translations()
+    {
+        return $this->morphMany('App\Models\Translation', 'translationable');
+    }
 
     /**
      * Get the project that owns the module

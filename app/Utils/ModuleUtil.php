@@ -7,6 +7,7 @@ use App\Models\Module;
 
 use  App\Utils\ResourceUtil;
 use  App\Utils\ProjectUtil;
+use  App\Utils\TranslationUtil;
 
 class ModuleUtil
 {
@@ -62,7 +63,7 @@ class ModuleUtil
                                  'visibled' => $module->visibled, 'parent_id' => $parent_id,
                                  'labeled' => $module->labeled, 'icon' => $module->icon ]);
 
-        //Check if the module has resources
+        //if the module has resources, create them
         if($module->resources){
 
             foreach ($module->resources as $resource){
@@ -70,6 +71,15 @@ class ModuleUtil
             }
 
         }
+
+        //if the module has translation, create them
+        if($module->translation){
+
+            TranslationUtil::customUpdateOrCreateCore($module->translation,Module::class,$newModule->id);
+
+        }
+
+
                                 
         return $newModule;
     }
