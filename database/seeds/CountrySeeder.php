@@ -60,6 +60,7 @@ class CountrySeeder extends Seeder
     
             $newTranslation = Translation::updateOrCreate(['key' => $country->translations->key,
                                                            'translationable_id' => $newCountry->id,
+                                                           'translationable_type' => Country::class,
                                                            'model_id' => $newModel->id,
                                                         ]);
 

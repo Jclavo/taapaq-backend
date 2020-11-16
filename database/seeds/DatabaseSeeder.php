@@ -12,20 +12,27 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+
+            ProjectSeeder::class,
+
             //
             LocaleSeeder::class,
             CountrySeeder::class,
             ResourceCommonSeeder::class,
             PersonTypeSeeder::class,
+            
+            //
+           
 
             //seed Universal Person (User/Company)
             UniversalPersonSeeder::class,
 
             //seed COMPANY
             CompanySeeder::class,
+            CompanyProjectSeeder::class,
 
             //seed PROJECT (assign company) with (MODULES/RESOURCES/PERMISSION)
-            ProjectSeeder::class,
+            // ProjectSeeder::class,
             ModuleSeeder::class,
 
             //seed ROLES for COMPANY-PROJECT

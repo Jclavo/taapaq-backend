@@ -16,14 +16,14 @@ class ProjectSeeder extends Seeder
         /** from TAAPAQ */
         Project::updateOrCreate(['code' => env('PROJECT_TAAPAQ_CODE')],['name' => 'Taapaq']);
         
-        ProjectUtil::assignCompanyFromCode(env('COMPANY_CLEIVOR_IDENTIFICATION'),
-                                           env('PROJECT_TAAPAQ_CODE'));
+        // ProjectUtil::assignCompanyFromCode(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+        //                                    env('PROJECT_TAAPAQ_CODE'));
 
         /** from RANQHANA */
         Project::updateOrCreate(['code' => env('PROJECT_RANQHANA_CODE')],['name' => 'Ranqhana']);
         
-        ProjectUtil::assignCompanyFromCode(env('COMPANY_CLEIVOR_IDENTIFICATION'),
-                                           env('PROJECT_RANQHANA_CODE'));
+        // ProjectUtil::assignCompanyFromCode(env('COMPANY_CLEIVOR_IDENTIFICATION'),
+        //                                    env('PROJECT_RANQHANA_CODE'));
     }
 
 }
