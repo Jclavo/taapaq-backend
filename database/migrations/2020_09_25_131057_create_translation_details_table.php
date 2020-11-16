@@ -19,7 +19,7 @@ class CreateTranslationDetailsTable extends Migration
 
             //FK for locales
             $table->string('locale',5);
-            $table->foreign('locale')->references('code')->on('locales');
+            // $table->foreign('locale')->references('code')->on('locales');
 
             $table->unsignedBigInteger('translation_id');
             $table->foreign('translation_id')->references('id')->on('translations')->onDelete('cascade');

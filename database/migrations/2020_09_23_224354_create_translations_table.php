@@ -17,7 +17,7 @@ class CreateTranslationsTable extends Migration
             $table->id();
             $table->string('key',45);
 
-            $table->unsignedBigInteger('model_id');
+            $table->unsignedBigInteger('model_id')->nullable();
             $table->foreign('model_id')->references('id')->on('system_models')->onDelete('cascade');
 
             $table->unsignedBigInteger('translationable_id')->nullable();
