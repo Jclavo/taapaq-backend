@@ -42,6 +42,7 @@ class SystemModelSeeder extends Seeder
                 'translation', //without permissions
                 'translation-detail', //without permissions
                 'universal-person',
+                'person-type',
                 'user',  
         ]; 
     }
