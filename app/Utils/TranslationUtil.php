@@ -6,8 +6,10 @@ use App\Models\Translation;
 use App\Models\TranslationDetail;
 use App\Models\Country;
 use App\Models\Locale;
+use App\Models\Module;
 
 use App\Utils\SystemModelUtil;
+use App\Utils\ModuleUtil;
 
 class TranslationUtil
 {
@@ -41,20 +43,24 @@ class TranslationUtil
                     break;
             }
             
-            $translation = $value->translation;
+            self::customUpdateOrCreateCore($value->translation,$model,$newValue->id);
+       
+        }
+    }
 
-            $newTranslation = Translation::updateOrCreate(['key' => $translation->key,
-                                                            'translationable_id' => $newValue->id,
+    static function customUpdateOrCreateCore($translation, $model, $model_id){
+
+        $newTranslation = Translation::updateOrCreate(['key' => $translation->key,
+                                                            'translationable_id' => $model_id,
                                                             'translationable_type' => $model,
                                                             // 'model_id' => $newModel->id,
                                                         ]);
 
-            foreach ($translation->details as $detail) {
-                    TranslationDetail::updateOrCreate(['translation_id' => $newTranslation->id, 'locale' => $detail->locale],
-                                                    ['value' => $detail->value,]);
-            } 
-        
-        }
+        foreach ($translation->details as $detail) {
+                TranslationDetail::updateOrCreate(['translation_id' => $newTranslation->id, 'locale' => $detail->locale],
+                                                ['value' => $detail->value,]);
+        } 
+
     }
     
 }
