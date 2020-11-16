@@ -16,10 +16,12 @@ class CreateTranslationsTable extends Migration
         Schema::create('translations', function (Blueprint $table) {
             $table->id();
             $table->string('key',45);
-            $table->unsignedBigInteger('translationable_id')->nullable();
 
             $table->unsignedBigInteger('model_id');
             $table->foreign('model_id')->references('id')->on('system_models')->onDelete('cascade');
+
+            $table->unsignedBigInteger('translationable_id')->nullable();
+            $table->string('translationable_type')->nullable();
 
             $table->timestamps();
         });
