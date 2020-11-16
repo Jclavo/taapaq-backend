@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\App;
 
 class Translation extends Model
 {
+    protected $with = ['detail'];
     /**
      * The attributes that are mass assignable.
      *

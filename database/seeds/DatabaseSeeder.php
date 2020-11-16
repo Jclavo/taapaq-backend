@@ -15,15 +15,11 @@ class DatabaseSeeder extends Seeder
 
             ProjectSeeder::class,
 
-            //
             LocaleSeeder::class,
             CountrySeeder::class,
             ResourceCommonSeeder::class,
             PersonTypeSeeder::class,
             
-            //
-           
-
             //seed Universal Person (User/Company)
             UniversalPersonSeeder::class,
 

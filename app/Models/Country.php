@@ -19,11 +19,12 @@ class Country extends BaseModel
     //Relationships
     
     /**
-     * Get all of the PaymentMethod translations.
+     * Get all translations.
      */
     public function translations()
     {
-        return $this->morphMany('App\Models\Translation', 'translationable')->with('detail');
+        return $this->morphMany('App\Models\Translation', 'translationable');
+        // ->with('detail');
         // return $this->morphMany('App\Models\Translation', 'translationable', null,null,'code');
     }
 

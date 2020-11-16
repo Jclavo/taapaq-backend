@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Locale extends Model
+class Locale extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
@@ -14,4 +14,15 @@ class Locale extends Model
     protected $fillable = [
         'code', 'language'
     ];
+
+        //Relationships
+    
+    /**
+     * Get all translations.
+     */
+    public function translations()
+    {
+        return $this->morphMany('App\Models\Translation', 'translationable');
+    }
+
 }
