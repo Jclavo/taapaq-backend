@@ -7,6 +7,7 @@ use App\Models\TranslationDetail;
 use App\Models\Country;
 use App\Models\Locale;
 use App\Models\Module;
+use App\Models\PersonType;
 
 use App\Utils\SystemModelUtil;
 use App\Utils\ModuleUtil;
@@ -40,6 +41,10 @@ class TranslationUtil
                 case 'LOCALE':
                     $model = Locale::class;
                     $newValue = Locale::updateOrCreate(['code' => $value->code], ['language' => $value->language]); 
+                    break;
+                case 'PERSON-TYPE':
+                    $model = PersonType::class;
+                    $newValue = PersonType::updateOrCreate(['code' => $value->code], ['name' => $value->name]); 
                     break;
             }
             
