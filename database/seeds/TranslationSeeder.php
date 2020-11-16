@@ -3,12 +3,12 @@
 use Illuminate\Database\Seeder;
 use App\Models\TranslationDetail;
 use App\Models\Translation;
-use App\Models\SystemModel;
-use App\Utils\SystemModelUtil;
+// use App\Models\SystemModel;
+// use App\Utils\SystemModelUtil;
+use App\Utils\TranslationUtil;
 
 class TranslationSeeder extends Seeder
 {
-    private $translations;
     /**
      * Run the database seeds.
      *
@@ -16,7 +16,7 @@ class TranslationSeeder extends Seeder
      */
     public function run()
     {
-        $this->translations = [
+        $translations = [
             // (object) array('key' => '', 'translationable_id' => '',
             //                'details' => [
             //                         (object) array('value' => '', 'locale' => 'en'),
@@ -180,6 +180,7 @@ class TranslationSeeder extends Seeder
 
         ];
 
+        // TranslationUtil::customUpdateOrCreate(env('PROJECT_TAAPAQ_CODE'),'SYSTEM',$translations);
 
         //EXECUTE
 
@@ -188,11 +189,12 @@ class TranslationSeeder extends Seeder
 
         // foreach ($this->translations as $translation) {
 
-        //     $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;
+        // //     $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;
 
         //     $newTranslation = factory(Translation::class)->create(['key' => $translation->key,
-        //                                                            'translationable_id' => $translation->translationable_id,
-        //                                                            'model_id' => $newModel->id,
+        //                                                            'translationable_type' => 'App\Models\System',
+        //                                                         //    'translationable_id' => $translation->translationable_id,
+        //                                                         //    'model_id' => $newModel->id,
         //                                                           ]);
         //     foreach ($translation->details as $detail) {
         //         $newTranslation->details()->save(
@@ -202,15 +204,18 @@ class TranslationSeeder extends Seeder
         //     } 
         // }
 
-        $newModel = SystemModelUtil::createFromProjectCode(env('PROJECT_TAAPAQ_CODE'),'SYSTEM');
+        
 
-        foreach ($this->translations as $translation) {
+        // $newModel = SystemModelUtil::createFromProjectCode(env('PROJECT_TAAPAQ_CODE'),'SYSTEM');
 
-            $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;
+        foreach ($translations as $translation) {
+
+        //     $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;
 
             $newTranslation = Translation::updateOrCreate(['key' => $translation->key,
-                                                           'translationable_id' => $translation->translationable_id,
-                                                           'model_id' => $newModel->id,
+                                                           'translationable_type' => 'App\Models\System',
+                                                        //    'translationable_id' => $translation->translationable_id,
+                                                        //    'model_id' => $newModel->id,
                                                           ]);
             foreach ($translation->details as $detail) {
                     TranslationDetail::updateOrCreate(['translation_id' => $newTranslation->id, 'locale' => $detail->locale],
