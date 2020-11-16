@@ -141,8 +141,9 @@ class TranslationDetailController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'key' => 'required|max:45',
-            'translationable_id' => 'nullable|gt:0',
-            'model_id' => 'required|exists:system_models,id',
+            'translationable_type' => 'required|max:45',
+            // 'translationable_id' => 'nullable|gt:0',
+            // 'model_id' => 'required|exists:system_models,id',
             'locale' => 'required|exists:locales,code'
         ]);
 
@@ -154,11 +155,11 @@ class TranslationDetailController extends BaseController
 
             $query->where('translations.key', strtolower($request->key));
 
-            $query->when((!empty($request->translationable_id)), function ($q) use($request) {
-                return $q->where('translations.translationable_id', $request->translationable_id);
-            });
+            // $query->when((!empty($request->translationable_id)), function ($q) use($request) {
+            //     return $q->where('translations.translationable_id', $request->translationable_id);
+            // });
             
-            $query->where('translations.model_id', $request->model_id)
+            $query->where('translations.translationable_type', $request->translationable_type)
                   ->where('translation_details.locale', $request->locale);
 
         })
