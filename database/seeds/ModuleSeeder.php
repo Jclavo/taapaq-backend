@@ -281,7 +281,7 @@ class ModuleSeeder extends Seeder
         $moduleInvoiceList->translation =
                                 (object) array('key' => 'nickname',
                                 'details' => [
-                                        (object) array('value' => 'Reporte de facturas', 'locale' => 'es'),
+                                        (object) array('value' => 'Lista de facturas', 'locale' => 'es'),
                                         (object) array('value' => 'Relatório de faturas', 'locale' => 'pt')]
                                 );
 
@@ -408,7 +408,7 @@ class ModuleSeeder extends Seeder
         $moduleProductList->translation =
                                 (object) array('key' => 'nickname',
                                 'details' => [
-                                        (object) array('value' => 'Reporte de productos', 'locale' => 'es'),
+                                        (object) array('value' => 'Lista de productos', 'locale' => 'es'),
                                         (object) array('value' => 'Relatório de produtos', 'locale' => 'pt')]
                                 );
 
@@ -452,7 +452,7 @@ class ModuleSeeder extends Seeder
         $moduleServiceList->translation =
                             (object) array('key' => 'nickname',
                             'details' => [
-                                    (object) array('value' => 'Reporte de servicios', 'locale' => 'es'),
+                                    (object) array('value' => 'Lista de servicios', 'locale' => 'es'),
                                     (object) array('value' => 'Relatório de serviços', 'locale' => 'pt')]
                             );
 
@@ -484,7 +484,7 @@ class ModuleSeeder extends Seeder
                         (object) array('key' => 'nickname',
                         'details' => [
                                 (object) array('value' => 'Usuarios', 'locale' => 'es'),
-                                (object) array('value' => 'Usuarios', 'locale' => 'pt')]
+                                (object) array('value' => 'Usuários', 'locale' => 'pt')]
                         );
 
         $moduleUserList = new Module();
@@ -495,8 +495,8 @@ class ModuleSeeder extends Seeder
         $moduleUserList->translation =
                             (object) array('key' => 'nickname',
                             'details' => [
-                                    (object) array('value' => 'Reporte de usuarios', 'locale' => 'es'),
-                                    (object) array('value' => 'Relatório de usuarios', 'locale' => 'pt')]
+                                    (object) array('value' => 'Lista de usuarios', 'locale' => 'es'),
+                                    (object) array('value' => 'Relatório de usuários', 'locale' => 'pt')]
                             );
 
         $moduleUser = new Module();
@@ -508,7 +508,7 @@ class ModuleSeeder extends Seeder
                         (object) array('key' => 'nickname',
                         'details' => [
                                 (object) array('value' => 'Usuario', 'locale' => 'es'),
-                                (object) array('value' => 'Usuario', 'locale' => 'pt')]
+                                (object) array('value' => 'Usuário', 'locale' => 'pt')]
                         );
 
         $labelUser->children = [ $moduleUserList,
