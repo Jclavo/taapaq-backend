@@ -30,7 +30,7 @@ class CompanyController extends BaseController
      */
     public function index()
     {
-        $companies = Company::with('country')->get();
+        $companies = Company::with('person.country')->get();
 
         return $this->sendResponse($companies->toArray(), 'Companies retrieved successfully.');
     }
