@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        // 'guard' => 'web',
-        'guard' => 'api', //only for seeder in migration
+        'guard' => 'web',
+        // 'guard' => 'api', //only for seeder in migration
         'passwords' => 'users',
     ],
 
