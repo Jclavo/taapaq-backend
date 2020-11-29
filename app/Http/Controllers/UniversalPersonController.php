@@ -35,9 +35,9 @@ class UniversalPersonController extends BaseController
      */
     public function index()
     {
-        $users = UniversalPerson::orderBy('name')->get();
+        // $users = UniversalPerson::orderBy('name')->get();
             
-        return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
+        // return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
     }
 
     /**
