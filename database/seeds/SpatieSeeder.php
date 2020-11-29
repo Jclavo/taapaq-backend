@@ -30,9 +30,9 @@ class SpatieSeeder extends Seeder
 
     static function getCommons(){
         return [
-            (object) array('name' => 'admin', 'assign' => true),
-            (object) array('name' => 'user', 'assign' => false),
-            (object) array('name' => 'client', 'assign' => false)
+            (object) array('name' => 'ADMIN', 'assign' => true),
+            (object) array('name' => 'USER', 'assign' => false),
+            (object) array('name' => 'CLIENT', 'assign' => false)
         ]; 
     }
 }
