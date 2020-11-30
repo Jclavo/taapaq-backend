@@ -93,7 +93,7 @@ return [
 
         #Roles database
         'ranqhana_DB' => [
-            'driver' => 'mysql',
+            'driver' => env('DB_CONNECTION_RANQHANA'),
             'url' => env('DATABASE_URL_RANQHANA'),
             'host' => env('DB_HOST_RANQHANA', '127.0.0.1'),
             'port' => env('DB_PORT_RANQHANA', '3306'),
@@ -101,15 +101,11 @@ return [
             'username' => env('DB_USERNAME_RANQHANA', 'forge'),
             'password' => env('DB_PASSWORD_RANQHANA', ''),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+            // 'schema' => 'public',
+            'sslmode' => 'prefer',
         ],
 
     ],
