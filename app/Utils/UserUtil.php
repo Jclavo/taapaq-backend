@@ -60,7 +60,7 @@ class UserUtil
                                          'universal_person_id' =>  $universalPerson->id ]);
 
         // sync user in Ranqhana DB
-        // self::syncRanqhanaUser($newUser->id, $newUser->login, $newUser->company_project_id);
+        self::syncRanqhanaUser($newUser->id, $newUser->login, $newUser->company_project_id);
        
         return $newUser;
     }
