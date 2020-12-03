@@ -8,6 +8,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule; 
+use App\Models\PersonType;
 
 //Utils
 use App\Utils\PaginationUtil;
@@ -66,11 +67,14 @@ class UniversalPersonController extends BaseController
                     new IdentificationCountry($request->country_code, $request->type_id)],
             'email' => ['nullable','email','unique:universal_people'],
             'name' => 'required|max:45',
-            'lastname' => 'required|max:45',
             'phone' => ['required', 'max:45','unique:universal_people', new PhoneCountry($request->country_code) ],
             'address' => 'required|max:100', 
             
         ]);
+
+        $validator->sometimes('lastname', 'required|max:45', function ($request) {
+            return $request->type_id == PersonType::getForNatural();
+        });
       
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
@@ -130,10 +134,13 @@ class UniversalPersonController extends BaseController
             'type_id' => 'required|exists:person_types,code',
             'email' => ['nullable','email',Rule::unique('universal_people')->ignore($id)],
             'name' => 'required|max:45',
-            'lastname' => 'required|max:45',
             'phone' => ['required', 'max:45', Rule::unique('universal_people')->ignore($id)],
             'address' => 'required|max:100'
         ]);
+
+        $validator->sometimes('lastname', 'required|max:45', function ($request) {
+            return $request->type_id == PersonType::getForNatural();
+        });
       
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
@@ -141,7 +148,6 @@ class UniversalPersonController extends BaseController
 
         $user = UniversalPerson::findOrFail($id);
         
-        // $user->identification = $request->identification;
         $user->email = $request->email;
         $user->name = $request->name;
         $user->lastname = $request->lastname;
