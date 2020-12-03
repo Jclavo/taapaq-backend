@@ -131,29 +131,28 @@ class UniversalPersonController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             // 'identification' => ['required', 'numeric', 'min:8', Rule::unique('universal_people')->ignore($id)],
-            'type_id' => 'required|exists:person_types,code',
+            // 'type_id' => 'required|exists:person_types,code',
             'email' => ['nullable','email',Rule::unique('universal_people')->ignore($id)],
             'name' => 'required|max:45',
             'phone' => ['required', 'max:45', Rule::unique('universal_people')->ignore($id)],
             'address' => 'required|max:100'
         ]);
 
-        $validator->sometimes('lastname', 'required|max:45', function ($request) {
-            return $request->type_id == PersonType::getForNatural();
+        $user = UniversalPerson::findOrFail($id);
+
+        $validator->sometimes('lastname', 'required|max:45', function ($user) {
+            return $user->type_id == PersonType::getForNatural();
         });
       
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
-        $user = UniversalPerson::findOrFail($id);
-        
         $user->email = $request->email;
         $user->name = $request->name;
         $user->lastname = $request->lastname;
         $user->phone = $request->phone;
         $user->address = $request->address;
-        $user->type_id = $request->type_id;
 
         $user->save();
         
