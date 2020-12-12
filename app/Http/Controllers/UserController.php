@@ -147,6 +147,10 @@ class UserController extends BaseController
     {
         $user = User::findOrFail($id);
 
+        if($user->id === Auth::user()->id){
+            return $this->sendError('The logged user can not be deleted.');
+        }
+
         $user->delete();
 
         return $this->sendResponse($user->toArray(), 'User deleted successfully.');
