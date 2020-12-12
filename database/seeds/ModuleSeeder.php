@@ -476,43 +476,56 @@ class ModuleSeeder extends Seeder
         */
 
         $labelUser = new Module();
-        $labelUser->name = 'Users';
+        $labelUser->name = 'Persons';
         $labelUser->url = null;
         $labelUser->labeled = true;
         $labelUser->icon = 'users';
         $labelUser->translation =
                         (object) array('key' => 'nickname',
                         'details' => [
-                                (object) array('value' => 'Usuarios', 'locale' => 'es'),
-                                (object) array('value' => 'Usuários', 'locale' => 'pt')]
+                                (object) array('value' => 'Personas', 'locale' => 'es'),
+                                (object) array('value' => 'Pessoas', 'locale' => 'pt')]
                         );
 
-        $moduleUserList = new Module();
-        $moduleUserList->name = 'Users List';
-        $moduleUserList->url = '/users';
-        $moduleUserList->icon = 'table';
-        $moduleUserList->resources = ResourceSeeder::getResourceCommonsForListPage();
-        $moduleUserList->translation =
+        $moduleMyUserList = new Module();
+        $moduleMyUserList->name = 'My Users List';
+        $moduleMyUserList->url = '/users';
+        $moduleMyUserList->icon = 'table';
+        $moduleMyUserList->resources = ResourceSeeder::getResourceCommonsForListPage();
+        $moduleMyUserList->translation =
                             (object) array('key' => 'nickname',
                             'details' => [
-                                    (object) array('value' => 'Lista de usuarios', 'locale' => 'es'),
-                                    (object) array('value' => 'Relatório de usuários', 'locale' => 'pt')]
+                                    (object) array('value' => 'Mis usuarios', 'locale' => 'es'),
+                                    (object) array('value' => 'Meus usuários', 'locale' => 'pt')]
                             );
 
-        $moduleUser = new Module();
-        $moduleUser->name = 'User';
-        $moduleUser->url = '/users/user';
-        $moduleUser->icon = 'user';
-        $moduleUser->resources = ResourceSeeder::getResourceCommonsForSimplePage();
-        $moduleUser->translation =
-                        (object) array('key' => 'nickname',
-                        'details' => [
-                                (object) array('value' => 'Usuario', 'locale' => 'es'),
-                                (object) array('value' => 'Usuário', 'locale' => 'pt')]
-                        );
+        $moduleCompanyList = new Module();
+        $moduleCompanyList->name = 'Company List';
+        $moduleCompanyList->url = '/persons';
+        $moduleCompanyList->icon = 'table';
+        $moduleCompanyList->resources = ResourceSeeder::getResourceCommonsForListPage();
+        $moduleCompanyList->translation =
+                                (object) array('key' => 'nickname',
+                                'details' => [
+                                        (object) array('value' => 'Lista de compañias', 'locale' => 'es'),
+                                        (object) array('value' => 'Relatório de companias', 'locale' => 'pt')]
+                                );
 
-        $labelUser->children = [ $moduleUserList,
-                                 $moduleUser,
+        $modulePerson = new Module();
+        $modulePerson->name = 'Person';
+        $modulePerson->url = '/persons/person';
+        $modulePerson->icon = 'user';
+        $modulePerson->resources = ResourceSeeder::getResourceCommonsForSimplePage();
+        $modulePerson->translation =
+                                (object) array('key' => 'nickname',
+                                'details' => [
+                                        (object) array('value' => 'Persona', 'locale' => 'es'),
+                                        (object) array('value' => 'Pessoa', 'locale' => 'pt')]
+                                );
+
+        $labelUser->children = [ $moduleMyUserList,
+                                 $moduleCompanyList,
+                                 $modulePerson,
         ];
 
          /**
