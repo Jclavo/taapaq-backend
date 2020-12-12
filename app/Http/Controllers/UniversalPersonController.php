@@ -156,7 +156,7 @@ class UniversalPersonController extends BaseController
 
         $user->save();
         
-        return $this->sendResponse($user->toArray(), 'User updated successfully.');  
+        return $this->sendResponse($user->toArray(), 'Person updated successfully.');  
     }
 
     /**
@@ -165,10 +165,15 @@ class UniversalPersonController extends BaseController
      * @param  \App\UniversalPerson  $UniversalPerson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UniversalPerson $UniversalPerson)
+    public function destroy(int $id)
     {
-        //
+        $person = UniversalPerson::findOrFail($id);
+        
+        $person->delete();
+
+        return $this->sendResponse($person->toArray(), 'Person deleted successfully.');  
     }
+
 
         /**
      * Pagination of table users
