@@ -23,6 +23,9 @@ php artisan make:migration add_votes_to_users_table --table=users
 $table->renameColumn('quantity', 'stock');
 $table->string('description')->nullable(true)->change();
 
+- RUN SPECIFIC MIGRATION
+
+php artisan migrate --path=/database/migrations/my_migration.php
 
 - CREATE CONTROLLER (& resource)
 
@@ -75,6 +78,8 @@ php artisan make:rule RuleName
 
 php artisan key:generate
 php artisan config:cache
+
+
 
 
 
