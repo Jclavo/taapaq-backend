@@ -194,7 +194,7 @@ class UserController extends BaseController
         Auth::user()->save();
 
         //load relationships
-        Auth::user()->load(['company_project','company.person.country','project']);
+        Auth::user()->load(['company_project','company.person.country','project', 'company.setting']);
         
         if (Auth::user()->isSuper()) {
             Auth::user()->isSuper = 1;

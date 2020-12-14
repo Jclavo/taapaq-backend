@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Models\Company;
+use App\Models\CompanySetting;
 use App\Utils\UniversalPersonUtil;
 
 class CompanyUtil
@@ -22,6 +23,10 @@ class CompanyUtil
 
     static function createCore($universal_person_id){
 
-        return Company::updateOrCreate(['universal_person_id' => $universal_person_id]);
+        $company = Company::updateOrCreate(['universal_person_id' => $universal_person_id]);
+
+        CompanySetting::updateOrCreate(['company_id' => $company->id]);
+
+        return $company;
     }
 }

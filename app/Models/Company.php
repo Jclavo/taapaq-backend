@@ -50,4 +50,11 @@ class Company extends Model
     {
         return $this->belongsTo('App\Models\UniversalPerson','universal_person_id','id');
     }
+
+    /**
+     * Get the setting that belongs to the company
+     */
+    public function setting(){
+        return $this->hasOne('App\Models\CompanySetting');
+    }
 }
