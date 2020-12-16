@@ -37,6 +37,12 @@ class ResourceSeeder extends Seeder
         ];
     }
 
+    static function getResourceCommonsOnlyRead(){
+        return [
+            'read'
+        ];
+    }
+
     static function getResourceCommons(){
 
         $resources = [];
