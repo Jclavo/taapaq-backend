@@ -254,7 +254,7 @@ class ModuleSeeder extends Seeder
         $moduleDashboard->name = 'Dashboard';
         $moduleDashboard->url = '/dashboard';
         $moduleDashboard->icon = 'tachometer-alt';
-        $moduleDashboard->resources = ResourceSeeder::getResourceCommonsForListPage();
+        $moduleDashboard->resources = ResourceSeeder::getResourceCommonsOnlyRead();
 
 
         /**
@@ -309,22 +309,10 @@ class ModuleSeeder extends Seeder
                                         (object) array('value' => 'Factura de compra', 'locale' => 'pt')]
                                 );
 
-        $moduleInvoiceChart = new Module();
-        $moduleInvoiceChart->name = 'Invoices Chart';
-        $moduleInvoiceChart->url = '/invoices/chart';
-        $moduleInvoiceChart->icon = 'chart-area';
-        $moduleInvoiceChart->resources = ResourceSeeder::getResourceCommonsForListPage();
-        $moduleInvoiceChart->translation =
-                                (object) array('key' => 'nickname',
-                                'details' => [
-                                        (object) array('value' => 'Grafico de facturas', 'locale' => 'es'),
-                                        (object) array('value' => 'Gráfico  de faturas', 'locale' => 'pt')]
-                                );
 
         $labelInvoice->children = [ $moduleInvoiceList,
                                     $moduleSellInvoice,
                                     $modulePurchaseInvoice,
-                                    $moduleInvoiceChart,
         ];
         /**
          * Label ORDER and its
@@ -471,6 +459,54 @@ class ModuleSeeder extends Seeder
         $labelService->children = [ $moduleServiceList,
                                     $moduleService,
         ];
+
+
+
+        /**
+         * Reports
+         */
+
+        $labelReport = new Module();
+        $labelReport->name = 'Reports';
+        $labelReport->url = null;
+        $labelReport->labeled = true;
+        $labelReport->icon = 'chart-area';
+        $labelReport->translation =
+                        (object) array('key' => 'nickname',
+                        'details' => [
+                                (object) array('value' => 'Reportes', 'locale' => 'es'),
+                                (object) array('value' => 'Relatórios', 'locale' => 'pt')]
+                        );
+
+
+        $InvoiceMoneyByPaymentType = new Module();
+        $InvoiceMoneyByPaymentType->name = 'Invoice $$$ by Payment Type';
+        $InvoiceMoneyByPaymentType->url = '/reports/invoice-money-by-payment-type';
+        $InvoiceMoneyByPaymentType->icon = 'chart-area';
+        $InvoiceMoneyByPaymentType->resources =  ResourceSeeder::getResourceCommonsOnlyRead();
+        $InvoiceMoneyByPaymentType->translation =
+                                (object) array('key' => 'nickname',
+                                'details' => [
+                                        (object) array('value' => 'Facturas $$$ Tipo de pagamento', 'locale' => 'es'),
+                                        (object) array('value' => 'Faturas $$$ Tipo de pagamento', 'locale' => 'pt')]
+                                );
+
+        $InvoiceMoneyByPeriod = new Module();
+        $InvoiceMoneyByPeriod->name = 'Invoice $$$ by Period';
+        $InvoiceMoneyByPeriod->url = '/reports/invoice-money-by-period';
+        $InvoiceMoneyByPeriod->icon = 'chart-area';
+        $InvoiceMoneyByPeriod->resources =  ResourceSeeder::getResourceCommonsOnlyRead();
+        $InvoiceMoneyByPeriod->translation =
+                                (object) array('key' => 'nickname',
+                                'details' => [
+                                        (object) array('value' => 'Facturas $$$ por período', 'locale' => 'es'),
+                                        (object) array('value' => 'Faturas $$$ por período', 'locale' => 'pt')]
+                                );
+
+        $labelReport->children = [ $InvoiceMoneyByPaymentType,
+                                   $InvoiceMoneyByPeriod
+                                ];
+
         /**
         * Label USER and its
         */
@@ -549,6 +585,7 @@ class ModuleSeeder extends Seeder
             $labelService,
             $labelUser,
             $modulePayment,
+            $labelReport,
         ];
 
         return $arrayRanqhana;
