@@ -144,7 +144,7 @@ class ModuleController extends BaseController
             $query->where('projects.id', '=', $project_id)
                   ->whereNull('modules.parent_id');
         })
-        ->orderBy('modules.name')
+        ->orderBy('modules.order')
         ->get();
 
         $newModules = $this->filterModuleByUserPermission($modules->toArray(),Auth::user()->id);

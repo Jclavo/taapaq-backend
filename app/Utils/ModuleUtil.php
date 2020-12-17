@@ -61,7 +61,8 @@ class ModuleUtil
         $newModule = Module::updateOrCreate(['name' => $module->name,'project_id' => $project_id ],
                                 ['nickname' => $module->nickname, 'url' => $module->url,
                                  'visibled' => $module->visibled, 'parent_id' => $parent_id,
-                                 'labeled' => $module->labeled, 'icon' => $module->icon ]);
+                                 'labeled' => $module->labeled, 'icon' => $module->icon,
+                                 'order' => $module->order ]);
 
         //if the module has resources, create them
         if($module->resources){

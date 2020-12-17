@@ -13,7 +13,7 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-        ModuleUtil::createMassiveFromProjectCode(env('PROJECT_TAAPAQ_CODE'),self::getForTaapaq());
+        // ModuleUtil::createMassiveFromProjectCode(env('PROJECT_TAAPAQ_CODE'),self::getForTaapaq());
 
         ModuleUtil::createMassiveFromProjectCode(env('PROJECT_RANQHANA_CODE'),self::getForRanqhana());
 
@@ -560,8 +560,8 @@ class ModuleSeeder extends Seeder
                                 );
 
         $labelUser->children = [ $moduleMyUserList,
-                                 $moduleCompanyList,
                                  $modulePerson,
+                                 $moduleCompanyList,
         ];
 
          /**
@@ -588,7 +588,27 @@ class ModuleSeeder extends Seeder
             $labelReport,
         ];
 
-        return $arrayRanqhana;
+
+        return self::orderArray($arrayRanqhana);
+    }
+
+
+    static function orderArray($modules){
+
+        $newModules = array();
+        foreach ($modules as $key=>$module) {
+                $module['order'] = $key + 1;
+
+                if(count($module['children']) > 0){
+                        $module['children'] = self::orderArray($module['children']);
+                }
+
+                array_push($newModules,(object) $module);     
+        }
+
+        xdebug_break();
+        return $newModules; 
+
     }
  
 }

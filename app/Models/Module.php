@@ -12,7 +12,7 @@ class Module extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'nickname', 'url', 'visibled', 'project_id', 'parent_id', 'labeled', 'icon'
+        'name', 'nickname', 'url', 'visibled', 'project_id', 'parent_id', 'labeled', 'icon', 'order'
     ];
 
     // public function setNameAttribute($value)
@@ -50,7 +50,9 @@ class Module extends BaseModel
      */
 
     public function children() {
-        return $this->hasMany('App\Models\Module','parent_id')->with(['children','resources']);
+        return $this->hasMany('App\Models\Module','parent_id')
+                    ->orderBy('order')   
+                    ->with(['children','resources']);
     }
     public function parent() {
         return $this->belongsTo('App\Models\Module','parent_id');
