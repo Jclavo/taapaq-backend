@@ -14,7 +14,7 @@ class AddOrdersToModulesTable extends Migration
     public function up()
     {
         Schema::table('modules', function (Blueprint $table) {
-            $table->integer('order');
+            $table->integer('order')->default(0)->nullable();
         });
     }
 
