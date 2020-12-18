@@ -606,7 +606,6 @@ class ModuleSeeder extends Seeder
                 array_push($newModules,(object) $module);     
         }
 
-        xdebug_break();
         return $newModules; 
 
     }
