@@ -13,7 +13,7 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-        // ModuleUtil::createMassiveFromProjectCode(env('PROJECT_TAAPAQ_CODE'),self::getForTaapaq());
+        ModuleUtil::createMassiveFromProjectCode(env('PROJECT_TAAPAQ_CODE'),self::getForTaapaq());
 
         ModuleUtil::createMassiveFromProjectCode(env('PROJECT_RANQHANA_CODE'),self::getForRanqhana());
 
@@ -177,7 +177,7 @@ class ModuleSeeder extends Seeder
 
         $arrayTaapaq = [$labelTapaaq];
 
-        return $arrayTaapaq;
+        return self::orderArray($arrayTaapaq);
     }
 
     static function getForRanqhana(){
