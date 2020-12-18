@@ -118,8 +118,9 @@ class PermissionController extends BaseController
     {
         Role::findOrFail($role_id);
 
-        $permissions = Permission::select('permissions.*',
-                                     DB::raw('IF(role_has_permissions.role_id IS NULL, FALSE, TRUE) as role_has_permission'))
+        // $permissions = Permission::select('permissions.*',
+        $permissions = Permission::select('permissions.*', 'role_has_permissions.role_id as role_has_permission')
+                                    //  DB::raw('IF(role_has_permissions.role_id IS NULL, FALSE, TRUE) as role_has_permission'))
                         ->leftjoin('role_has_permissions', function ($leftjoin) use($role_id){
                             $leftjoin->on('permissions.id', '=', 'role_has_permissions.permission_id')
                                 ->where('role_has_permissions.role_id', '=', $role_id);
