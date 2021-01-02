@@ -137,6 +137,12 @@ class TranslationSeeder extends Seeder
                                      (object) array('value' => 'La fatura esta fuera del intervalo de fechas.', 'locale' => 'es'),
                                      (object) array('value' => 'A fatura está fora do intervalo de datas.', 'locale' => 'pt')]
                             ),
+            (object) array('key' => 'invoice.has-no-stock', 'translationable_id' => '',
+                            'details' => [
+                                     (object) array('value' => 'One of the items does not have stock.', 'locale' => 'en'),
+                                     (object) array('value' => 'Uno de los items no tiene stock.', 'locale' => 'es'),
+                                     (object) array('value' => 'Um dos items não tem stock.', 'locale' => 'pt')]
+                           ),
             
             //ITEM SECTION
             (object) array('key' => 'item.has-stock', 'translationable_id' => '',
