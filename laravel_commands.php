@@ -80,7 +80,13 @@ php artisan key:generate
 php artisan config:cache
 
 
+- SET UP POSTGRES AS DB
 
+install the drivers
+sudo apt-get install php-pgsql
+
+modify the php.ini file (not xamp, wamp, etc)
+uncomment (extension=php_pdo_pgsql & extension=php_pgsql)
 
 
 

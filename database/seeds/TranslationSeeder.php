@@ -137,6 +137,12 @@ class TranslationSeeder extends Seeder
                                      (object) array('value' => 'La fatura esta fuera del intervalo de fechas.', 'locale' => 'es'),
                                      (object) array('value' => 'A fatura está fora do intervalo de datas.', 'locale' => 'pt')]
                             ),
+            (object) array('key' => 'invoice.has-no-stock', 'translationable_id' => '',
+                            'details' => [
+                                     (object) array('value' => 'One of the items does not have stock.', 'locale' => 'en'),
+                                     (object) array('value' => 'Uno de los items no tiene stock.', 'locale' => 'es'),
+                                     (object) array('value' => 'Um dos items não tem stock.', 'locale' => 'pt')]
+                           ),
             
             //ITEM SECTION
             (object) array('key' => 'item.has-stock', 'translationable_id' => '',
@@ -150,7 +156,13 @@ class TranslationSeeder extends Seeder
                                      (object) array('value' => 'There is not enough stock available.', 'locale' => 'en'),
                                      (object) array('value' => 'El item no tiene stock.', 'locale' => 'es'),
                                      (object) array('value' => 'O item não tem stock.', 'locale' => 'pt')]
-                            ), 
+                            ),
+            (object) array('key' => 'item.is-in-used', 'translationable_id' => '',
+                           'details' => [
+                                (object) array('value' => 'Item belongs to a transaction. Can not be deleted.', 'locale' => 'en'),
+                                (object) array('value' => 'El item ya está siendo usado en una transacion. No puede ser eliminado.', 'locale' => 'es'),
+                                (object) array('value' => 'O item já está sendo usando numa transação. Não pode ser apagado', 'locale' => 'pt')]
+                           ), 
             
             //IDENTIFICATION SECTION
             (object) array('key' => 'identification.length', 'translationable_id' => '',

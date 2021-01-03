@@ -1,0 +1,11 @@
+#mysqldump -u root -p acl_permissions_DEV < wantedsqlfile.sql
+
+/opt/lampp/bin/mysql \
+--user=root \
+--password \
+--host=127.0.0.1 \
+--protocol=tcp \
+--port=3306 \
+--default-character-set=utf8 \
+acl_permissions_DEV < \
+/home/jclavo/Desktop/export_into_db.sql

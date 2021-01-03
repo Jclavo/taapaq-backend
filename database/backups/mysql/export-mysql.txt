@@ -1,0 +1,43 @@
+#mysqldump -u root -p acl_permissions_DEV > wantedsqlfile.sql
+
+/opt/lampp/bin/mysqldump \
+--databases \
+--user=root \
+--password \
+--host=127.0.0.1 \
+--protocol=tcp \
+--port=3306 \
+--default-character-set=utf8 \
+--no-create-info=TRUE \
+--skip-triggers \
+--ignore-table=acl_permissions_DEV.failed_jobs \
+--ignore-table=acl_permissions_DEV.migrations \
+acl_permissions_DEV > \
+/home/jclavo/Desktop/export_into_db.sql
+
+
+# show tables
+
+/*
+companies
+company_project
+company_settings
+countries
+images
+locales
+model_has_permissions
+model_has_roles
+modules
+permissions
+person_types
+projects
+resource_commons
+resources
+role_has_permissions
+roles
+system_models
+translation_details
+translations
+universal_people
+users
+ */

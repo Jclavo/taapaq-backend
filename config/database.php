@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -91,20 +91,19 @@ return [
             'prefix_indexes' => true,
         ],
 
-        #Roles database
+        #RANQHANA database
         'ranqhana_DB' => [
-            'driver' => env('DB_CONNECTION_RANQHANA'),
+            'driver' => 'pgsql',
             'url' => env('DATABASE_URL_RANQHANA'),
             'host' => env('DB_HOST_RANQHANA', '127.0.0.1'),
-            'port' => env('DB_PORT_RANQHANA', '3306'),
+            'port' => env('DB_PORT_RANQHANA', '5432'),
             'database' => env('DB_DATABASE_RANQHANA', 'forge'),
             'username' => env('DB_USERNAME_RANQHANA', 'forge'),
             'password' => env('DB_PASSWORD_RANQHANA', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            // 'schema' => 'public',
+            'schema' => 'public',
             'sslmode' => 'prefer',
         ],
 
