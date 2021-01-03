@@ -156,7 +156,13 @@ class TranslationSeeder extends Seeder
                                      (object) array('value' => 'There is not enough stock available.', 'locale' => 'en'),
                                      (object) array('value' => 'El item no tiene stock.', 'locale' => 'es'),
                                      (object) array('value' => 'O item não tem stock.', 'locale' => 'pt')]
-                            ), 
+                            ),
+            (object) array('key' => 'item.is-in-used', 'translationable_id' => '',
+                           'details' => [
+                                (object) array('value' => 'Item belongs to a transaction. Can not be deleted.', 'locale' => 'en'),
+                                (object) array('value' => 'El item ya está siendo usado en una transacion. No puede ser eliminado.', 'locale' => 'es'),
+                                (object) array('value' => 'O item já está sendo usando numa transação. Não pode ser apagado', 'locale' => 'pt')]
+                           ), 
             
             //IDENTIFICATION SECTION
             (object) array('key' => 'identification.length', 'translationable_id' => '',
