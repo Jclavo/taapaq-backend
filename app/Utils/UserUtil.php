@@ -89,8 +89,13 @@ class UserUtil
 
     static function isAdminByToken($token){
 
-        $isAdmin = Role::join('model_has_roles','roles.id','=','model_has_roles.role_id')
-                    ->join('users','model_has_roles.model_id','=','users.id')                   
+        // $isAdmin = Role::join('model_has_roles','roles.id','=','model_has_roles.role_id')
+        //             ->join('users','model_has_roles.model_id','=','users.id')                   
+        //             ->where('users.api_token','=',$token)
+        //             ->where('roles.name','like','%ADMIN%')
+        //             ->count();
+        $isAdmin = User::join('model_has_roles','users.id','=','model_has_roles.model_id')
+                    ->join('roles','model_has_roles.role_id','=','roles.id')  
                     ->where('users.api_token','=',$token)
                     ->where('roles.name','like','%ADMIN%')
                     ->count();
