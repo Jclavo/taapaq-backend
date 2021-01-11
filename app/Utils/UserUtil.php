@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\RanqhanaUser;
+use App\Models\CustomSpatieRole as Role;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -84,6 +85,25 @@ class UserUtil
         $user = self::getForIdentificationCode($companyIdentification, $projectCode,$userIdentification);
 
         $user->assignRole($role);
+    }
+
+    static function isAdminByToken($token){
+
+        // $isAdmin = Role::join('model_has_roles','roles.id','=','model_has_roles.role_id')
+        //             ->join('users','model_has_roles.model_id','=','users.id')                   
+        //             ->where('users.api_token','=',$token)
+        //             ->where('roles.name','like','%ADMIN%')
+        //             ->count();
+        $isAdmin = User::join('model_has_roles','users.id','=','model_has_roles.model_id')
+                    ->join('roles','model_has_roles.role_id','=','roles.id')  
+                    ->where('users.api_token','=',$token)
+                    ->where('roles.name','like','%ADMIN%')
+                    ->count();
+
+        if ($isAdmin > 0) {
+            return 1;
+        }
+        return 0;
     }
 
 }

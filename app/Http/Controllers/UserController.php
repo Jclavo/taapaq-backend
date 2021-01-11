@@ -167,6 +167,7 @@ class UserController extends BaseController
         $validator = Validator::make($request->all(), [
             'login' => 'required|max:45',
             'password' => 'required',
+            'isCustom' => 'nullable|boolean',
         ]);
 
         if ($validator->fails()) {
@@ -178,34 +179,55 @@ class UserController extends BaseController
         $input['password'] = base64_decode($input['password']);
         $request->replace($input);
 
-        $credentials = $request->only('login', 'password');
+        if ($request->isCustom) {
 
-        if (!Auth::attempt($credentials)) {
-            return $this->sendError('Login/Password incorrect.');  
+            $user = User::where('login',$request->login)->first();
+
+            if(!$user){
+                return $this->sendError('Login incorrect.'); 
+            }
+
+            if(!Hash::check($request->password, $user->password)){
+                return $this->sendError('Password incorrect.');  
+            }
+            
+        }else{
+
+            $credentials = $request->only('login', 'password');
+
+            if (!Auth::attempt($credentials)) {
+                return $this->sendError('Login/Password incorrect.');  
+            }
+
+            $user = Auth::user();
         }
 
         //check if user status validated is true
-        if(!Auth::user()->activated){
+        if(!$user->activated){
             Auth::logout();
             return $this->sendError('Your user is not activated yet.');  
         }
 
-        Auth::user()->api_token = Str::random(80);
-        Auth::user()->save();
+        $user->api_token = Str::random(80);
+        $user->save();
 
         //load relationships
-        Auth::user()->load(['company_project','company.person.country','project', 'company.setting']);
+        $user->load(['company_project','company.person.country','project', 'company.setting']);
         
-        if (Auth::user()->isSuper()) {
-            Auth::user()->isSuper = 1;
+        if ($user->isSuper()) {
+            $user->isSuper = 1;
         }else{
-            Auth::user()->isSuper = 0;
+            $user->isSuper = 0;
         }
 
-        // sync user in Ranqhana DB
-        UserUtil::syncRanqhanaUser(Auth::user()->id, Auth::user()->login, Auth::user()->company_project->id);
+        $user->isAdmin = UserUtil::isAdminByToken($user->api_token);
 
-        return $this->sendResponse(Auth::user()->toArray(), 'User login successfully.');  
+        // sync user in Ranqhana DB
+        if (!$request->isCustom) {
+            UserUtil::syncRanqhanaUser(Auth::user()->id, Auth::user()->login, Auth::user()->company_project->id);
+        }
+
+        return $this->sendResponse($user->toArray(), 'User login successfully.');  
     }
 
     /**
