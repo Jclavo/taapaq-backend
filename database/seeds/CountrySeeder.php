@@ -14,7 +14,7 @@ class CountrySeeder extends Seeder
     {
         $countries = [
             (object) array('code' => 55,'name' => 'Brazil', 'timezone' => 'America/Sao_Paulo', 
-                           'currency' => 'BRL', 'locale' => 'pt', 'tax' => '20',
+                           'currency' => 'BRL', 'currency_symbol' => 'R$', 'locale' => 'pt', 'tax' => '20',
                             
                         'translation' => 
                             (object) array('key' => 'name',
@@ -24,7 +24,7 @@ class CountrySeeder extends Seeder
                             )
                     ),
             (object) array('code' => 51,'name' => 'Peru', 'timezone' => 'America/Lima',
-                           'currency' => 'PEN', 'locale' => 'es', 'tax' => '18',
+                           'currency' => 'PEN', 'currency_symbol' => 'S/.', 'locale' => 'es', 'tax' => '18',
                      
                         'translation' => 
                             (object) array('key' => 'name',
