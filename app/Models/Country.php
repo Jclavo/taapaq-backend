@@ -12,7 +12,7 @@ class Country extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'timezone', 'currency', 'locale', 'tax'
+        'code', 'name', 'timezone', 'currency', 'currency_symbol', 'locale', 'tax'
     ];
 
 

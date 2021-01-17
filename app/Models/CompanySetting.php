@@ -12,7 +12,7 @@ class CompanySetting extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id', 'has_cashier'
+        'company_id', 'has_cashier', 'payment_type_id', 'has_discount_percent'
     ];
 
      /**

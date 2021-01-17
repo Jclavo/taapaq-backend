@@ -36,7 +36,8 @@ class TranslationUtil
                     $model = Country::class;
                     $newValue = Country::updateOrCreate(['code' => $value->code],
                                     ['name' => $value->name, 'timezone' => $value->timezone, 
-                                    'currency' => $value->currency, 'locale' => $value->locale, 'tax' => $value->tax]);
+                                    'currency' => $value->currency, 'currency_symbol' => $value->currency_symbol,
+                                    'locale' => $value->locale, 'tax' => $value->tax]);
                     break;
                 case 'LOCALE':
                     $model = Locale::class;
