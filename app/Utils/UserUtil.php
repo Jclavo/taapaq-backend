@@ -106,4 +106,14 @@ class UserUtil
         return 0;
     }
 
+    static function hasInitialPassword($user_id){
+
+        $user = User::where('id',$user_id)->firstOrFail();
+
+        if(Hash::check($user->login, $user->password)){
+            return 1;
+        }
+        return 0;
+    } 
+
 }

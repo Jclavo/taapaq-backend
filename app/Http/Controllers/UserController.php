@@ -23,7 +23,7 @@ class UserController extends BaseController
 {
     function __construct()
     {
-        $this->middleware('permission_in_role:users/read', ['except' => ['login','logout']]);
+        $this->middleware('permission_in_role:users/read', ['except' => ['login','logout', 'changePassword']]);
         $this->middleware('permission_in_role:users/create', ['only' => ['store']]);
         
         $this->middleware('permission_in_role:users/delete', ['only' => ['destroy']]);
@@ -221,6 +221,7 @@ class UserController extends BaseController
         }
 
         $user->isAdmin = UserUtil::isAdminByToken($user->api_token);
+        $user->hasInitialPassword = UserUtil::hasInitialPassword($user->id);
 
         // sync user in Ranqhana DB
         if (!$request->isCustom) {
@@ -228,6 +229,49 @@ class UserController extends BaseController
         }
 
         return $this->sendResponse($user->toArray(), 'User login successfully.');  
+    }
+
+    public function changePassword(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'api_token' => 'required|size:80',
+            'actualPassword' => 'required|min:8|max:45',
+            'newPassword' => 'required|min:8|max:45',
+            'reNewPassword' => 'required|min:8|max:45|same:newPassword'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        //Decrypt password
+        $input = $request->all();
+        $input['actualPassword'] = base64_decode($input['actualPassword']);
+        $input['newPassword'] = base64_decode($input['newPassword']);
+        $request->replace($input);
+
+        //Check if token and password belong to same user
+        $user = User::where('api_token',$request->api_token)
+                    ->first();
+
+        if(!$user){
+            return $this->sendError('Token invalid.');  
+        }
+
+        if(!Hash::check($request->actualPassword, $user->password)){
+            return $this->sendError('Actual password incorrect.'); 
+        }
+
+        //Check password is not the same as user login
+        if($request->newPassword == $user->login){
+            return $this->sendError('New password can not be same as login.'); 
+        }
+
+        $user->password = bcrypt($request->newPassword);
+        $user->api_token = Str::random(80);
+        $user->save();
+
+        return $this->sendResponse($user->toArray(), 'Password was changed.');
     }
 
     /**

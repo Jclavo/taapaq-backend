@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'UserController@login');
+Route::post('changePassword', 'UserController@changePassword');
 
 // Locales
 Route::resource('locales', 'LocaleController');
@@ -29,6 +30,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('users/assignMassiveRole', 'UserController@assignMassiveRole');
     Route::post('users/removeRole', 'UserController@removeRole');
     Route::post('users/pagination', 'UserController@pagination');
+
     Route::resource('users', 'UserController');
     
     
