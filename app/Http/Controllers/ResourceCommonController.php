@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ResourceCommon;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use App\Utils\TranslationUtil;
 
 class ResourceCommonController extends BaseController
 {
@@ -17,7 +18,7 @@ class ResourceCommonController extends BaseController
     {
         $resourceCommon = ResourceCommon::orderBy('name')->get();
             
-        return $this->sendResponse($resourceCommon->toArray(), 'Resource Commons retrieved successfully.');
+        return $this->sendResponse($resourceCommon->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**

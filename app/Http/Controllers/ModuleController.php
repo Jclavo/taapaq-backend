@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 //Utils
 use App\Utils\ModuleUtil;
+use App\Utils\TranslationUtil;
 
 class ModuleController extends BaseController
 {
@@ -80,7 +81,7 @@ class ModuleController extends BaseController
 
         $module = ModuleUtil::createCore($request->project_id, $module, $module->parent_id);
 
-        return $this->sendResponse($module->toArray(), 'Module created successfully.'); 
+        return $this->sendResponse($module->toArray(), TranslationUtil::getTranslation('crud.create')); 
     }
 
     /**
@@ -129,7 +130,7 @@ class ModuleController extends BaseController
 
         $module->delete();
 
-        return $this->sendResponse($module->toArray(), 'Module deleted successfully.');
+        return $this->sendResponse($module->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
     /**
@@ -149,7 +150,7 @@ class ModuleController extends BaseController
 
         $newModules = $this->filterModuleByUserPermission($modules->toArray(),Auth::user()->id);
 
-        return $this->sendResponse($newModules, 'Modules retrieved successfully.');
+        return $this->sendResponse($newModules, TranslationUtil::getTranslation('crud.pagination'));
 
     }
 
@@ -224,7 +225,7 @@ class ModuleController extends BaseController
         ->orderBy('modules.name')
         ->get();
 
-        return $this->sendResponse($modules->toArray(), 'Modules retrieved successfully.');
+        return $this->sendResponse($modules->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
@@ -239,6 +240,6 @@ class ModuleController extends BaseController
         ->orderBy('modules.name')
         ->get();
 
-        return $this->sendResponse($modules->toArray(), 'Modules retrieved successfully.');
+        return $this->sendResponse($modules->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 }

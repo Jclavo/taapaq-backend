@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Illuminate\Support\Facades\App;
 use App\Models\Translation;
 use App\Models\TranslationDetail;
 use App\Models\Country;
@@ -67,6 +68,37 @@ class TranslationUtil
                                                 ['value' => $detail->value,]);
         } 
 
+    }
+
+    //
+    static function getTranslationCore($key, $translationable_type, $locale){
+
+        $translation = TranslationDetail::whereHas('translation', function ($query) use($key, $translationable_type, $locale) {
+
+            $query->where('translations.key', strtolower($key))           
+                  ->where('translations.translationable_type', $translationable_type)
+                  ->where('translation_details.locale', $locale);
+
+        })
+        ->limit(1)
+        ->get();
+
+        return $translation;
+
+    }
+
+    // static function getTranslation($key, $translationable_type, $locale){
+    static function getTranslation($key){
+
+        $translationable_type = 'App\Models\System';
+        $locale = App::getLocale();
+
+        $translation = self::getTranslationCore($key, $translationable_type, $locale);
+
+        if($translation->isEmpty()){
+            return $key;
+        }
+        return $translation[0]->value;
     }
     
 }

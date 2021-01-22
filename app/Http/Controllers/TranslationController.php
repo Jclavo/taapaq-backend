@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
+use App\Utils\TranslationUtil;
 
 class TranslationController extends BaseController
 {
@@ -60,7 +61,7 @@ class TranslationController extends BaseController
         $model = SystemModel::findOrFail($request->model_id);
         $model->translations()->save($translation);
 
-        return $this->sendResponse($translation->toArray(), 'Translation created successfully.'); 
+        return $this->sendResponse($translation->toArray(), TranslationUtil::getTranslation('crud.create')); 
     }
 
     /**
@@ -109,7 +110,7 @@ class TranslationController extends BaseController
 
         $translation->delete();
 
-        return $this->sendResponse($translation->toArray(), 'Translation deleted successfully.');
+        return $this->sendResponse($translation->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
 
@@ -126,7 +127,7 @@ class TranslationController extends BaseController
         ->with('details')
         ->get();
 
-        return $this->sendResponse($translations->toArray(), 'Translations retrieved successfully.');
+        return $this->sendResponse($translations->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
          /**
@@ -142,7 +143,7 @@ class TranslationController extends BaseController
         ->with('details')
         ->get();
 
-        return $this->sendResponse($translations->toArray(), 'Translations retrieved successfully.');
+        return $this->sendResponse($translations->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
 

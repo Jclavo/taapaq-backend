@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 //Utils
 use App\Utils\ProjectUtil;
+use App\Utils\TranslationUtil;
 
 class ProjectController extends BaseController
 {
@@ -32,7 +33,7 @@ class ProjectController extends BaseController
     {
         $projects = Project::orderBy('name')->get();
             
-        return $this->sendResponse($projects->toArray(), 'Projects retrieved successfully.');
+        return $this->sendResponse($projects->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
@@ -67,7 +68,7 @@ class ProjectController extends BaseController
         $project->name = $request->name;
         $project->save();
 
-        return $this->sendResponse($project->toArray(), 'Project created successfully.');  
+        return $this->sendResponse($project->toArray(), TranslationUtil::getTranslation('crud.create'));  
     }
 
     /**
@@ -116,7 +117,7 @@ class ProjectController extends BaseController
 
         $project->delete();
 
-        return $this->sendResponse($project->toArray(), 'Project deleted successfully.');
+        return $this->sendResponse($project->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
     /**
@@ -128,7 +129,7 @@ class ProjectController extends BaseController
 
         $projects = Project::with('modules')->get();
             
-        return $this->sendResponse($projects->toArray(), 'Projects - Modules retrieved successfully.');
+        return $this->sendResponse($projects->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
@@ -140,7 +141,7 @@ class ProjectController extends BaseController
 
         $projects = Project::with('modules.resources')->findOrFail($id);
 
-        return $this->sendResponse($projects->toArray(), 'Project - Modules - Resources retrieved successfully.');
+        return $this->sendResponse($projects->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
@@ -202,7 +203,7 @@ class ProjectController extends BaseController
 
         $projects = Project::with('companies.person')->get();
 
-        return $this->sendResponse($projects->toArray(), 'Projects and ist companies retrieved successfully.');
+        return $this->sendResponse($projects->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
@@ -214,7 +215,7 @@ class ProjectController extends BaseController
 
         $projects = Project::with('companies.person')->findOrFail($id);
 
-        return $this->sendResponse($projects->toArray(), 'Project and ist companies retrieved successfully.');
+        return $this->sendResponse($projects->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
 

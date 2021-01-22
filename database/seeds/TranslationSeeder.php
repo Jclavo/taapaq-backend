@@ -52,7 +52,7 @@ class TranslationSeeder extends Seeder
             (object) array('key' => 'crud.pagination', 'translationable_id' => '',
                             'details' => [
                                     (object) array('value' => 'Records retrieved successfully.', 'locale' => 'en'),
-                                    (object) array('value' => 'Registro obtenidos con exito.', 'locale' => 'es'),
+                                    (object) array('value' => 'Registros obtenidos con exito.', 'locale' => 'es'),
                                     (object) array('value' => 'Registros retornados com éxito.', 'locale' => 'pt')]
                             ),
             (object) array('key' => 'crud.update-date', 'translationable_id' => '',
@@ -68,7 +68,26 @@ class TranslationSeeder extends Seeder
                         (object) array('value' => 'O registro foi anulado.', 'locale' => 'pt')]
              ),   
 
-                         //STAGES SECTION
+             (object) array('key' => 'crud.assign', 'translationable_id' => '',
+             'details' => [
+                         (object) array('value' => 'Record assigned successfully.', 'locale' => 'en'),
+                         (object) array('value' => 'Registro assignado correctamente.', 'locale' => 'es'),
+                         (object) array('value' => 'Registro atribuido com successo', 'locale' => 'pt')]
+             ),
+             (object) array('key' => 'crud.remove', 'translationable_id' => '',
+             'details' => [
+                         (object) array('value' => 'Record removed successfully.', 'locale' => 'en'),
+                         (object) array('value' => 'Registro removido correctamente.', 'locale' => 'es'),
+                         (object) array('value' => 'Registro removido com successo', 'locale' => 'pt')]
+             ),
+             (object) array('key' => 'crud.remove.error', 'translationable_id' => '',
+             'details' => [
+                         (object) array('value' => 'Record can not be removed.', 'locale' => 'en'),
+                         (object) array('value' => 'Registro no puede ser removido.', 'locale' => 'es'),
+                         (object) array('value' => 'Registro não pode ser removida.', 'locale' => 'pt')]
+             ),
+
+            //STAGES SECTION
             (object) array('key' => 'stage.already-canceled', 'translationable_id' => '',
             'details' => [
                     (object) array('value' => 'There is not possible to finish the action requested, because the record was canceled.', 'locale' => 'en'),
@@ -188,38 +207,99 @@ class TranslationSeeder extends Seeder
                     (object) array('value' => 'Para cancelar o pedido, por favor usa outra opção.', 'locale' => 'pt')]
             ),
 
+            //USER SECTION
+            (object) array('key' => 'user.login.success', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'User login successfully.', 'locale' => 'en'),
+                        (object) array('value' => 'Inicio de sessión correctamente.', 'locale' => 'es'),
+                        (object) array('value' => 'Início de sessão com successo', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.login.incorrect', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'Login incorrect.', 'locale' => 'en'),
+                        (object) array('value' => 'Login incorrecto.', 'locale' => 'es'),
+                        (object) array('value' => 'Login errado.', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.login.password.incorrect', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'Password incorrect.', 'locale' => 'en'),
+                        (object) array('value' => 'Contraseña incorrecta.', 'locale' => 'es'),
+                        (object) array('value' => 'Senha errada.', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.login.both.incorrect', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'Login or Password incorrect.', 'locale' => 'en'),
+                        (object) array('value' => 'Login o Contraseña incorrectos.', 'locale' => 'es'),
+                        (object) array('value' => 'Login o Senha errados.', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.actual-password.incorrect', 'translationable_id' => '',
+            'details' => [
+                (object) array('value' => 'Actual password incorrect.', 'locale' => 'en'),
+                (object) array('value' => 'Contraseña actual incorrecta.', 'locale' => 'es'),
+                (object) array('value' => 'Senha atual errada.', 'locale' => 'pt')]
+             ),
+
+             (object) array('key' => 'user.new-password.equal', 'translationable_id' => '',
+            'details' => [
+                (object) array('value' => 'New password can not be same as login.', 'locale' => 'en'),
+                (object) array('value' => 'La nueva contraseña no puede ser igual al Login.', 'locale' => 'es'),
+                (object) array('value' => 'A nova senha atual não pode ser igual ao Login.', 'locale' => 'pt')]
+             ),
+
+             (object) array('key' => 'user.password.changed', 'translationable_id' => '',
+            'details' => [
+                (object) array('value' => 'Password was changed.', 'locale' => 'en'),
+                (object) array('value' => 'La contraseña fue actualizada.', 'locale' => 'es'),
+                (object) array('value' => 'A senha foi atualizada.', 'locale' => 'pt')]
+             ),
+
+            (object) array('key' => 'user.delete.own', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'The logged user can not be deleted.', 'locale' => 'en'),
+                        (object) array('value' => 'No puede eliminar su usuário.', 'locale' => 'es'),
+                        (object) array('value' => 'Não pode apagar seu usuário ', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.not.activated', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'Your user is not activated yet.', 'locale' => 'en'),
+                        (object) array('value' => 'Su usuário aún no está activado.', 'locale' => 'es'),
+                        (object) array('value' => 'Seu usuário ainda não está ativado.', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.token.invalid', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'Token invalid.', 'locale' => 'en'),
+                        (object) array('value' => 'Token invalido.', 'locale' => 'es'),
+                        (object) array('value' => 'Token inválido.', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.logout', 'translationable_id' => '',
+            'details' => [
+                        (object) array('value' => 'User logout.', 'locale' => 'en'),
+                        (object) array('value' => 'Sesión finalizada.', 'locale' => 'es'),
+                        (object) array('value' => 'Sessão finalizada.', 'locale' => 'pt')]
+            ),
+
+            (object) array('key' => 'user.status.changed', 'translationable_id' => '',
+            'details' => [
+                (object) array('value' => 'Users status changed successfully.', 'locale' => 'en'),
+                (object) array('value' => 'El estado del usuário fue actualizado.', 'locale' => 'es'),
+                (object) array('value' => 'O estado do usuário foi atualizado.', 'locale' => 'pt')]
+            ),
+
+
+    
+
 
 
         ];
 
-        // TranslationUtil::customUpdateOrCreate(env('PROJECT_TAAPAQ_CODE'),'SYSTEM',$translations);
-
-        //EXECUTE
-
-        // $newModel = factory(SystemModel::class)->updateOrCreate(['name' => 'SYSTEM',
-        //                                                  'project_id' => $this->project_id ]);
-
-        // foreach ($this->translations as $translation) {
-
-        // //     $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;
-
-        //     $newTranslation = factory(Translation::class)->create(['key' => $translation->key,
-        //                                                            'translationable_type' => 'App\Models\System',
-        //                                                         //    'translationable_id' => $translation->translationable_id,
-        //                                                         //    'model_id' => $newModel->id,
-        //                                                           ]);
-        //     foreach ($translation->details as $detail) {
-        //         $newTranslation->details()->save(
-        //             factory(TranslationDetail::class)->make(['value' => $detail->value,
-        //                                                      'locale' => $detail->locale])
-        //         );
-        //     } 
-        // }
-
-        
-
-        // $newModel = SystemModelUtil::createFromProjectCode(env('PROJECT_TAAPAQ_CODE'),'SYSTEM');
-
+       
         foreach ($translations as $translation) {
 
         //     $translation->translationable_id < 1 ? $translation->translationable_id = 0 : null;

@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
 use App\Utils\PaginationUtil;
 use App\Utils\UserUtil;
 use App\Utils\ProjectUtil;
+use App\Utils\TranslationUtil;
 
 class UserController extends BaseController
 {
@@ -79,7 +80,7 @@ class UserController extends BaseController
 
         $user = UserUtil::createCore($company_project_id,$universalPerson);;
 
-        return $this->sendResponse($user->toArray(), 'User created successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.create'));  
     }
 
     /**
@@ -92,7 +93,7 @@ class UserController extends BaseController
     {
         $user = User::with(['roles'])->findOrFail($id);
                 
-        return $this->sendResponse($user->toArray(), 'User retrieved successfully.');
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
 
     /**
@@ -134,7 +135,7 @@ class UserController extends BaseController
         }
         $user->save();
 
-        return $this->sendResponse($user->toArray(), 'User updated successfully.');
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.update'));
     }
 
     /**
@@ -148,12 +149,12 @@ class UserController extends BaseController
         $user = User::findOrFail($id);
 
         if($user->id === Auth::user()->id){
-            return $this->sendError('The logged user can not be deleted.');
+            return $this->sendError(TranslationUtil::getTranslation('user.delete.own'));
         }
 
         $user->delete();
 
-        return $this->sendResponse($user->toArray(), 'User deleted successfully.');
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
     /**
@@ -184,11 +185,11 @@ class UserController extends BaseController
             $user = User::where('login',$request->login)->first();
 
             if(!$user){
-                return $this->sendError('Login incorrect.'); 
+                return $this->sendError(TranslationUtil::getTranslation('user.login.incorrect')); 
             }
 
             if(!Hash::check($request->password, $user->password)){
-                return $this->sendError('Password incorrect.');  
+                return $this->sendError(TranslationUtil::getTranslation('user.login.password.incorrect'));  
             }
             
         }else{
@@ -196,7 +197,7 @@ class UserController extends BaseController
             $credentials = $request->only('login', 'password');
 
             if (!Auth::attempt($credentials)) {
-                return $this->sendError('Login/Password incorrect.');  
+                return $this->sendError(TranslationUtil::getTranslation('user.login.both.incorrect'));  
             }
 
             $user = Auth::user();
@@ -205,7 +206,7 @@ class UserController extends BaseController
         //check if user status validated is true
         if(!$user->activated){
             Auth::logout();
-            return $this->sendError('Your user is not activated yet.');  
+            return $this->sendError(TranslationUtil::getTranslation('user.not.activated'));   
         }
 
         $user->api_token = Str::random(80);
@@ -228,7 +229,7 @@ class UserController extends BaseController
             UserUtil::syncRanqhanaUser(Auth::user()->id, Auth::user()->login, Auth::user()->company_project->id);
         }
 
-        return $this->sendResponse($user->toArray(), 'User login successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('user.login.success'));          
     }
 
     public function changePassword(Request $request){
@@ -255,23 +256,23 @@ class UserController extends BaseController
                     ->first();
 
         if(!$user){
-            return $this->sendError('Token invalid.');  
+            return $this->sendError(TranslationUtil::getTranslation('user.token.invalid'));    
         }
 
         if(!Hash::check($request->actualPassword, $user->password)){
-            return $this->sendError('Actual password incorrect.'); 
+            return $this->sendError(TranslationUtil::getTranslation('user.actual-password.incorrect'));  
         }
 
         //Check password is not the same as user login
         if($request->newPassword == $user->login){
-            return $this->sendError('New password can not be same as login.'); 
+            return $this->sendError(TranslationUtil::getTranslation('user.new-password.equal')); 
         }
 
         $user->password = bcrypt($request->newPassword);
         $user->api_token = Str::random(80);
         $user->save();
 
-        return $this->sendResponse($user->toArray(), 'Password was changed.');
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('user.password.changed'));
     }
 
     /**
@@ -294,7 +295,7 @@ class UserController extends BaseController
         $user = User::findOrFail($request->user_id);
         $user->assignRole(Role::findOrFail($request->role_id));
 
-        return $this->sendResponse($user->toArray(), 'Role assigned successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('role.assign.success'));  
     }
 
     /**
@@ -328,7 +329,7 @@ class UserController extends BaseController
 
         $user->syncRoles($roles);
 
-        return $this->sendResponse($user->toArray(), 'Role assigned successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.assign'));  
     }
 
     /**
@@ -353,12 +354,12 @@ class UserController extends BaseController
 
         //Check if role has the permission
         if(!$user->hasRole($role)){
-            return $this->sendError('Role can not be removed because it was not given to user.');  
+            return $this->sendError(TranslationUtil::getTranslation('crud.remove.error'));  
         }
 
         $user->removeRole($role);
 
-        return $this->sendResponse($user->toArray(), 'Role removed successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.remove'));  
     }
 
     /**
@@ -373,7 +374,7 @@ class UserController extends BaseController
         ->orderBy('users.login')
         ->get();
 
-        return $this->sendResponse($company->toArray(), 'User-Roles by Project-Company relation retrieved successfully.');
+        return $this->sendResponse($company->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
 
     /**
@@ -386,7 +387,7 @@ class UserController extends BaseController
         $user->activated = !$user->activated;
         $user->save();
 
-        return $this->sendResponse($user->toArray(), 'Users status changed successfully.');
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('user.status.changed'));
 
     }
 
@@ -396,7 +397,7 @@ class UserController extends BaseController
     public function logout(){
         Auth::user()->api_token = null;
         Auth::user()->save();
-        return $this->sendResponse([], 'User logout.');
+        return $this->sendResponse([], TranslationUtil::getTranslation('user.logout'));
     }
 
 
@@ -491,7 +492,7 @@ class UserController extends BaseController
         // $results = $query->orderBy('users.'.$sortColumn, $sortDirection)
         //                  ->paginate($pageSize);
  
-        return $this->sendResponse($results->items(), 'Users retrieved successfully.', $results->total() );
+        return $this->sendResponse($results->items(), TranslationUtil::getTranslation('crud.pagination'), $results->total() );
 
     }
     

@@ -12,11 +12,11 @@ use App\Models\PersonType;
 
 //Utils
 use App\Utils\PaginationUtil;
+use App\Utils\TranslationUtil;
 
 //Rules
 use App\Rules\IdentificationCountry;
 use App\Rules\PhoneCountry;
-
 
 class UniversalPersonController extends BaseController
 {
@@ -93,7 +93,7 @@ class UniversalPersonController extends BaseController
 
         $user->save();
         
-        return $this->sendResponse($user->toArray(), 'User created successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.create'));  
     }
 
     /**
@@ -106,7 +106,7 @@ class UniversalPersonController extends BaseController
     {
         $person = UniversalPerson::findOrFail($id);
                 
-        return $this->sendResponse($person->toArray(), 'Person retrieved successfully.');
+        return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
 
     /**
@@ -156,7 +156,7 @@ class UniversalPersonController extends BaseController
 
         $user->save();
         
-        return $this->sendResponse($user->toArray(), 'Person updated successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.update'));  
     }
 
     /**
@@ -171,7 +171,7 @@ class UniversalPersonController extends BaseController
         
         $person->delete();
 
-        return $this->sendResponse($person->toArray(), 'Person deleted successfully.');  
+        return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.delete'));  
     }
 
 
@@ -241,7 +241,7 @@ class UniversalPersonController extends BaseController
         $results = $query->orderBy('universal_people.'. $sortColumn, $sortDirection)
                          ->paginate($pageSize);
  
-        return $this->sendResponse($results->items(), 'Persons retrieved successfully.', $results->total() );
+        return $this->sendResponse($results->items(), TranslationUtil::getTranslation('crud.pagination'), $results->total() );
 
     }
 

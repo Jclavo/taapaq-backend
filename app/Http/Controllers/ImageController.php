@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Utils\TranslationUtil;
 
 class ImageController extends BaseController
 {
@@ -56,7 +57,7 @@ class ImageController extends BaseController
         $filename = Storage::disk('images')->putFileAs($path, $imageFile, $imageNewName);
         $fullPath = Storage::disk('images')->path('') . $filename ;
         
-        return $this->sendResponse(['name' => basename($filename), 'fullPath' => $fullPath ], 'Image created successfully.');  
+        return $this->sendResponse(['name' => basename($filename), 'fullPath' => $fullPath ], TranslationUtil::getTranslation('crud.create'));  
     }
 
     /**
@@ -107,7 +108,7 @@ class ImageController extends BaseController
 
         if ($fileexists) {
             unlink(Storage::disk('images')->path('') . $path );
-            return $this->sendResponse([], 'Image deleted successfully.'); 
+            return $this->sendResponse([], TranslationUtil::getTranslation('crud.delete')); 
         }else{
             return $this->sendError('Image does not exist.');
         }

@@ -8,6 +8,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Utils\TranslationUtil;
 
 class PermissionController extends BaseController
 {
@@ -142,7 +143,7 @@ class PermissionController extends BaseController
                         ->orderBy('permissions.name')
                         ->get();
 
-        return $this->sendResponse($permissions->toArray(), 'Permissions retrieved successfully.');
+        return $this->sendResponse($permissions->toArray(), TranslationUtil::getTranslation('crud.pagination'));
 
     }
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
 use Illuminate\Support\Facades\Auth;
+use App\Utils\TranslationUtil;
 
 class SystemModelController extends BaseController
 {
@@ -64,7 +65,7 @@ class SystemModelController extends BaseController
         $project = Project::findOrFail($request->project_id);
         $project->system_models()->save($systemModel);
 
-        return $this->sendResponse($systemModel->toArray(), 'Model created successfully.'); 
+        return $this->sendResponse($systemModel->toArray(), TranslationUtil::getTranslation('crud.create')); 
     }
 
     /**
@@ -113,7 +114,7 @@ class SystemModelController extends BaseController
 
         $systemModel->delete();
 
-        return $this->sendResponse($systemModel->toArray(), 'Model deleted successfully.');
+        return $this->sendResponse($systemModel->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
 
@@ -129,7 +130,7 @@ class SystemModelController extends BaseController
         })
         ->get();
 
-        return $this->sendResponse($models->toArray(), 'Models retrieved successfully.');
+        return $this->sendResponse($models->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
 

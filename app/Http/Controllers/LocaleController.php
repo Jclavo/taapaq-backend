@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Locale;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
+use App\Utils\TranslationUtil;
 
 class LocaleController extends BaseController
 {
@@ -17,7 +18,7 @@ class LocaleController extends BaseController
     {
         $locales = Locale::orderBy('language')->get();
             
-        return $this->sendResponse($locales->toArray(), 'Locales retrieved successfully.');
+        return $this->sendResponse($locales->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
