@@ -188,6 +188,36 @@ class RoleController extends BaseController
 
     }
 
+    public function giveAllPermissionTo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|exists:roles,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $role = Role::findOrFail($request->role_id);
+
+        $permissions = Permission::select('permissions.*')
+            ->join('resources', 'permissions.resource_id', '=', 'resources.id')
+            ->join('modules', 'resources.module_id', '=', 'modules.id')
+            ->join('projects', 'modules.project_id', '=', 'projects.id')
+            ->join('company_project', 'projects.id', '=', 'company_project.project_id')
+            ->where('company_project.id', $role->company_project_id)
+            ->get();
+        
+        
+        foreach ($permissions as $permission) {
+            $role->givePermissionTo($permission->id);    
+        }
+
+        return $this->sendResponse($role->toArray(), TranslationUtil::getTranslation('crud.assign'));  
+
+    }
+
+
     /**
      * Get Roles by user
      * 

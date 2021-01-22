@@ -40,7 +40,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('roles/companies/{company_id}/projects/{project_id}/', 'RoleController@byCompanyProject');
     Route::post('roles/byUser', 'RoleController@byUser');
     Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
-    Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
+    Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
+    Route::post('roles/giveAllPermissionTo', 'RoleController@giveAllPermissionTo');
     Route::resource('roles', 'RoleController');
 
 
