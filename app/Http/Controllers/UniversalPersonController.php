@@ -13,6 +13,7 @@ use App\Models\PersonType;
 //Utils
 use App\Utils\PaginationUtil;
 use App\Utils\TranslationUtil;
+use App\Utils\ImageUtil;
 
 //Rules
 use App\Rules\IdentificationCountry;
@@ -105,7 +106,7 @@ class UniversalPersonController extends BaseController
     public function show($id)
     {
         $person = UniversalPerson::findOrFail($id);
-                
+               
         return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
 
@@ -240,7 +241,7 @@ class UniversalPersonController extends BaseController
 
         $results = $query->orderBy('universal_people.'. $sortColumn, $sortDirection)
                          ->paginate($pageSize);
- 
+
         return $this->sendResponse($results->items(), TranslationUtil::getTranslation('crud.pagination'), $results->total() );
 
     }

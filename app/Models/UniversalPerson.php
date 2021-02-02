@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Image;
 
 class UniversalPerson extends Model
 {
     protected $table = 'universal_people';
-    protected $with = 'type';
+    protected $with = ['type','images'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,5 +51,13 @@ class UniversalPerson extends Model
     public function country()
     {
         return $this->belongsTo('App\Models\Country', 'country_code', 'code');
+    }
+
+    /**
+     * Get all of the item's images.
+     */
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

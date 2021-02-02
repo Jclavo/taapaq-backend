@@ -99,9 +99,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('translation-details', 'TranslationDetailController');
 
     // Images
-    Route::resource('images', 'ImageController');
+    // Route::resource('images', 'ImageController');
+    Route::post('images/storePhysical', 'ImageController@storePhysical');
+    Route::post('images/storeLogical', 'ImageController@storeLogical');
+    Route::delete('images/destroyPhysical/{image}', 'ImageController@destroyPhysical');
+    Route::delete('images/destroyLogical/{image}', 'ImageController@destroyLogical');
 
-    // Images
+    // Person types
     Route::resource('person-types', 'PersonTypeController');
 });
 
