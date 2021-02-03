@@ -14,10 +14,15 @@ use App\Models\PersonType;
 use App\Utils\PaginationUtil;
 use App\Utils\TranslationUtil;
 use App\Utils\ImageUtil;
+use App\Utils\UniversalPersonUtil;
+use App\Utils\UserUtil;
 
 //Rules
 use App\Rules\IdentificationCountry;
 use App\Rules\PhoneCountry;
+
+//Scopes
+use App\Scopes\BelongsToCompanyProjectScope;
 
 class UniversalPersonController extends BaseController
 {
@@ -240,9 +245,18 @@ class UniversalPersonController extends BaseController
         // $query->with('country');
 
         $results = $query->orderBy('universal_people.'. $sortColumn, $sortDirection)
-                         ->paginate($pageSize);
+                        ->withoutGlobalScope(BelongsToCompanyProjectScope::class)              
+                        ->paginate($pageSize);
 
-        return $this->sendResponse($results->items(), TranslationUtil::getTranslation('crud.pagination'), $results->total() );
+        $people = $results->items();
+
+        foreach ($people as $person) {
+
+            $person->company_project = UniversalPersonUtil::getCompanyProject($person->id);
+            $person->belongs = UserUtil::belongsToCompanyProject($person->created_by, Auth::user()->company_project_id);
+        }
+
+        return $this->sendResponse($people, TranslationUtil::getTranslation('crud.pagination'), $results->total() );
 
     }
 

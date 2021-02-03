@@ -116,4 +116,16 @@ class UserUtil
         return 0;
     } 
 
+    static function belongsToCompanyProject($user_id, $company_project_id){
+
+        $user = User::where('id',$user_id)
+                      ->where('company_project_id',$company_project_id)
+                      ->count();
+
+        if ($user > 0) {
+            return 1;
+        }
+        return 0;
+    }
+
 }

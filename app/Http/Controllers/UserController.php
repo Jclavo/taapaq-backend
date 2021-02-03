@@ -91,7 +91,7 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = User::with(['roles'])->findOrFail($id);
+        $user = User::with(['roles','person'])->findOrFail($id);
                 
         return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
@@ -213,7 +213,7 @@ class UserController extends BaseController
         $user->save();
 
         //load relationships
-        $user->load(['company_project','company.person.country','project', 'company.setting']);
+        $user->load(['company_project','company.person.country','project', 'company.setting','person']);
         
         if ($user->isSuper()) {
             $user->isSuper = 1;
@@ -438,7 +438,7 @@ class UserController extends BaseController
 
 
         $query = User::query();
-        $query->with(['company','roles']);
+        $query->with(['company','roles','person']);
 
         $query->whereHas('company_project', function ($query) use($company_id,$project_id){
             $query->when($company_id > 0, function ($query) use($company_id) {

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Image;
+use Illuminate\Support\Facades\Auth;
+use App\Scopes\BelongsToCompanyProjectScope;
 
 class UniversalPerson extends Model
 {
@@ -16,8 +18,26 @@ class UniversalPerson extends Model
      * @var array
      */
     protected $fillable = [
-        'identification', 'email', 'name', 'lastname', 'phone', 'address', 'country_code'
+        'identification', 'email', 'name', 'lastname', 'phone', 'address', 'country_code', 'created_by'
     ];
+
+    /**
+     * BOOT
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // create a event to happen on saving
+        static::saving(function($table)  {
+            $table->created_by = Auth::user()->id;
+        });
+
+        //add scope 
+        static::addGlobalScope(new BelongsToCompanyProjectScope);
+
+        
+    }
 
     /**
      * Get the users for the UniversalPerson
