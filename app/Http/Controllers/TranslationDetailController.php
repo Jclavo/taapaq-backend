@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
+use App\Utils\TranslationUtil;
 
 class TranslationDetailController extends BaseController
 {
@@ -64,7 +65,7 @@ class TranslationDetailController extends BaseController
         $translation = Translation::findOrFail($request->translation_id);
         $translation->details()->save($translationDetail);
 
-        return $this->sendResponse($translationDetail->toArray(), 'Translation detail created successfully.'); 
+        return $this->sendResponse($translationDetail->toArray(), TranslationUtil::getTranslation('crud.create')); 
     }
 
     /**
@@ -113,7 +114,7 @@ class TranslationDetailController extends BaseController
 
         $translationDetail->delete();
 
-        return $this->sendResponse($translationDetail->toArray(), 'Translation detail deleted successfully.');
+        return $this->sendResponse($translationDetail->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
     
@@ -129,7 +130,7 @@ class TranslationDetailController extends BaseController
         })
         ->get();
 
-        return $this->sendResponse($models->toArray(), 'Translation details retrieved successfully.');
+        return $this->sendResponse($models->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
 
@@ -151,23 +152,9 @@ class TranslationDetailController extends BaseController
             return $this->sendError($validator->errors()->first());
         }
 
-        $translation = TranslationDetail::whereHas('translation', function ($query) use($request) {
+        $translation = TranslationUtil::getTranslationCore($request->key, $request->translationable_type, $request->locale);
 
-            $query->where('translations.key', strtolower($request->key));
-
-            // $query->when((!empty($request->translationable_id)), function ($q) use($request) {
-            //     return $q->where('translations.translationable_id', $request->translationable_id);
-            // });
-            
-            $query->where('translations.translationable_type', $request->translationable_type)
-                  ->where('translation_details.locale', $request->locale);
-
-        })
-        ->limit(1)
-        ->get();
-
-
-        return $this->sendResponse($translation->toArray(), 'Translation retrieved successfully.');
+        return $this->sendResponse($translation->toArray(), TranslationUtil::getTranslation('crud.read'));
 
      }
 }

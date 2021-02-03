@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PersonType;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use App\Utils\TranslationUtil;
 
 class PersonTypeController extends BaseController
 {
@@ -17,7 +18,7 @@ class PersonTypeController extends BaseController
     {
         $personTypes = PersonType::all();
             
-        return $this->sendResponse($personTypes->toArray(), 'Resource Commons retrieved successfully.');
+        return $this->sendResponse($personTypes->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**

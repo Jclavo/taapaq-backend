@@ -12,6 +12,7 @@ use Illuminate\Validation\Rule;
 
 //Utils
 use App\Utils\ResourceUtil;
+use App\Utils\TranslationUtil;
 
 class ResourceController extends BaseController
 {
@@ -67,7 +68,7 @@ class ResourceController extends BaseController
 
         $resource = ResourceUtil::createCore($module->project->id, $module->id, $module->name,$request->name);
 
-        return $this->sendResponse($resource->toArray(), 'Resource created successfully.'); 
+        return $this->sendResponse($resource->toArray(), TranslationUtil::getTranslation('crud.create')); 
     }
 
     /**
@@ -116,7 +117,7 @@ class ResourceController extends BaseController
 
         $resource->delete();
 
-        return $this->sendResponse($resource->toArray(), 'Resource deleted successfully.');
+        return $this->sendResponse($resource->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
 }

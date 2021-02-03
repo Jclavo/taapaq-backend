@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'UserController@login');
+Route::post('changePassword', 'UserController@changePassword');
 
 // Locales
 Route::resource('locales', 'LocaleController');
@@ -29,6 +30,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('users/assignMassiveRole', 'UserController@assignMassiveRole');
     Route::post('users/removeRole', 'UserController@removeRole');
     Route::post('users/pagination', 'UserController@pagination');
+
     Route::resource('users', 'UserController');
     
     
@@ -38,7 +40,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('roles/companies/{company_id}/projects/{project_id}/', 'RoleController@byCompanyProject');
     Route::post('roles/byUser', 'RoleController@byUser');
     Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
-    Route::post('roles/revokePermissionTo', 'RoleController@revokePermissionTo');
+    Route::post('roles/givePermissionTo', 'RoleController@givePermissionTo');
+    Route::post('roles/giveAllPermissionTo', 'RoleController@giveAllPermissionTo');
     Route::resource('roles', 'RoleController');
 
 
@@ -96,9 +99,13 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('translation-details', 'TranslationDetailController');
 
     // Images
-    Route::resource('images', 'ImageController');
+    // Route::resource('images', 'ImageController');
+    Route::post('images/storePhysical', 'ImageController@storePhysical');
+    Route::post('images/storeLogical', 'ImageController@storeLogical');
+    Route::delete('images/destroyPhysical/{image}', 'ImageController@destroyPhysical');
+    Route::delete('images/destroyLogical/{image}', 'ImageController@destroyLogical');
 
-    // Images
+    // Person types
     Route::resource('person-types', 'PersonTypeController');
 });
 

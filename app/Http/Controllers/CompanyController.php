@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 //Utils
 use App\Utils\CompanyUtil;
+use App\Utils\TranslationUtil;
 
 class CompanyController extends BaseController
 {
@@ -32,7 +33,7 @@ class CompanyController extends BaseController
     {
         $companies = Company::with('person.country')->get();
 
-        return $this->sendResponse($companies->toArray(), 'Companies retrieved successfully.');
+        return $this->sendResponse($companies->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
@@ -69,7 +70,7 @@ class CompanyController extends BaseController
 
         $company = CompanyUtil::createCore($request->universal_person_id);
 
-        return $this->sendResponse($company->toArray(), 'Company created successfully.');      
+        return $this->sendResponse($company->toArray(), TranslationUtil::getTranslation('crud.create'));      
     }
 
     /**
@@ -118,7 +119,7 @@ class CompanyController extends BaseController
 
         $company->delete();
 
-        return $this->sendResponse($company->toArray(), 'Company deleted successfully.');
+        return $this->sendResponse($company->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
     /**
@@ -131,7 +132,7 @@ class CompanyController extends BaseController
             $query->where('projects.id', '=', $id);
         })->get();
 
-        return $this->sendResponse($companies->toArray(), 'Project - Roles retrieved successfully.');
+        return $this->sendResponse($companies->toArray(), TranslationUtil::getTranslation('crud.pagination'));
 
     }
 

@@ -14,6 +14,7 @@ use Illuminate\Validation\Rule;
 //Utils
 use App\Utils\RoleUtil;
 use App\Utils\ProjectUtil;
+use App\Utils\TranslationUtil;
 
 class RoleController extends BaseController
 {
@@ -36,7 +37,7 @@ class RoleController extends BaseController
     {
         $roles = Role::orderBy('name')->get();
             
-        return $this->sendResponse($roles->toArray(), 'Roles retrieved successfully.');
+        return $this->sendResponse($roles->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
@@ -75,7 +76,7 @@ class RoleController extends BaseController
 
         $role = RoleUtil::createCore($request->company_id, $request->project_id,$request->name);
         
-        return $this->sendResponse($role->toArray(), 'Role created successfully.');  
+        return $this->sendResponse($role->toArray(), TranslationUtil::getTranslation('crud.create'));  
     }
 
     /**
@@ -88,7 +89,7 @@ class RoleController extends BaseController
     {
         $role = Role::findOrFail($id);
                 
-        return $this->sendResponse($role->toArray(), 'Role retrieved successfully.');
+        return $this->sendResponse($role->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
 
 
@@ -127,7 +128,7 @@ class RoleController extends BaseController
 
         $role->delete();
 
-        return $this->sendResponse($role->toArray(), 'Role deleted successfully.');
+        return $this->sendResponse($role->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
     /**
@@ -151,7 +152,7 @@ class RoleController extends BaseController
         $role = Role::findOrFail($request->role_id);
         $role->givePermissionTo($request->permission_id);
 
-        return $this->sendResponse($role->toArray(), 'Permission given successfully.');  
+        return $this->sendResponse($role->toArray(), TranslationUtil::getTranslation('crud.assign'));  
 
     }
 
@@ -183,9 +184,39 @@ class RoleController extends BaseController
         //revoke permission
         $role->revokePermissionTo($request->permission_id);
 
-        return $this->sendResponse($role->toArray(), 'Permission revoked successfully.');  
+        return $this->sendResponse($role->toArray(), TranslationUtil::getTranslation('crud.remove'));  
 
     }
+
+    public function giveAllPermissionTo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|exists:roles,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
+        $role = Role::findOrFail($request->role_id);
+
+        $permissions = Permission::select('permissions.*')
+            ->join('resources', 'permissions.resource_id', '=', 'resources.id')
+            ->join('modules', 'resources.module_id', '=', 'modules.id')
+            ->join('projects', 'modules.project_id', '=', 'projects.id')
+            ->join('company_project', 'projects.id', '=', 'company_project.project_id')
+            ->where('company_project.id', $role->company_project_id)
+            ->get();
+        
+        
+        foreach ($permissions as $permission) {
+            $role->givePermissionTo($permission->id);    
+        }
+
+        return $this->sendResponse($role->toArray(), TranslationUtil::getTranslation('crud.assign'));  
+
+    }
+
 
     /**
      * Get Roles by user
@@ -214,7 +245,7 @@ class RoleController extends BaseController
                         ->orderBy('roles.name')
                         ->get();
 
-        return $this->sendResponse($roles->toArray(), 'Roles from user gotten successfully.');  
+        return $this->sendResponse($roles->toArray(), TranslationUtil::getTranslation('crud.pagination'));  
 
     }
 
@@ -235,7 +266,7 @@ class RoleController extends BaseController
         ->orderBy('roles.name')
         ->get();   
 
-        return $this->sendResponse($rolesNot->toArray(), 'Roles not in user gotten successfully.');  
+        return $this->sendResponse($rolesNot->toArray(), TranslationUtil::getTranslation('crud.pagination'));  
     }
 
     /**
@@ -253,6 +284,6 @@ class RoleController extends BaseController
                        ->orderBy('roles.name')
                        ->get();
 
-        return $this->sendResponse($roles->toArray(), 'Roles retrieved successfully.');
+        return $this->sendResponse($roles->toArray(), TranslationUtil::getTranslation('crud.pagination'));
     }
 }

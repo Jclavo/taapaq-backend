@@ -12,11 +12,17 @@ use App\Models\PersonType;
 
 //Utils
 use App\Utils\PaginationUtil;
+use App\Utils\TranslationUtil;
+use App\Utils\ImageUtil;
+use App\Utils\UniversalPersonUtil;
+use App\Utils\UserUtil;
 
 //Rules
 use App\Rules\IdentificationCountry;
 use App\Rules\PhoneCountry;
 
+//Scopes
+use App\Scopes\BelongsToCompanyProjectScope;
 
 class UniversalPersonController extends BaseController
 {
@@ -93,7 +99,7 @@ class UniversalPersonController extends BaseController
 
         $user->save();
         
-        return $this->sendResponse($user->toArray(), 'User created successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.create'));  
     }
 
     /**
@@ -105,8 +111,8 @@ class UniversalPersonController extends BaseController
     public function show($id)
     {
         $person = UniversalPerson::findOrFail($id);
-                
-        return $this->sendResponse($person->toArray(), 'Person retrieved successfully.');
+               
+        return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
 
     /**
@@ -156,7 +162,7 @@ class UniversalPersonController extends BaseController
 
         $user->save();
         
-        return $this->sendResponse($user->toArray(), 'Person updated successfully.');  
+        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.update'));  
     }
 
     /**
@@ -171,7 +177,7 @@ class UniversalPersonController extends BaseController
         
         $person->delete();
 
-        return $this->sendResponse($person->toArray(), 'Person deleted successfully.');  
+        return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.delete'));  
     }
 
 
@@ -239,9 +245,18 @@ class UniversalPersonController extends BaseController
         // $query->with('country');
 
         $results = $query->orderBy('universal_people.'. $sortColumn, $sortDirection)
-                         ->paginate($pageSize);
- 
-        return $this->sendResponse($results->items(), 'Persons retrieved successfully.', $results->total() );
+                        ->withoutGlobalScope(BelongsToCompanyProjectScope::class)              
+                        ->paginate($pageSize);
+
+        $people = $results->items();
+
+        foreach ($people as $person) {
+
+            $person->company_project = UniversalPersonUtil::getCompanyProject($person->id);
+            $person->belongs = UserUtil::belongsToCompanyProject($person->created_by, Auth::user()->company_project_id);
+        }
+
+        return $this->sendResponse($people, TranslationUtil::getTranslation('crud.pagination'), $results->total() );
 
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
+use App\Utils\TranslationUtil;
 
 class CountryController extends BaseController
 {
@@ -17,7 +18,7 @@ class CountryController extends BaseController
     {
         $countries = Country::all();
       
-        return $this->sendResponse($countries, 'Countries retrieved successfully.');
+        return $this->sendResponse($countries, TranslationUtil::getTranslation('crud.pagination'));
     }
 
     /**
