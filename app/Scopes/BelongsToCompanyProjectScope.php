@@ -21,7 +21,7 @@ class BelongsToCompanyProjectScope implements Scope
         $builder->whereIn('created_by', function($query){
             $query->select('users.id')
                 ->from('users')
-                ->where('users.company_project_id', '=', Auth::user()->id);
+                ->where('users.company_project_id', '=', Auth::user()->company_project_id);
         });
     }
 }
