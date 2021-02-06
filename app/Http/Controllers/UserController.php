@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UniversalPerson;
 use App\Models\Company;
 use App\Models\Project;
+use App\Models\PersonType;
 use App\Models\CustomSpatieRole as Role;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ use App\Utils\PaginationUtil;
 use App\Utils\UserUtil;
 use App\Utils\ProjectUtil;
 use App\Utils\TranslationUtil;
+use App\Utils\UniversalPersonUtil;
 
 class UserController extends BaseController
 {
@@ -92,6 +94,11 @@ class UserController extends BaseController
     public function show($id)
     {
         $user = User::with(['roles','person'])->findOrFail($id);
+
+        //validate if belongsToCompanyProject
+        if(!UniversalPersonUtil::belongsToCompanyProject($user->universal_person_id, PersonType::getForNatural(), 0, Auth::user()->company_project_id)){
+            return $this->sendError(TranslationUtil::getTranslation('record.not.found'));     
+        }
                 
         return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
@@ -126,6 +133,12 @@ class UserController extends BaseController
         }
 
         $user = User::findOrFail($id);
+
+        //validate if belongsToCompanyProject
+        if(!UniversalPersonUtil::belongsToCompanyProject($user->universal_person_id, PersonType::getForNatural(), 0, Auth::user()->company_project_id)){
+            return $this->sendError(TranslationUtil::getTranslation('record.not.found'));     
+        }
+
         $universalPerson = UniversalPerson::findOrFail($user->universal_person_id);
         
         $user->login = $universalPerson->identification . $user->company_project_id;
@@ -148,6 +161,11 @@ class UserController extends BaseController
     {
         $user = User::findOrFail($id);
 
+        //validate if belongsToCompanyProject
+        if(!UniversalPersonUtil::belongsToCompanyProject($user->universal_person_id, PersonType::getForNatural(), 0, Auth::user()->company_project_id)){
+            return $this->sendError(TranslationUtil::getTranslation('record.not.found'));     
+        }
+        
         if($user->id === Auth::user()->id){
             return $this->sendError(TranslationUtil::getTranslation('user.delete.own'));
         }

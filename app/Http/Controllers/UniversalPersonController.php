@@ -111,10 +111,14 @@ class UniversalPersonController extends BaseController
     public function show($id)
     {
         $person = UniversalPerson::findOrFail($id);
-               
+
+        //validate if belongsToCompanyProject
+        if(!UniversalPersonUtil::belongsToCompanyProject($person->id, $person->type_id, $person->created_by, Auth::user()->company_project_id)){
+            return $this->sendError(TranslationUtil::getTranslation('record.not.found'));     
+        }
         return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -144,25 +148,30 @@ class UniversalPersonController extends BaseController
             'address' => 'required|max:100'
         ]);
 
-        $user = UniversalPerson::findOrFail($id);
+        $person = UniversalPerson::findOrFail($id);
 
-        $validator->sometimes('lastname', 'required|max:45', function ($user) {
-            return $user->type_id == PersonType::getForNatural();
+        $validator->sometimes('lastname', 'required|max:45', function ($person) {
+            return $person->type_id == PersonType::getForNatural();
         });
       
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
         }
 
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->lastname = $request->lastname;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
+        //validate if belongsToCompanyProject
+        if(!UniversalPersonUtil::belongsToCompanyProject($person->id, $person->type_id, $person->created_by, Auth::user()->company_project_id)){
+            return $this->sendError(TranslationUtil::getTranslation('record.not.found'));     
+        }
 
-        $user->save();
+        $person->email = $request->email;
+        $person->name = $request->name;
+        $person->lastname = $request->lastname;
+        $person->phone = $request->phone;
+        $person->address = $request->address;
+
+        $person->save();
         
-        return $this->sendResponse($user->toArray(), TranslationUtil::getTranslation('crud.update'));  
+        return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.update'));  
     }
 
     /**
@@ -174,7 +183,12 @@ class UniversalPersonController extends BaseController
     public function destroy(int $id)
     {
         $person = UniversalPerson::findOrFail($id);
-        
+
+        //validate if belongsToCompanyProject
+        if(!UniversalPersonUtil::belongsToCompanyProject($person->id, $person->type_id, $person->created_by, Auth::user()->company_project_id)){
+            return $this->sendError(TranslationUtil::getTranslation('record.not.found'));     
+        }
+       
         $person->delete();
 
         return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.delete'));  
@@ -245,16 +259,20 @@ class UniversalPersonController extends BaseController
         // $query->with('country');
 
         $results = $query->orderBy('universal_people.'. $sortColumn, $sortDirection)
-                        ->withoutGlobalScope(BelongsToCompanyProjectScope::class)              
+                        // ->withoutGlobalScope(BelongsToCompanyProjectScope::class)              
                         ->paginate($pageSize);
 
         $people = $results->items();
 
         foreach ($people as $person) {
 
-            $person->company_project = UniversalPersonUtil::getCompanyProject($person->id);
-            $person->belongs = UserUtil::belongsToCompanyProject($person->created_by, Auth::user()->company_project_id);
+            // $person->company_project = UniversalPersonUtil::getCompanyProject($person->id);
+            $person->belongs = UniversalPersonUtil::belongsToCompanyProject($person->id, $person->type_id, 
+                                                                            $person->created_by,Auth::user()->company_project_id);
         }
+
+        //sort first the belongs
+        usort($people, function($a, $b) {return $a->belongs < $b->belongs;});
 
         return $this->sendResponse($people, TranslationUtil::getTranslation('crud.pagination'), $results->total() );
 

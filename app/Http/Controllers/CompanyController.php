@@ -115,11 +115,11 @@ class CompanyController extends BaseController
      */
     public function destroy(int $id)
     {
-        $company = Company::findOrFail($id);
+        // $company = Company::findOrFail($id);
 
-        $company->delete();
+        // $company->delete();
 
-        return $this->sendResponse($company->toArray(), TranslationUtil::getTranslation('crud.delete'));
+        // return $this->sendResponse($company->toArray(), TranslationUtil::getTranslation('crud.delete'));
     }
 
     /**
