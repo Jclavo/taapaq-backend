@@ -112,10 +112,6 @@ class UniversalPersonController extends BaseController
     {
         $person = UniversalPerson::findOrFail($id);
 
-        //validate if belongsToCompanyProject
-        if(!UniversalPersonUtil::belongsToCompanyProject($person->id, $person->type_id, $person->created_by, Auth::user()->company_project_id)){
-            return $this->sendError(TranslationUtil::getTranslation('record.not.found'));     
-        }
         return $this->sendResponse($person->toArray(), TranslationUtil::getTranslation('crud.read'));
     }
     
