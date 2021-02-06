@@ -87,6 +87,14 @@ class TranslationSeeder extends Seeder
                          (object) array('value' => 'Registro não pode ser removida.', 'locale' => 'pt')]
              ),
 
+             //GENERAL
+             (object) array('key' => 'record.not.found', 'translationable_id' => '',
+             'details' => [
+                         (object) array('value' => 'Record not found.', 'locale' => 'en'),
+                         (object) array('value' => 'Registro no encontrado.', 'locale' => 'es'),
+                         (object) array('value' => 'Registro não achado.', 'locale' => 'pt')]
+             ),
+
             //STAGES SECTION
             (object) array('key' => 'stage.already-canceled', 'translationable_id' => '',
             'details' => [

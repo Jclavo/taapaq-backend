@@ -34,7 +34,7 @@ class UniversalPerson extends Model
         });
 
         //add scope 
-        static::addGlobalScope(new BelongsToCompanyProjectScope);
+        //static::addGlobalScope(new BelongsToCompanyProjectScope);
 
         
     }
