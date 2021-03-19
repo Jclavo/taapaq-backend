@@ -30,7 +30,9 @@ class UniversalPerson extends Model
 
         // create a event to happen on saving
         static::saving(function($table)  {
-            $table->created_by = Auth::user()->id;
+            if (Auth::check()) {
+                $table->created_by = Auth::user()->id;
+            }
         });
 
         //add scope 
