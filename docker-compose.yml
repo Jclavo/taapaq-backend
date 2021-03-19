@@ -1,0 +1,41 @@
+version: '3'
+
+networks: 
+  taapaq-backend:
+
+services: 
+
+    laravel-api-taapaq:
+      image: laravel-api-taapaq
+      container_name: api-taapaq
+      build: 
+        context: .
+        dockerfile: laravel.dockerfile
+      volumes:
+        - ./src:/var/www/html
+        - ./php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        -  /var/www/html/vendor # to not share vendor folder
+      ports: 
+        - 8080:8000
+      networks: 
+        - taapaq-backend
+      
+      command: php artisan serve --host 0.0.0.0
+
+    postgres-db-taapaq:
+      image: postgres-db-taapaq
+      container_name: db-taapaq
+      build: 
+        context: .
+        dockerfile: postgres.dockerfile
+      restart: always
+      environment: 
+        POSTGRES_PASSWORD: password
+      ports:
+        - 5434:5432
+      volumes:
+        - ./postgres/conf.d/my-postgres.conf:/etc/postgresql/postgresql.conf # set configuations
+        - ./postgres/data:/var/lib/postgresql/data #store data
+        - ./postgres/scripts:/docker-entrypoint-initdb.d # run scripts inmediatly
+      networks: 
+        - taapaq-backend
