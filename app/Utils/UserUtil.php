@@ -70,11 +70,16 @@ class UserUtil
      * sync user in Ranqhana DB
      */
     static function syncRanqhanaUser($external_user_id,$login,$company_project_id){
-        $ranqhanaUser = RanqhanaUser::updateOrCreate([
-            'external_user_id' => $external_user_id,
-            'login' => $login,
-            'company_project_id' => $company_project_id,
-        ]);
+        
+        try { 
+            $ranqhanaUser = RanqhanaUser::updateOrCreate([
+                'external_user_id' => $external_user_id,
+                'login' => $login,
+                'company_project_id' => $company_project_id,
+            ]);
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            //print_r($ex->getMessage()); 
+        }
     }
 
     
